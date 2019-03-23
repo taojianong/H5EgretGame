@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "modalwaiting",
+			"type": "bin",
+			"url": "assets/modalwaiting.fui"
+		},
+		{
+			"name": "modalwaiting_atlas0",
+			"type": "image",
+			"url": "assets/modalwaiting_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "modalwaiting,modalwaiting_atlas0"
+		}
+	]
+}

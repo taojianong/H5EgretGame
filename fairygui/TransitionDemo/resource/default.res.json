@@ -1,0 +1,26 @@
+{
+	"groups": [
+		{
+			"keys": "transition,transition_atlas0,transition_lvxrs",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/transition.fui",
+			"type": "bin",
+			"name": "transition"
+		},
+		{
+			"url": "assets/transition_atlas0.png",
+			"type": "image",
+			"name": "transition_atlas0"
+		},
+		{
+			"url": "assets/transition_lvxrs.mp3",
+			"type": "sound",
+			"name": "transition_lvxrs",
+			"soundType": "effect"
+		}
+	]
+}

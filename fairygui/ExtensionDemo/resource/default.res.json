@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "extension",
+			"type": "bin",
+			"url": "assets/extension.fui"
+		},
+		{
+			"name": "extension_atlas0",
+			"type": "image",
+			"url": "assets/extension_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "extension,extension_atlas0"
+		}
+	]
+}

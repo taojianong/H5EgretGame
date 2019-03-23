@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="3bskjmkb" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="l8wg0" name="Main.xml" path="/" exported="true"/>
+    <component id="l8wg1" name="item.xml" path="/"/>
+    <image id="l8wg2" name="logo.jpg" path="/"/>
+    <image id="l8wg3" name="Seperator1.png" path="/"/>
+    <component id="l8wg4" name="Header.xml" path="/"/>
+    <image id="l8wg5" name="refresh.png" path="/"/>
+    <image id="l8wg6" name="arrow.png" path="/"/>
+    <component id="l8wg7" name="Footer.xml" path="/"/>
+  </resources>
+  <publish name="PullToRefresh" path="../PullToRefreshDemo/resource/assets"/>
+</packageDescription>

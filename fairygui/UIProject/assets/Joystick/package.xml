@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="co8erd7u" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="stal0" name="Main.xml" path="/" exported="true"/>
+    <image id="ojxk1" name="0.png" path="/"/>
+    <component id="ojxk2" name="circle.xml" path="/"/>
+    <image id="ojxk3" name="1.png" path="/"/>
+  </resources>
+  <publish name="joystick" path="../JoystickDemo/resource/assets">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

@@ -1,0 +1,20 @@
+{
+	"groups": [
+		{
+			"keys": "PullToRefresh,PullToRefresh_atlas0",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/PullToRefresh.fui",
+			"type": "bin",
+			"name": "PullToRefresh"
+		},
+		{
+			"url": "assets/PullToRefresh_atlas0.png",
+			"type": "image",
+			"name": "PullToRefresh_atlas0"
+		}
+	]
+}

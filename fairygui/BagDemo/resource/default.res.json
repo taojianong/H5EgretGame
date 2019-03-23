@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "bag",
+			"type": "bin",
+			"url": "assets/bag.fui"
+		},
+		{
+			"name": "bag_atlas0",
+			"type": "image",
+			"url": "assets/bag_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "bag,bag_atlas0"
+		}
+	]
+}

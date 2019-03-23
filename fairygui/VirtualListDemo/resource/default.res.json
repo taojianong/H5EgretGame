@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "virtuallist",
+			"type": "bin",
+			"url": "assets/virtuallist.fui"
+		},
+		{
+			"name": "virtuallist_atlas0",
+			"type": "image",
+			"url": "assets/virtuallist_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "virtuallist,virtuallist_atlas0"
+		}
+	]
+}

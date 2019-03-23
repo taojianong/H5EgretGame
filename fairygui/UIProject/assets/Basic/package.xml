@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="9leh0eyf" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="rpmb1" name="VIP按钮_png.png" path="/素材/"/>
+    <image id="rpmb2" name="a1_png.png" path="/素材/"/>
+    <image id="rpmb3" name="a2_png.png" path="/素材/"/>
+    <image id="rpmb4" name="a3_png.png" path="/素材/"/>
+    <image id="rpmb5" name="a4_png.png" path="/素材/"/>
+    <image id="rpmb6" name="angry_smile_png.png" path="/素材/"/>
+    <image id="rpmb7" name="b1.png.jpg" path="/素材/"/>
+    <image id="rpmba" name="b2.png.jpg" path="/素材/"/>
+    <image id="rpmbb" name="b3.png.jpg" path="/素材/"/>
+    <image id="rpmbc" name="b4.png.jpg" path="/素材/"/>
+    <image id="rpmbd" name="b5_png.png" path="/素材/" scale="9grid" scale9grid="12,7,61,14"/>
+    <image id="rpmbe" name="b6_png.png" path="/素材/" scale="9grid" scale9grid="9,5,66,16"/>
+    <image id="rpmbf" name="b7_png.png" path="/素材/" scale="9grid" scale9grid="8,7,66,14"/>
+    <image id="rpmbg" name="long_dead_png.png" path="/素材/"/>
+    <image id="rpmbh" name="plus_smile_png.png" path="/素材/"/>
+    <image id="rpmbi" name="按钮_货币切换_常态_png.png" path="/素材/"/>
+    <image id="rpmbj" name="二级按钮_按下_png.png" path="/素材/" scale="9grid" scale9grid="16,9,32,6"/>
+    <image id="rpmbk" name="二级按钮_不可用_png.png" path="/素材/"/>
+    <image id="rpmbl" name="二级按钮_普通_png.png" path="/素材/"/>
+    <image id="rpmbm" name="二级按钮_选中_png.png" path="/素材/" scale="9grid" scale9grid="16,11,32,7"/>
+    <image id="rpmbn" name="更换按钮_down_png.png" path="/素材/"/>
+    <image id="rpmbo" name="更换按钮_up_png.png" path="/素材/"/>
+    <image id="rpmbp" name="勾选_png.png" path="/素材/"/>
+    <image id="rpmbq" name="勾选框_png.png" path="/素材/"/>
+    <image id="rpmbr" name="购买按钮_按下_png.png" path="/素材/" scale="9grid" scale9grid="40,19,80,18"/>
+    <image id="rpmbs" name="购买按钮_普通_png.png" path="/素材/" scale="9grid" scale9grid="40,13,80,26"/>
+    <image id="rpmbt" name="购买按钮_选中_png.png" path="/素材/" scale="9grid" scale9grid="40,13,80,26"/>
+    <image id="rpmbu" name="领取奖励_png.png" path="/素材/"/>
+    <image id="rpmbv" name="切换货币_背景_png.png" path="/素材/"/>
+    <image id="rpmbw" name="图标_银两_png.png" path="/素材/"/>
+    <image id="rpmbx" name="图标_元宝_png.png" path="/素材/"/>
+    <component id="rpmbz" name="Button.xml" path="/组件/"/>
+    <component id="rpmb10" name="Button2.xml" path="/组件/"/>
+    <component id="rpmb11" name="Button3.xml" path="/组件/"/>
+    <component id="rpmb12" name="Button4.xml" path="/组件/"/>
+    <component id="rpmb13" name="Button5.xml" path="/组件/"/>
+    <component id="rpmb14" name="Button6.xml" path="/组件/"/>
+    <component id="rpmb15" name="Button7.xml" path="/组件/"/>
+    <component id="rpmb16" name="Button8.xml" path="/组件/"/>
+    <component id="rpmb17" name="Button9.xml" path="/组件/"/>
+    <component id="rpmb18" name="Checkbox.xml" path="/组件/"/>
+    <component id="rpmb1a" name="RadioButton.xml" path="/组件/"/>
+    <component id="rpmb1b" name="Demo_Button.xml" path="/" exported="true"/>
+    <component id="rpmb1c" name="Main.xml" path="/" exported="true"/>
+    <image id="sner1h" name="pic.png" path="/素材/"/>
+    <component id="sner1i" name="Demo_Image.xml" path="/" exported="true"/>
+    <component id="hixt1j" name="Button10.xml" path="/组件/"/>
+    <image id="hixt1k" name="按钮样式1_OFF_png.png" path="/素材/" scale="9grid" scale9grid="40,17,80,34"/>
+    <image id="hixt1l" name="按钮样式1_ON_png.png" path="/素材/" scale="9grid" scale9grid="40,17,80,34"/>
+    <component id="hixt1m" name="Demo_Graph.xml" path="/" exported="true"/>
+    <component id="hixt1n" name="Demo_MovieClip.xml" path="/" exported="true"/>
+    <movieclip id="hixt1v" name="nlge1k.jta" path="/素材/"/>
+    <component id="nz0z1z" name="Demo_Text.xml" path="/" exported="true"/>
+    <image id="nz0z20" name="long_dead2_png.png" path="/素材/" scale="tile"/>
+    <image id="h5p722" name="i256.png" path="/素材/"/>
+    <image id="wa8u2q" name="文字_vip_png.png" path="/素材/"/>
+    <font id="wa8u2r" name="BMFont示例.fnt" path="/字体/" exported="true" texture="udfj0"/>
+    <image id="udfj0" name="BMFont示例_atlas.png" path="/字体/"/>
+    <component id="wa8u2s" name="Demo_Loader.xml" path="/" exported="true"/>
+    <image id="wa8u2t" name="r3.png" path="/素材/" exported="true"/>
+    <image id="wa8u2u" name="r4.png" path="/素材/" exported="true"/>
+    <component id="wa8u2v" name="Demo_Controller.xml" path="/" exported="true"/>
+    <component id="wa8u2x" name="Demo_Relation.xml" path="/" exported="true"/>
+    <component id="es412y" name="Demo_Clip&amp;Scroll.xml" path="/" exported="true"/>
+    <component id="es412z" name="组件1.xml" path="/组件/"/>
+    <image id="es4130" name="嫦娥.png" path="/素材/"/>
+    <component id="smv731" name="组件12.xml" path="/组件/"/>
+    <component id="smv73f" name="组件2.xml" path="/组件/"/>
+    <component id="smv73g" name="组件13.xml" path="/组件/"/>
+    <component id="smv73h" name="组件22.xml" path="/组件/"/>
+    <component id="smv73i" name="组件222.xml" path="/组件/"/>
+    <component id="w42o3j" name="Demo_Label.xml" path="/" exported="true"/>
+    <component id="rt103l" name="WindowFrame.xml" path="/组件/"/>
+    <image id="rt103m" name="6_png.png" path="/素材/" scale="9grid" scale9grid="40,40,80,142"/>
+    <component id="rt103n" name="WindowCloseButton.xml" path="/组件/"/>
+    <image id="rt103o" name="10_png.png" path="/素材/"/>
+    <image id="rt103p" name="9_png.png" path="/素材/"/>
+    <image id="rt103q" name="8_png.png" path="/素材/"/>
+    <component id="rt103r" name="组件3.xml" path="/组件/"/>
+    <component id="rt103s" name="Demo_ComboBox.xml" path="/" exported="true"/>
+    <component id="rt103t" name="ComboBox.xml" path="/组件/"/>
+    <image id="rt103u" name="c1_png.png" path="/素材/" scale="9grid" scale9grid="7,5,73,10"/>
+    <image id="rt103v" name="c3_png.png" path="/素材/" scale="9grid" scale9grid="11,5,71,10"/>
+    <image id="rt103w" name="c2_png.png" path="/素材/" scale="9grid" scale9grid="8,5,73,10"/>
+    <image id="rt103x" name="b7(2)_png.png" path="/素材/"/>
+    <component id="rt103y" name="ComboBoxPopup.xml" path="/组件/"/>
+    <image id="rt103z" name="p1_png.png" path="/素材/" scale="9grid" scale9grid="7,4,144,49"/>
+    <component id="rt1040" name="ComboBoxItem.xml" path="/组件/"/>
+    <component id="zd9g41" name="下拉框.xml" path="/组件/"/>
+    <component id="zd9g42" name="下拉框按钮.xml" path="/组件/"/>
+    <image id="zd9g43" name="下拉框_普通_png.png" path="/素材/" scale="9grid" scale9grid="33,10,57,20"/>
+    <image id="zd9g44" name="下拉框_按下_png.png" path="/素材/" scale="9grid" scale9grid="33,10,55,20"/>
+    <image id="zd9g45" name="下拉框_选中_png.png" path="/素材/" scale="9grid" scale9grid="33,10,55,20"/>
+    <image id="zd9g46" name="下拉框_不可用_png.png" path="/素材/" scale="9grid" scale9grid="33,10,53,20"/>
+    <component id="zd9g47" name="下拉列表.xml" path="/组件/"/>
+    <image id="zd9g48" name="显示框_png.png" path="/素材/" scale="9grid" scale9grid="26,11,52,22"/>
+    <component id="zd9g49" name="下拉列表子按钮.xml" path="/组件/"/>
+    <image id="zd9g4a" name="输入框_普通_png.png" path="/素材/" scale="9grid" scale9grid="26,10,52,20"/>
+    <image id="zd9g4b" name="输入框_按下_png.png" path="/素材/" scale="9grid" scale9grid="11,7,82,26"/>
+    <image id="zd9g4c" name="输入框_选中_png.png" path="/素材/" scale="9grid" scale9grid="26,10,52,20"/>
+    <image id="zd9g4d" name="输入框_不可用_png.png" path="/素材/" scale="9grid" scale9grid="26,10,52,20"/>
+    <component id="zd9g4e" name="Demo_Slider.xml" path="/" exported="true"/>
+    <component id="zd9g4f" name="Demo_ProgressBar.xml" path="/" exported="true"/>
+    <component id="zd9g4g" name="Demo_List.xml" path="/" exported="true"/>
+    <component id="suiz4i" name="Slider_HZ.xml" path="/组件/"/>
+    <image id="suiz4j" name="p10_png.png" path="/素材/"/>
+    <image id="suiz4k" name="p11_png.png" path="/素材/"/>
+    <component id="suiz4l" name="SliderArrow_HZ.xml" path="/组件/"/>
+    <image id="suiz4m" name="p14_png.png" path="/素材/"/>
+    <image id="suiz4n" name="p15_png.png" path="/素材/"/>
+    <component id="suiz4o" name="Slider_VT.xml" path="/组件/"/>
+    <image id="suiz4p" name="p13_png.png" path="/素材/"/>
+    <image id="suiz4q" name="p12_png.png" path="/素材/"/>
+    <component id="suiz4r" name="SliderArrow_VT.xml" path="/组件/"/>
+    <image id="suiz4s" name="p8_png.png" path="/素材/"/>
+    <image id="suiz4t" name="p9_png.png" path="/素材/"/>
+    <component id="eut94u" name="音量设置.xml" path="/组件/"/>
+    <image id="eut94v" name="音量_背景条_png.png" path="/素材/"/>
+    <image id="eut94w" name="音量_进度条_png.png" path="/素材/" scale="9grid" scale9grid="41,4,342,5"/>
+    <component id="eut94x" name="指示按钮.xml" path="/组件/"/>
+    <image id="eut94y" name="按钮_指示_常态_png.png" path="/素材/"/>
+    <image id="eut94z" name="按钮_指示_按下_png.png" path="/素材/"/>
+    <component id="t9fj50" name="ProgressBar.xml" path="/组件/"/>
+    <image id="t9fj51" name="p2_png.png" path="/素材/" scale="9grid" scale9grid="10,4,121,4"/>
+    <image id="t9fj52" name="p3_png.png" path="/素材/"/>
+    <component id="t9fj53" name="绿色进度条.xml" path="/组件/"/>
+    <image id="t9fj54" name="进度条底板缩短版_png.png" path="/素材/" scale="9grid" scale9grid="27,9,54,2"/>
+    <image id="t9fj55" name="进度条.png.jpg" path="/素材/" scale="9grid" scale9grid="8,5,16,2"/>
+    <image id="t9fj56" name="高光_png.png" path="/素材/"/>
+    <component id="t9fj57" name="采集进度条.xml" path="/组件/"/>
+    <image id="t9fj58" name="采集条_png.png" path="/素材/"/>
+    <component id="t9fj59" name="采集进度bar.xml" path="/组件/"/>
+    <image id="t9fj5a" name="采集条进度_png.png" path="/素材/"/>
+    <component id="t9fj5b" name="加载进度条.xml" path="/组件/"/>
+    <image id="t9fj5c" name="loading条亮.png.jpg" path="/素材/"/>
+    <image id="t9fj5d" name="huawen1_png.png" path="/素材/"/>
+    <image id="t9fj5e" name="huawen2_png.png" path="/素材/"/>
+    <movieclip id="t9fj5f" name="加载小宠物_jta.jta" path="/素材/"/>
+    <component id="t9fj5g" name="采集进度条2.xml" path="/组件/"/>
+    <component id="t9fj5h" name="采集进度bar2.xml" path="/组件/"/>
+    <component id="i3s65i" name="ScrollBar_HZ.xml" path="/滚动条/" exported="true"/>
+    <image id="i3s65j" name="s10.png.jpg" path="/素材/"/>
+    <component id="i3s65k" name="ScrollUpButton.xml" path="/滚动条/"/>
+    <image id="i3s65l" name="s6.png.jpg" path="/素材/"/>
+    <image id="i3s65m" name="s4.png.jpg" path="/素材/"/>
+    <image id="i3s65n" name="s5.png.jpg" path="/素材/"/>
+    <component id="i3s65o" name="ScrollDownButton.xml" path="/滚动条/"/>
+    <image id="i3s65p" name="s9.png.jpg" path="/素材/"/>
+    <image id="i3s65q" name="s7.png.jpg" path="/素材/"/>
+    <image id="i3s65r" name="s8.png.jpg" path="/素材/"/>
+    <component id="i3s65s" name="GripButton_HZ.xml" path="/滚动条/"/>
+    <image id="i3s65t" name="s1.png.jpg" path="/素材/"/>
+    <image id="i3s65u" name="s2.png.jpg" path="/素材/"/>
+    <image id="i3s65v" name="s3.png.jpg" path="/素材/"/>
+    <component id="i3s65w" name="ScrollBar_VT.xml" path="/滚动条/" exported="true"/>
+    <component id="i3s65x" name="GripButton_VT.xml" path="/滚动条/"/>
+    <component id="kpev60" name="BagGridSub.xml" path="/组件/"/>
+    <image id="kpev61" name="道具框底_png.png" path="/素材/"/>
+    <image id="kpev62" name="道具图标外框_png.png" path="/素材/"/>
+    <image id="kpev63" name="道具框点击_png.png" path="/素材/" scale="9grid" scale9grid="17,16,74,73"/>
+    <image id="kpev64" name="破冰诀书.png" path="/素材/"/>
+    <image id="duef69" name="打击坡墨底_png.png" path="/素材/"/>
+    <font id="duef6m" name="连击数字.fnt" path="/字体/" exported="true"/>
+    <image id="duef6n" name="打击数字_0_png.png" path="/素材/"/>
+    <image id="duef6o" name="打击数字_1_png.png" path="/素材/"/>
+    <image id="duef6p" name="打击数字_2_png.png" path="/素材/"/>
+    <image id="duef6q" name="打击数字_3_png.png" path="/素材/"/>
+    <image id="duef6r" name="打击数字_4_png.png" path="/素材/"/>
+    <image id="duef6s" name="打击数字_5_png.png" path="/素材/"/>
+    <image id="duef6t" name="打击数字_6_png.png" path="/素材/"/>
+    <image id="duef6u" name="打击数字_7_png.png" path="/素材/"/>
+    <image id="duef6v" name="打击数字_8_png.png" path="/素材/"/>
+    <image id="duef6w" name="打击数字_9_png.png" path="/素材/"/>
+    <component id="l6f46x" name="PopupMenu.xml" path="/弹出菜单/" exported="true"/>
+    <image id="l6f46y" name="p16_png.png" path="/素材/" scale="9grid" scale9grid="7,4,144,49"/>
+    <component id="l6f46z" name="PopupMenuItem.xml" path="/弹出菜单/"/>
+    <image id="l6f470" name="a8_png.png" path="/素材/" scale="9grid" scale9grid="8,5,70,10"/>
+    <image id="l6f471" name="VtSeperator.jpg" path="/素材/"/>
+    <image id="l6f472" name="a18_png.png" path="/素材/"/>
+    <component id="l6f473" name="WindowA.xml" path="/" exported="true"/>
+    <component id="f2ax74" name="组件4.xml" path="/组件/"/>
+    <component id="gx2b76" name="Demo_Popup.xml" path="/" exported="true"/>
+    <component id="gx2b77" name="Demo_Window.xml" path="/" exported="true"/>
+    <component id="gx2b78" name="Demo_Drag&amp;Drop.xml" path="/" exported="true"/>
+    <component id="gx2b79" name="BagGridSub2.xml" path="/组件/"/>
+    <component id="796x7a" name="WindowB.xml" path="/" exported="true"/>
+    <component id="niii7b" name="关闭按钮.xml" path="/组件/"/>
+    <image id="niii7c" name="close_png.png" path="/素材/"/>
+    <component id="niii7d" name="WindowFrameB.xml" path="/组件/"/>
+    <image id="fubf7e" name="loading条暗.png" path="/素材/"/>
+    <component id="k8qi7f" name="按钮1.xml" path="/组件/"/>
+    <component id="t24n7f" name="Demo_Component.xml" path="/" exported="true"/>
+    <component id="t24n7g" name="组件5.xml" path="/组件/"/>
+    <component id="qa477h" name="组件6.xml" path="/组件/"/>
+    <component id="rwlc7i" name="Demo_Grid.xml" path="/" exported="true"/>
+    <image id="rwlc7j" name="grid_header_png.png" path="/素材/" scale="9grid" scale9grid="50,5,100,10"/>
+    <component id="rwlc7k" name="GridItem.xml" path="/组件/"/>
+    <component id="rwlc7l" name="Component11.xml" path="/组件/"/>
+    <image id="rwlc7m" name="star.png" path="/素材/" scale="tile"/>
+    <component id="rwlc7n" name="GridItem2.xml" path="/组件/"/>
+    <component id="rwlc7s" name="Button16.xml" path="/组件/"/>
+    <image id="rwlc7t" name="22.png" path="/素材/"/>
+    <component id="rwlc7w" name="Demo_Depth.xml" path="/" exported="true"/>
+    <component id="rwlc7x" name="Component13.xml" path="/组件/"/>
+    <component id="rwlc7y" name="Button1.xml" path="/组件/"/>
+    <component id="bh5j7z" name="Component12.xml" path="/组件/" exported="true"/>
+    <sound id="mejr81" name="click.mp3" path="/声音/" exported="true"/>
+    <sound id="mejr82" name="tabswitch.mp3" path="/声音/" exported="true"/>
+    <component id="f6ue83" name="Button52.xml" path="/组件/"/>
+    <component id="tqrn84" name="OnOffButton.xml" path="/组件/"/>
+    <image id="tqrn85" name="graybg.png" path="/组件/"/>
+    <image id="tqrn86" name="greenbg.png" path="/组件/"/>
+    <image id="tqrn87" name="whitebox.png" path="/组件/"/>
+    <component id="g51h89" name="Button82.xml" path="/组件/"/>
+    <image id="g51h8a" name="勾选gray.png" path="/素材/"/>
+    <image id="g51h8b" name="勾选框gray.png" path="/素材/"/>
+  </resources>
+  <publish name="basic" path="../MainDemo/resource/assets" packageCount="1">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

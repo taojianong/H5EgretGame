@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="r5x6wd5v" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="jh150" name="Main.xml" path="/" exported="true"/>
+    <image id="jh151" name="7.png" path="/" scale="9grid" scale9grid="83,1,166,2"/>
+    <image id="jh152" name="8.png" path="/" scale="9grid" scale9grid="31,26,62,52"/>
+    <component id="jh153" name="BagGridSub.xml" path="/"/>
+    <image id="jh154" name="1.png" path="/"/>
+    <image id="jh155" name="3.png" path="/"/>
+  </resources>
+  <publish name="bag" path="../BagDemo/resource/assets">
+    <atlas name="Default" index="0"/>
+  </publish>
+</packageDescription>

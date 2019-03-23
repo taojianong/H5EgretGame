@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "looplist",
+			"type": "bin",
+			"url": "assets/looplist.fui"
+		},
+		{
+			"name": "looplist_atlas0",
+			"type": "image",
+			"url": "assets/looplist_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "looplist,looplist_atlas0"
+		}
+	]
+}

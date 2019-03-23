@@ -1,0 +1,20 @@
+{
+	"resources": [
+		{
+			"name": "joystick",
+			"type": "bin",
+			"url": "assets/joystick.fui"
+		},
+		{
+			"name": "joystick_atlas0",
+			"type": "image",
+			"url": "assets/joystick_atlas0.png"
+		}
+	],
+	"groups": [
+		{
+			"name": "preload",
+			"keys": "joystick,joystick_atlas0"
+		}
+	]
+}

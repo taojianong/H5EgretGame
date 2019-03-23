@@ -1,0 +1,30 @@
+{
+	"groups": [
+		{
+			"keys": "basic_atlas0,basic_mejr81,basic_mejr82,basic",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/basic_atlas0.png",
+			"type": "image",
+			"name": "basic_atlas0"
+		},
+		{
+			"url": "assets/basic_mejr81.mp3",
+			"type": "sound",
+			"name": "basic_mejr81"
+		},
+		{
+			"url": "assets/basic_mejr82.mp3",
+			"type": "sound",
+			"name": "basic_mejr82"
+		},
+		{
+			"url": "assets/basic.fui",
+			"type": "bin",
+			"name": "basic"
+		}
+	]
+}
