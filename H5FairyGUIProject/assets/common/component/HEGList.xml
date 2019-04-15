@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="400,200">
+  <displayList>
+    <list id="n0_xdl2" name="list" xy="1,1" size="400,200" layout="row" selectionMode="none" overflow="scroll" scroll="horizontal" scrollBarFlags="10" align="center" vAlign="middle">
+      <relation target="" sidePair="width-width,height-height"/>
+    </list>
+  </displayList>
+</component>

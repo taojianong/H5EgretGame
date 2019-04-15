@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,40" extention="Button">
+  <displayList>
+    <loader id="n2_ppb1" name="icon" xy="20,20" pivot="0.5,0.5" anchor="true" size="40,40" url="ui://drmb4k01bie2p" fill="scaleFree">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+  </displayList>
+  <Button/>
+</component>

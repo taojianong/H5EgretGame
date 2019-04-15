@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="49,38" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver,4,selectedDisabled" selected="1"/>
+  <displayList>
+    <image id="n10_bmap" name="bg" src="my9932" fileName="images/goumai_kuang.png" xy="0,9">
+      <gearDisplay controller="button" pages="0,1"/>
+    </image>
+    <text id="n5" name="title" xy="32,12" size="10,25" fontSize="18" vAlign="bottom" singleLine="true" text="">
+      <relation target="" sidePair="bottom-bottom"/>
+    </text>
+    <image id="n9_jvhu" name="n9" src="my9931" fileName="images/goumai_gou.png" xy="0,0">
+      <gearDisplay controller="button" pages="1,3,4"/>
+    </image>
+  </displayList>
+  <Button mode="Check"/>
+  <relation target="n5" sidePair="rightext-right"/>
+</component>

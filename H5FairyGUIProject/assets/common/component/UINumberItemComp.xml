@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="130,40" extention="Button">
+  <displayList>
+    <image id="n1_ljmn" name="n1" src="my991f" fileName="images/common_bg_1.png" xy="18,9"/>
+    <richtext id="n3_ljmn" name="title" xy="9,-1" size="112,43" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" text="1"/>
+    <component id="n0_ljmn" name="btn_red" src="my994b" fileName="component/EButton.xml" xy="14,20" size="29,30" scale="1.2,1.2">
+      <Button icon="ui://x0a8c270my992a" selectedIcon="ui://x0a8c270my992a"/>
+    </component>
+    <component id="n2_ljmn" name="btn_add" src="my994b" fileName="component/EButton.xml" xy="115,20" size="29,30" aspect="true" scale="1.2,1.2">
+      <Button icon="ui://x0a8c270my9929" selectedIcon="ui://x0a8c270my9929"/>
+    </component>
+  </displayList>
+  <Button/>
+</component>

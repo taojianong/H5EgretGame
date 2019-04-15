@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720" opaque="false">
+  <controller name="button" pages="0,must,1,nomust,2,normal,3,msk" selected="2"/>
+  <displayList>
+    <component id="n0_fjuq" name="circle" src="my994b" fileName="component/EButton.xml" xy="640,363" size="200,200" group="n12_ig8t" touchable="false">
+      <relation target="" sidePair=""/>
+    </component>
+    <graph id="n2_fjuq" name="left" xy="0,263" size="540,200" group="n12_ig8t" type="rect" lineSize="0" fillColor="#99000000">
+      <relation target="n0_fjuq" sidePair="rightext-left,height-height"/>
+      <relation target="n0_fjuq" sidePair="top-top"/>
+    </graph>
+    <graph id="n3_fjuq" name="right" xy="740,263" size="540,200" group="n12_ig8t" type="rect" lineSize="0" fillColor="#99000000">
+      <relation target="n0_fjuq" sidePair="leftext-right,height-height"/>
+      <relation target="n0_fjuq" sidePair="top-top"/>
+      <relation target="" sidePair="rightext-right"/>
+    </graph>
+    <graph id="n5_fjuq" name="up" xy="0,0" size="1280,263" group="n12_ig8t" type="rect" lineSize="0" lineColor="#00000000" fillColor="#99000000">
+      <relation target="n0_fjuq" sidePair="bottomext-top"/>
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <graph id="n8_fjuq" name="down" xy="0,463" size="1280,257" group="n12_ig8t" type="rect" lineSize="0" fillColor="#99000000">
+      <relation target="n0_fjuq" sidePair="topext-bottom"/>
+      <relation target="" sidePair="width-width,bottomext-bottom"/>
+    </graph>
+    <group id="n12_ig8t" name="group_must" xy="0,0" size="1280,720" advanced="true">
+      <gearDisplay controller="button" pages="2"/>
+    </group>
+    <component id="n11_fjuq" name="btn_center" src="my994b" fileName="component/EButton.xml" xy="640,363" size="200,200" hideByEditor="true" visible="false" alpha="0" touchable="false">
+      <relation target="n0_fjuq" sidePair="center-center,middle-middle"/>
+      <relation target="n0_fjuq" sidePair="width-width,height-height"/>
+      <Button icon="ui://x0a8c270my99y" selectedIcon="ui://x0a8c270my99y"/>
+    </component>
+    <loader id="n16_mz6t" name="eloader_icon" xy="0,0" size="1280,720" fill="scaleFree">
+      <gearDisplay controller="button" pages="0"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <image id="n13_ig8t" name="img_arrow" src="my992h" fileName="images/common_jingyanshengji.png" xy="643,216" pivot="0.5,0.5" anchor="true" rotation="90">
+      <gearDisplay controller="button" pages="0,1,2"/>
+    </image>
+    <graph id="n17_g4hc" name="up" xy="0,0" size="1280,720" alpha="0.1" type="rect" lineSize="0" lineColor="#00000000" fillColor="#99000000">
+      <gearDisplay controller="button" pages="3"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+  </displayList>
+</component>

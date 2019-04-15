@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="170,40" extention="Button">
+  <displayList>
+    <image id="n0_r7zm" name="img_bg" src="my991f" fileName="images/common_bg_1.png" xy="10,4" size="160,32">
+      <relation target="" sidePair="middle-middle,width-width"/>
+    </image>
+    <loader id="n1_r7zm" name="icon" xy="25,21" pivot="0.5,0.5" anchor="true" size="54,58" url="ui://x0a8c270my992z" align="center" vAlign="middle" fill="scaleFree">
+      <relation target="" sidePair="middle-middle"/>
+    </loader>
+    <richtext id="n2_r7zm" name="lab_num" xy="52,7" size="117,28" font="ui://drmb4k01r7zm2y" fontSize="25" color="#ffffff" align="center" vAlign="middle" autoSize="none" singleLine="true" autoClearText="true" text="000">
+      <relation target="n0_r7zm" sidePair="width-width"/>
+    </richtext>
+  </displayList>
+  <Button/>
+</component>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="150,200">
+  <displayList>
+    <graph id="n0_ljmn" name="n0" xy="0,0" size="150,200" touchable="false" type="rect" lineColor="#ffa0a0a0" fillColor="#fff0f0f0">
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <list id="n1_ljmn" name="list" xy="0,0" size="150,200" overflow="scroll" scrollBarFlags="2" scrollBar="hidden" defaultItem="ui://drmb4k01ljmn3b">
+      <relation target="" sidePair="width-width,height-height"/>
+    </list>
+  </displayList>
+</component>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="44,44">
+  <displayList>
+    <image id="n0_mrun" name="img_star" src="my9944" fileName="images/zhujiemian_xingxing.png" xy="1,0"/>
+    <text id="n1_mrun" name="lab_level" xy="8,10" size="29,31" fontSize="20" color="#734835" align="center" vAlign="middle" autoSize="none" bold="true" singleLine="true" autoClearText="true" text="55"/>
+  </displayList>
+</component>

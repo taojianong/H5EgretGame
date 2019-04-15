@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packageDescription id="x0a8c270" jpegQuality="80" compressPNG="true">
-  <resources/>
+  <resources>
+    <component id="my990" name="UIReverseMaskView.xml" path="/views/" exported="true"/>
+    <image id="my991" name="0.png" path="/images/font/"/>
+    <image id="my992" name="1.png" path="/images/font/"/>
+    <image id="my993" name="2.png" path="/images/font/"/>
+    <image id="my994" name="3.png" path="/images/font/"/>
+    <image id="my995" name="4.png" path="/images/font/"/>
+    <image id="my996" name="5.png" path="/images/font/"/>
+    <image id="my997" name="6.png" path="/images/font/"/>
+    <image id="my998" name="7.png" path="/images/font/"/>
+    <image id="my999" name="8.png" path="/images/font/"/>
+    <image id="my99a" name="9.png" path="/images/font/"/>
+    <image id="my99b" name="beibao_0.png" path="/images/font/"/>
+    <image id="my99c" name="beibao_1.png" path="/images/font/"/>
+    <image id="my99d" name="beibao_2.png" path="/images/font/"/>
+    <image id="my99e" name="beibao_3.png" path="/images/font/"/>
+    <image id="my99f" name="beibao_4.png" path="/images/font/"/>
+    <image id="my99g" name="beibao_5.png" path="/images/font/"/>
+    <image id="my99h" name="beibao_6.png" path="/images/font/"/>
+    <image id="my99i" name="beibao_7.png" path="/images/font/"/>
+    <image id="my99j" name="beibao_8.png" path="/images/font/"/>
+    <image id="my99k" name="beibao_9.png" path="/images/font/"/>
+    <image id="my99l" name="beibao_diban01.png" path="/images/font/"/>
+    <image id="my99m" name="beibao_X.png" path="/images/font/"/>
+    <image id="my99n" name="cangku_kuang1.png" path="/images/"/>
+    <image id="my99o" name="cangku_kuang2.png" path="/images/"/>
+    <image id="my99p" name="cangku_kuang3.png" path="/images/"/>
+    <image id="my99q" name="cangku_kuang4.png" path="/images/"/>
+    <image id="my99r" name="cangku_kuang5.png" path="/images/"/>
+    <image id="my99s" name="chengshixuanze_tiao.png" path="/images/"/>
+    <image id="my99t" name="chengshixuanze_tiao2.png" path="/images/"/>
+    <image id="my99u" name="chuangjue_juese02.png" path="/images/"/>
+    <image id="my99v" name="chushou_jindutiao1.png" path="/images/"/>
+    <image id="my99w" name="chushou_jindutiao2.png" path="/images/"/>
+    <image id="my99x" name="chushou_jindutiao3.png" path="/images/"/>
+    <image id="my99y" name="circle.png" path="/images/"/>
+    <image id="my99z" name="commom_diban10.png" path="/images/"/>
+    <image id="my9910" name="common_04.png" path="/images/"/>
+    <image id="my9911" name="common_05.png" path="/images/"/>
+    <image id="my9912" name="common_anniu001.png" path="/images/"/>
+    <image id="my9913" name="common_anniu002.png" path="/images/"/>
+    <image id="my9914" name="common_anniu003.png" path="/images/"/>
+    <image id="my9915" name="common_anniu005.png" path="/images/"/>
+    <image id="my9916" name="common_anniu006.png" path="/images/"/>
+    <image id="my9917" name="common_anniu01.png" path="/images/"/>
+    <image id="my9918" name="common_anniu02.png" path="/images/"/>
+    <image id="my9919" name="common_anniu03.png" path="/images/"/>
+    <image id="my991a" name="common_anniu04.png" path="/images/"/>
+    <image id="my991b" name="common_anniu05.png" path="/images/"/>
+    <image id="my991c" name="common_anniu06.png" path="/images/"/>
+    <image id="my991d" name="common_anniu07.png" path="/images/"/>
+    <image id="my991e" name="common_BG.png" path="/images/"/>
+    <image id="my991f" name="common_bg_1.png" path="/images/"/>
+    <image id="my991g" name="common_btn_add_1.png" path="/images/"/>
+    <image id="my991h" name="common_btn_red_1.png" path="/images/"/>
+    <image id="my991i" name="common_diban01.png" path="/images/"/>
+    <image id="my991j" name="common_diban02.png" path="/images/"/>
+    <image id="my991k" name="common_diban03.png" path="/images/"/>
+    <image id="my991l" name="common_diban04.png" path="/images/"/>
+    <image id="my991m" name="common_diban05.png" path="/images/"/>
+    <image id="my991n" name="common_diban06.png" path="/images/"/>
+    <image id="my991o" name="common_diban07.png" path="/images/"/>
+    <image id="my991p" name="common_diban08.png" path="/images/"/>
+    <image id="my991q" name="common_diban09.png" path="/images/"/>
+    <image id="my991r" name="common_diban10.png" path="/images/"/>
+    <image id="my991s" name="common_diban11.png" path="/images/"/>
+    <image id="my991t" name="common_diban12.png" path="/images/"/>
+    <image id="my991u" name="common_diban13.png" path="/images/"/>
+    <image id="my991v" name="common_diban14.png" path="/images/"/>
+    <image id="my991w" name="common_diban15.png" path="/images/"/>
+    <image id="my991x" name="common_diban16.png" path="/images/"/>
+    <image id="my991y" name="common_diban17.png" path="/images/"/>
+    <image id="my991z" name="common_downlist_bg0.png" path="/images/"/>
+    <image id="my9920" name="common_downlist_bg1.png" path="/images/"/>
+    <image id="my9921" name="common_downlist_item.png" path="/images/"/>
+    <image id="my9922" name="common_duihuakuang.png" path="/images/"/>
+    <image id="my9923" name="common_gantan.png" path="/images/"/>
+    <image id="my9924" name="common_gou2.png" path="/images/"/>
+    <image id="my9925" name="common_guanzhu.png" path="/images/"/>
+    <image id="my9926" name="common_hudongtiao1.png" path="/images/"/>
+    <image id="my9927" name="common_hudongtiao2.png" path="/images/"/>
+    <image id="my9929" name="common_jia.png" path="/images/"/>
+    <image id="my992a" name="common_jian.png" path="/images/"/>
+    <image id="my992b" name="common_jiangzhang.png" path="/images/"/>
+    <image id="my992c" name="common_jinbi.png" path="/images/"/>
+    <image id="my992d" name="common_jindutiao01.png" path="/images/"/>
+    <image id="my992e" name="common_jindutiao02.png" path="/images/"/>
+    <image id="my992f" name="common_jindutiao1.png" path="/images/" scale="9grid" scale9grid="21,16,42,3"/>
+    <image id="my992g" name="common_jindutiao2.png" path="/images/" scale="9grid" scale9grid="26,10,41,3"/>
+    <image id="my992h" name="common_jingyanshengji.png" path="/images/"/>
+    <image id="my992i" name="common_juese.png" path="/images/"/>
+    <image id="my992j" name="common_juese02.png" path="/images/"/>
+    <image id="my992k" name="common_kuang.png" path="/images/"/>
+    <image id="my992l" name="common_kuang02.png" path="/images/"/>
+    <image id="my992m" name="common_naozhong.png" path="/images/"/>
+    <image id="my992n" name="common_pro_bar_blue.png" path="/images/"/>
+    <image id="my992o" name="common_pro_bar_green01.png" path="/images/"/>
+    <image id="my992p" name="common_pro_bar_green02.png" path="/images/"/>
+    <image id="my992q" name="common_pro_bar_yellow02.png" path="/images/"/>
+    <image id="my992r" name="common_pro_bg_01.png" path="/images/"/>
+    <image id="my992s" name="common_pro_bg_02.png" path="/images/"/>
+    <image id="my992t" name="common_shadow.png" path="/images/"/>
+    <image id="my992u" name="common_tiao.png" path="/images/"/>
+    <image id="my992v" name="common_tishi.png" path="/images/"/>
+    <image id="my992w" name="common_track_sb.png" path="/images/"/>
+    <image id="my992x" name="common_xingxing.png" path="/images/"/>
+    <image id="my992y" name="common_yanshi.png" path="/images/"/>
+    <image id="my992z" name="common_zuanshi.png" path="/images/" exported="true"/>
+    <image id="my9931" name="goumai_gou.png" path="/images/"/>
+    <image id="my9932" name="goumai_kuang.png" path="/images/"/>
+    <image id="my9933" name="jianzao_05.png" path="/images/" exported="true"/>
+    <image id="my9934" name="jianzao_06.png" path="/images/" exported="true"/>
+    <image id="my9935" name="jianzao_10.png" path="/images/"/>
+    <image id="my9936" name="juesexinxi_diban1.png" path="/images/"/>
+    <image id="my9937" name="juesexinxi_kuang.png" path="/images/"/>
+    <image id="my9938" name="juesexinxi_nan.png" path="/images/"/>
+    <image id="my9939" name="juesexinxi_suo.png" path="/images/"/>
+    <image id="my993a" name="kapai02.png" path="/images/"/>
+    <image id="my993b" name="kapai03.png" path="/images/"/>
+    <image id="my993c" name="kapai04.png" path="/images/"/>
+    <image id="my993d" name="ncjiaohu_18.png" path="/images/"/>
+    <image id="my993e" name="ncjiaohu_35.png" path="/images/"/>
+    <image id="my993f" name="ncjiaohu_41.png" path="/images/"/>
+    <image id="my993g" name="ncjiaohu_42.png" path="/images/"/>
+    <image id="my993h" name="ncjiaohu_43.png" path="/images/"/>
+    <image id="my993i" name="shangchan_02.png" path="/images/"/>
+    <image id="my993j" name="shengji_16.png" path="/images/font/"/>
+    <image id="my993k" name="shengji_17.png" path="/images/font/"/>
+    <image id="my993l" name="shengji_18.png" path="/images/font/"/>
+    <image id="my993m" name="shengji_19.png" path="/images/font/"/>
+    <image id="my993n" name="shengji_20.png" path="/images/font/"/>
+    <image id="my993o" name="shengji_21.png" path="/images/font/"/>
+    <image id="my993p" name="shengji_22.png" path="/images/font/"/>
+    <image id="my993q" name="shengji_23.png" path="/images/font/"/>
+    <image id="my993r" name="shengji_24.png" path="/images/font/"/>
+    <image id="my993s" name="shengji_25.png" path="/images/font/"/>
+    <image id="my993t" name="shengji_29.png" path="/images/font/"/>
+    <image id="my993u" name="shuzi_0.png" path="/images/font/"/>
+    <image id="my993v" name="shuzi_1.png" path="/images/font/"/>
+    <image id="my993w" name="shuzi_2.png" path="/images/font/"/>
+    <image id="my993x" name="shuzi_3.png" path="/images/font/"/>
+    <image id="my993y" name="shuzi_4.png" path="/images/font/"/>
+    <image id="my993z" name="shuzi_5.png" path="/images/font/"/>
+    <image id="my9940" name="shuzi_6.png" path="/images/font/"/>
+    <image id="my9941" name="shuzi_7.png" path="/images/font/"/>
+    <image id="my9942" name="shuzi_8.png" path="/images/font/"/>
+    <image id="my9943" name="shuzi_9.png" path="/images/font/"/>
+    <image id="my9944" name="zhujiemian_xingxing.png" path="/images/"/>
+    <font id="my9945" name="font_1.fnt" path="/font/" exported="true"/>
+    <font id="my9946" name="font_2.fnt" path="/font/" exported="true"/>
+    <font id="my9947" name="font_3.fnt" path="/font/" exported="true"/>
+    <font id="my9948" name="font_4.fnt" path="/font/" exported="true"/>
+    <component id="my9949" name="BaseSprite.xml" path="/component/" exported="true"/>
+    <component id="my994a" name="BaseTextField.xml" path="/component/" exported="true"/>
+    <component id="my994b" name="EButton.xml" path="/component/" exported="true"/>
+    <component id="my994c" name="ECButton.xml" path="/component/" exported="true"/>
+    <component id="my994d" name="ECheckBox.xml" path="/component/" exported="true"/>
+    <component id="my994e" name="ESButton.xml" path="/component/" exported="true"/>
+    <component id="my994f" name="ESCButton.xml" path="/component/" exported="true"/>
+    <component id="my994g" name="ExpStar.xml" path="/component/" exported="true"/>
+    <component id="my994h" name="Group.xml" path="/component/" exported="true"/>
+    <component id="my994i" name="HEGList.xml" path="/component/" exported="true"/>
+    <component id="my994j" name="HSlider.xml" path="/component/" exported="true"/>
+    <component id="my994l" name="LabButton.xml" path="/component/" exported="true"/>
+    <component id="my994m" name="ProgressBar.xml" path="/component/" exported="true"/>
+    <component id="my994n" name="ReverseMask.xml" path="/component/" exported="true"/>
+    <component id="my994o" name="Slider1_grip.xml" path="/component/" exported="true"/>
+    <component id="my994p" name="UIBitmapIcon.xml" path="/component/" exported="true"/>
+    <component id="my994q" name="UIBitmapIcon2.xml" path="/component/" exported="true"/>
+    <component id="my994r" name="UIDropDownList.xml" path="/component/" exported="true"/>
+    <component id="my994s" name="UIDropDownList_item.xml" path="/component/" exported="true"/>
+    <component id="my994t" name="UIDropDownList_popup.xml" path="/component/" exported="true"/>
+    <component id="my994v" name="UILabel.xml" path="/component/" exported="true"/>
+    <component id="my994w" name="UIMoneyComp.xml" path="/component/" exported="true"/>
+    <component id="my994x" name="UINumberItemComp.xml" path="/component/" exported="true"/>
+    <component id="my994y" name="UITextInput.xml" path="/component/" exported="true"/>
+  </resources>
   <publish name="common"/>
 </packageDescription>

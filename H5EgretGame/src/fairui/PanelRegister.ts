@@ -1,12 +1,12 @@
 module fairui {
-	
+
 	/**
-	 * 面板注册 cl 2018.2.5
+	 * 面板注册 clong 2019.1.30
 	 */
 	export class PanelRegister {
-
+		
 		/**
-		 * 注册组件类与fairgui编辑器中类对应
+		 * 注册组件类与fairygui编辑器中类对应
 		 * @param pkgName 包名
 		 * @param resName 资源名
 		 * @param cls	  对应包中类名	
@@ -21,7 +21,7 @@ module fairui {
 		}
 		
 		/**
-		 * 创建自定义组件，必须用此方式,与以上方法对应使用
+		 * 创建自定义fairygui组件，必须用此方式,与以上方法对应使用,不能直接使用new cls()的方式创建一个绑定fairygui的类！
 		 * @param pkgName 包名
 		 * @param resName 资源名
 		 */

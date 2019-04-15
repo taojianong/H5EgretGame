@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="46,46" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <image id="n0_nzwj" name="n0" src="my99v" fileName="images/chushou_jindutiao1.png" xy="0,0">
+      <gearDisplay controller="button" pages="0"/>
+    </image>
+    <image id="n1_nzwj" name="n1" src="my99v" fileName="images/chushou_jindutiao1.png" xy="0,0">
+      <gearDisplay controller="button" pages="1"/>
+    </image>
+    <image id="n2_nzwj" name="n2" src="my99v" fileName="images/chushou_jindutiao1.png" xy="0,0">
+      <gearDisplay controller="button" pages="2"/>
+    </image>
+    <image id="n3_nzwj" name="n3" src="my99v" fileName="images/chushou_jindutiao1.png" xy="0,0">
+      <gearDisplay controller="button" pages="3"/>
+    </image>
+  </displayList>
+  <Button/>
+</component>

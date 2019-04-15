@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,30" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,over,3,selectedOver" selected="0"/>
+  <displayList>
+    <loader id="n5_k543" name="icon" xy="0,0" size="50,30" autoSize="true">
+      <relation target="" sidePair="width-width,height-height"/>
+      <relation target="" sidePair="bottom-bottom"/>
+    </loader>
+    <richtext id="n6_k543" name="title" xy="20,-4" size="10,39" fontSize="30" color="#ffffff" align="center" vAlign="middle" text="">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </richtext>
+  </displayList>
+  <Button mode="Radio"/>
+</component>

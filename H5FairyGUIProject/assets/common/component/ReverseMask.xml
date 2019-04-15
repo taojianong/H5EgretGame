@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720" opaque="false">
+  <displayList>
+    <image id="n1_mz6t" name="bg" src="my991e" fileName="images/common_BG.png" xy="0,0" size="1280,720">
+      <relation target="" sidePair="width-width,height-height"/>
+    </image>
+    <graph id="n0_mz6t" name="sp" xy="50,50" pivot="0.5,0.5" anchor="true" size="100,100" type="eclipse" lineSize="0"/>
+  </displayList>
+</component>

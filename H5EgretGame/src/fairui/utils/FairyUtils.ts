@@ -7,7 +7,7 @@ module fairui {
 
 	/**
 	 * FairyGUI工具
-	 * @author cl 2018.4.24
+	 * @author cl 2019.1.29
 	 */
 	export class FairyUtils {
 		
@@ -26,13 +26,15 @@ module fairui {
 						continue;
 					}
 					if (disObj.name && disObj.name.indexOf("tab_") == 0 && disObj instanceof GGroup) {
-						thisObject[disObj.name] = new fairui.ETab(disObj, thisObject);
+						thisObject[disObj.name] = new fairui.ETab(disObj, thisObject);	
+						if( thisObject instanceof BaseSprite ) thisObject.AddComponent( thisObject[disObj.name] );					
 					}else if( disObj.name && disObj.name.indexOf("eglist_") == 0 && disObj instanceof GList ){
 						thisObject[disObj.name] = new fairui.EGList(disObj , thisObject );
+						if( thisObject instanceof BaseSprite ) thisObject.AddComponent( thisObject[disObj.name] );
 					}else if( disObj.name && disObj.name.indexOf("eloader_") == 0 && disObj instanceof GLoader ){
 						thisObject[disObj.name] = new fairui.ELoader(disObj);
-					}
-					else {
+						if( thisObject instanceof BaseSprite ) thisObject.AddComponent( thisObject[disObj.name] );
+					}else {
 						thisObject[disObj.name] = disObj;
 					}
 				}
