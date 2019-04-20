@@ -22,7 +22,7 @@ var fairui;
                 this._animatorDict.setItem(action, dict = new flash.Dictionary());
             dict.setItem(fiveDir, animator);
         };
-        Object.defineProperty(Animation.prototype, "isDispose", {
+        Object.defineProperty(Animation.prototype, "isDisposed", {
             get: function () {
                 return this._isDispose;
             },

@@ -100,14 +100,14 @@ module fairui {
 
 			this._effectHash.setItem(data, data);
 			if (this._isStart == false) {
-				App.timer.doFrameLoop(1, flash.bind(this.onEnterFrame, this));
+				Global.timer.doFrameLoop(1, flash.bind(this.onEnterFrame, this));
 				this._isStart = true;
 			}
 		}
 
 		private onEnterFrame() {
 
-			let time: number = App.timer.frametime;
+			let time: number = Global.timer.frametime;
 			this._gapTime += time;
 			if (this._gapTime > 50) {
 				this._effectHash.forEach(function (key: any, data: NetEffect) {

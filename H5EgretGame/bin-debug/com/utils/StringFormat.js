@@ -46,7 +46,7 @@ var StringFormat = (function () {
         if (str === void 0) { str = ""; }
         if (rate === void 0) { rate = 10000; }
         if (!str || str.length <= 0) {
-            str = App.lang.getLang("lang_client_398");
+            str = Global.lang.getLang("lang_client_398");
         }
         if (value >= rate) {
             return flash.tranint(value / rate) + str;
@@ -65,11 +65,11 @@ var StringFormat = (function () {
         var pix = "";
         if (useFormat && value >= 1000000000) {
             value = flash.tranint(value / 100000000);
-            pix = App.lang.getLang("lang_client_404"); //亿
+            pix = Global.lang.getLang("lang_client_404"); //亿
         }
         else if (useFormat && value >= 1000000) {
             value = flash.tranint(value / 10000);
-            pix = App.lang.getLang("lang_client_405"); //万
+            pix = Global.lang.getLang("lang_client_405"); //万
         }
         var strNum = value.toString();
         if (strNum.length > 3) {
@@ -91,15 +91,15 @@ var StringFormat = (function () {
         var pix = "";
         if (useFormat && value >= 1000000000) {
             value = flash.tranint(value / 100000000);
-            pix = "" + App.lang.getLang("lang_client_404"); //亿
+            pix = "" + Global.lang.getLang("lang_client_404"); //亿
         }
         else if (useFormat && value >= 1000000) {
             value = flash.tranint(value / 10000);
-            pix = "" + App.lang.getLang("lang_client_403"); //万
+            pix = "" + Global.lang.getLang("lang_client_403"); //万
         }
         else if (useFormat && value >= 10000) {
             value = flash.tranint(value / 10000);
-            pix = "" + App.lang.getLang("lang_client_403"); //万
+            pix = "" + Global.lang.getLang("lang_client_403"); //万
         }
         var strNum = value.toString();
         if (strNum.length > 3) {
@@ -121,28 +121,28 @@ var StringFormat = (function () {
         var pix = "";
         if (useFormat && value >= 100000000) {
             value = flash.tranint(value / 100000000);
-            pix = "" + App.lang.getLang("lang_client_404"); //亿
+            pix = "" + Global.lang.getLang("lang_client_404"); //亿
         }
         else if (useFormat && value >= 10000) {
             value = flash.tranint(value / 10000);
-            pix = "" + App.lang.getLang("lang_client_405"); //万
+            pix = "" + Global.lang.getLang("lang_client_405"); //万
         }
         var strNum = value.toString();
         return strNum + pix;
     };
     StringFormat.getWeekDay = function ($num) {
         //$_FunctionStackLog.intoStack("com.components.utils::StringFormat/getWeekDay()");
-        var arr = ["" + App.lang.getLang("lang_client_406"), "" + App.lang.getLang("lang_client_407"), "" + App.lang.getLang("lang_client_408"), "" + App.lang.getLang("lang_client_409"), "" + App.lang.getLang("lang_client_410"), "" + App.lang.getLang("lang_client_411"), "" + App.lang.getLang("lang_client_412")];
+        var arr = ["" + Global.lang.getLang("lang_client_406"), "" + Global.lang.getLang("lang_client_407"), "" + Global.lang.getLang("lang_client_408"), "" + Global.lang.getLang("lang_client_409"), "" + Global.lang.getLang("lang_client_410"), "" + Global.lang.getLang("lang_client_411"), "" + Global.lang.getLang("lang_client_412")];
         return arr[$num];
     };
     StringFormat.getChieseNum = function ($num) {
         //$_FunctionStackLog.intoStack("com.components.utils::StringFormat/getChieseNum()");
-        var arr = ["" + App.lang.getLang("lang_client_413"), "" + App.lang.getLang("lang_client_407"), "" + App.lang.getLang("lang_client_408"), "" + App.lang.getLang("lang_client_409"), "" + App.lang.getLang("lang_client_410"), "" + App.lang.getLang("lang_client_411"), "" + App.lang.getLang("lang_client_412"), "" + App.lang.getLang("lang_client_420"), "" + App.lang.getLang("lang_client_421"), "" + App.lang.getLang("lang_client_422"), "" + App.lang.getLang("lang_client_423")];
+        var arr = ["" + Global.lang.getLang("lang_client_413"), "" + Global.lang.getLang("lang_client_407"), "" + Global.lang.getLang("lang_client_408"), "" + Global.lang.getLang("lang_client_409"), "" + Global.lang.getLang("lang_client_410"), "" + Global.lang.getLang("lang_client_411"), "" + Global.lang.getLang("lang_client_412"), "" + Global.lang.getLang("lang_client_420"), "" + Global.lang.getLang("lang_client_421"), "" + Global.lang.getLang("lang_client_422"), "" + Global.lang.getLang("lang_client_423")];
         return arr[$num];
     };
     StringFormat.numberToChinese = function (num) {
-        var arr = ["" + App.lang.getLang("lang_client_413"), "" + App.lang.getLang("lang_client_407"), "" + App.lang.getLang("lang_client_408"), "" + App.lang.getLang("lang_client_409"), "" + App.lang.getLang("lang_client_410"), "" + App.lang.getLang("lang_client_411"), "" + App.lang.getLang("lang_client_412"), "" + App.lang.getLang("lang_client_420"), "" + App.lang.getLang("lang_client_421"), "" + App.lang.getLang("lang_client_422"), "" + App.lang.getLang("lang_client_423")];
-        var nums = ["" + App.lang.getLang("lang_client_435"), "" + App.lang.getLang("lang_client_436"), "" + App.lang.getLang("lang_client_437"), "" + App.lang.getLang("lang_client_438"), "" + App.lang.getLang("lang_client_439"), "" + App.lang.getLang("lang_client_436"), "" + App.lang.getLang("lang_client_437"), "" + App.lang.getLang("lang_client_438"), "" + App.lang.getLang("lang_client_404"), "" + App.lang.getLang("lang_client_436")];
+        var arr = ["" + Global.lang.getLang("lang_client_413"), "" + Global.lang.getLang("lang_client_407"), "" + Global.lang.getLang("lang_client_408"), "" + Global.lang.getLang("lang_client_409"), "" + Global.lang.getLang("lang_client_410"), "" + Global.lang.getLang("lang_client_411"), "" + Global.lang.getLang("lang_client_412"), "" + Global.lang.getLang("lang_client_420"), "" + Global.lang.getLang("lang_client_421"), "" + Global.lang.getLang("lang_client_422"), "" + Global.lang.getLang("lang_client_423")];
+        var nums = ["" + Global.lang.getLang("lang_client_435"), "" + Global.lang.getLang("lang_client_436"), "" + Global.lang.getLang("lang_client_437"), "" + Global.lang.getLang("lang_client_438"), "" + Global.lang.getLang("lang_client_439"), "" + Global.lang.getLang("lang_client_436"), "" + Global.lang.getLang("lang_client_437"), "" + Global.lang.getLang("lang_client_438"), "" + Global.lang.getLang("lang_client_404"), "" + Global.lang.getLang("lang_client_436")];
         var str = "";
         var numStr = num.toString();
         for (var i = 0; i < numStr.length; i++) {
@@ -196,12 +196,12 @@ var StringFormat = (function () {
         var second = time % 60;
         var minute = ((time - second) / 60) % 60;
         var hour = (time - 60 * minute - second) / 3600;
-        var strMinute = minute == 0 ? "" : minute.toString() + App.lang.getLang("lang_client_479"); //分
-        var strHour = hour == 0 ? "" : hour.toString() + App.lang.getLang("lang_client_455"); //小时
+        var strMinute = minute == 0 ? "" : minute.toString() + Global.lang.getLang("lang_client_479"); //分
+        var strHour = hour == 0 ? "" : hour.toString() + Global.lang.getLang("lang_client_455"); //小时
         if (showHour) {
-            return strHour + strMinute + second + App.lang.getLang("lang_client_480"); //秒
+            return strHour + strMinute + second + Global.lang.getLang("lang_client_480"); //秒
         }
-        return strMinute + second + App.lang.getLang("lang_client_480"); //秒
+        return strMinute + second + Global.lang.getLang("lang_client_480"); //秒
     };
     /**
      * 将一个整数的时间值格式化为 00小时00分 格式的时间值
@@ -212,8 +212,8 @@ var StringFormat = (function () {
         var second = time % 60;
         var minute = ((time - second) / 60) % 60;
         var hour = (time - 60 * minute - second) / 3600;
-        var strMinute = minute == 0 ? "" : minute.toString() + App.lang.getLang("lang_client_479"); //分
-        var strHour = hour == 0 ? "" : hour.toString() + App.lang.getLang("lang_client_455"); //小时
+        var strMinute = minute == 0 ? "" : minute.toString() + Global.lang.getLang("lang_client_479"); //分
+        var strHour = hour == 0 ? "" : hour.toString() + Global.lang.getLang("lang_client_455"); //小时
         return strHour + strMinute;
     };
     /**
@@ -225,7 +225,7 @@ var StringFormat = (function () {
         var tian = flash.tranint(time / (24 * 3600));
         var hour = flash.tranint(time % (24 * 3600) / 3600);
         var min = flash.tranint(time % 3600 / 60);
-        return tian + App.lang.getLang("lang_client_454") + hour + App.lang.getLang("lang_client_455") + min + App.lang.getLang("lang_client_479");
+        return tian + Global.lang.getLang("lang_client_454") + hour + Global.lang.getLang("lang_client_455") + min + Global.lang.getLang("lang_client_479");
     };
     /**
      * 将一个整数的时间值格式化为 大于1天：  xx"天；	小于一"天：  NN小时；	小于1小时：MM分钟；	小于1分钟：1分钟；
@@ -237,16 +237,16 @@ var StringFormat = (function () {
         var hour = flash.tranint(time / 3600);
         var min = flash.tranint(time % 3600 / 60);
         if (tian > 0) {
-            return tian + App.lang.getLang("lang_client_454"); //天
+            return tian + Global.lang.getLang("lang_client_454"); //天
         }
         else if (hour > 0) {
-            return hour + App.lang.getLang("lang_client_455"); //小时
+            return hour + Global.lang.getLang("lang_client_455"); //小时
         }
         else if (min > 0) {
-            return min + App.lang.getLang("lang_client_456"); //分钟
+            return min + Global.lang.getLang("lang_client_456"); //分钟
         }
         else {
-            return "" + App.lang.getLang("lang_client_457"); //1分钟
+            return "" + Global.lang.getLang("lang_client_457"); //1分钟
         }
     };
     StringFormat.formatToTime_V6 = function (utc) {
@@ -255,7 +255,7 @@ var StringFormat = (function () {
         var minute = date.millisecondsUTC < 10 ? '0' + date.millisecondsUTC : '' + date.millisecondsUTC;
         var second = date.secondsUTC < 10 ? '0' + date.secondsUTC : '' + date.secondsUTC;
         //{0}月{1}日
-        return date.monthUTC + 1 + App.lang.getLang("lang_client_476") + date.dateUTC + App.lang.getLang("lang_client_477") + hour + ':' + minute + ':' + second;
+        return date.monthUTC + 1 + Global.lang.getLang("lang_client_476") + date.dateUTC + Global.lang.getLang("lang_client_477") + hour + ':' + minute + ':' + second;
     };
     StringFormat.formatToTime_V7 = function (utc) {
         var date = new flash.As3Date(utc * 1000);
@@ -269,28 +269,28 @@ var StringFormat = (function () {
         var second = time % 60;
         var minute = ((time - second) / 60) % 60;
         var hour = (time - 60 * minute - second) / 3600;
-        var strSecond = second < 10 ? "0" + second + App.lang.getLang("lang_client_480") : second + App.lang.getLang("lang_client_480"); //秒
-        var strMinute = minute < 10 ? "0" + minute + App.lang.getLang("lang_client_456") : minute + App.lang.getLang("lang_client_456"); //分钟
-        var strHour = hour < 10 ? "0" + hour + App.lang.getLang("lang_client_455") : hour + App.lang.getLang("lang_client_455"); //小时
+        var strSecond = second < 10 ? "0" + second + Global.lang.getLang("lang_client_480") : second + Global.lang.getLang("lang_client_480"); //秒
+        var strMinute = minute < 10 ? "0" + minute + Global.lang.getLang("lang_client_456") : minute + Global.lang.getLang("lang_client_456"); //分钟
+        var strHour = hour < 10 ? "0" + hour + Global.lang.getLang("lang_client_455") : hour + Global.lang.getLang("lang_client_455"); //小时
         return strHour + strMinute + strSecond;
     };
     StringFormat.formatToTime_V9 = function (time) {
         if (time < 0) {
-            return "" + App.lang.getLang("lang_client_464"); //已过期
+            return "" + Global.lang.getLang("lang_client_464"); //已过期
         }
         var tian = flash.tranint(time / (24 * 3600));
         var hour = flash.tranint(time % (24 * 3600) / 3600);
         var min = flash.tranint(time % 3600 / 60);
         var sec = flash.tranint(time % 60);
         //天|小时|分钟
-        return (tian > 0 ? tian + App.lang.getLang("lang_client_454") : "") + (hour > 0 ? hour + App.lang.getLang("lang_client_455") : "") + (min > 0 ? min + App.lang.getLang("lang_client_456") : "") + (sec + App.lang.getLang("lang_client_468"));
+        return (tian > 0 ? tian + Global.lang.getLang("lang_client_454") : "") + (hour > 0 ? hour + Global.lang.getLang("lang_client_455") : "") + (min > 0 ? min + Global.lang.getLang("lang_client_456") : "") + (sec + Global.lang.getLang("lang_client_468"));
     };
     StringFormat.formatToTime_V10 = function (time) {
         var date = new flash.As3Date(time * 1000);
         var hour = date.hours < 10 ? '0' + date.hours : '' + date.hours;
         var minute = date.minutes < 10 ? '0' + date.minutes : '' + date.minutes;
         var second = date.seconds < 10 ? '0' + date.seconds : '' + date.seconds;
-        return date.month + 1 + App.lang.getLang("lang_client_476") + date.date + App.lang.getLang("lang_client_477") + " " + hour + ':' + minute + ':' + second;
+        return date.month + 1 + Global.lang.getLang("lang_client_476") + date.date + Global.lang.getLang("lang_client_477") + " " + hour + ':' + minute + ':' + second;
     };
     StringFormat.formatToTime_V11 = function (time) {
         var tian = flash.tranint(time / (24 * 3600));
@@ -298,20 +298,20 @@ var StringFormat = (function () {
         var min = flash.tranint(time % 3600 / 60);
         var sec = flash.tranint(time % 60);
         //天|时|分|秒
-        return (tian > 0 ? tian + App.lang.getLang("lang_client_454") : "") + (hour > 0 ? hour + App.lang.getLang("lang_client_478") : "") + (min > 0 ? min + App.lang.getLang("lang_client_479") : "") + (sec + App.lang.getLang("lang_client_480"));
+        return (tian > 0 ? tian + Global.lang.getLang("lang_client_454") : "") + (hour > 0 ? hour + Global.lang.getLang("lang_client_478") : "") + (min > 0 ? min + Global.lang.getLang("lang_client_479") : "") + (sec + Global.lang.getLang("lang_client_480"));
     };
     StringFormat.formatToTime_V12 = function (time) {
         var date = new flash.As3Date(time * 1000);
         var hour = date.hours < 10 ? '0' + date.hours : '' + date.hours;
         //月|日|时
-        return date.month + 1 + App.lang.getLang("lang_client_476") + date.date + App.lang.getLang("lang_client_477") + hour + App.lang.getLang("lang_client_478");
+        return date.month + 1 + Global.lang.getLang("lang_client_476") + date.date + Global.lang.getLang("lang_client_477") + hour + Global.lang.getLang("lang_client_478");
     };
     StringFormat.formatToTime_V13 = function (time) {
         var tian = flash.tranint(time / (24 * 3600));
         var hour = flash.tranint(time % (24 * 3600) / 3600);
         var min = flash.tranint(time % 3600 / 60);
         //天|小时
-        return tian + App.lang.getLang("lang_client_454") + hour + App.lang.getLang("lang_client_455");
+        return tian + Global.lang.getLang("lang_client_454") + hour + Global.lang.getLang("lang_client_455");
     };
     StringFormat.formatToTime_V14 = function (time) {
         var date = new flash.As3Date(time * 1000);
@@ -319,7 +319,7 @@ var StringFormat = (function () {
         var minute = date.minutes < 10 ? '0' + date.minutes : '' + date.minutes;
         var second = date.seconds < 10 ? '0' + date.seconds : '' + date.seconds;
         //月|日
-        return date.month + 1 + App.lang.getLang("lang_client_476") + date.date + App.lang.getLang("lang_client_477") + " " + hour + ':' + minute;
+        return date.month + 1 + Global.lang.getLang("lang_client_476") + date.date + Global.lang.getLang("lang_client_477") + " " + hour + ':' + minute;
     };
     StringFormat.formatToTime_V15 = function (time) {
         var date = new flash.As3Date(time * 1000);
@@ -365,8 +365,8 @@ var StringFormat = (function () {
     StringFormat.resloveFormatLastLoginTime = function (time) {
         var t = "";
         var d = new flash.As3Date(time * 1000);
-        t = d.fullYear + App.lang.getLang("lang_client_475") + (d.month + 1) + App.lang.getLang("lang_client_476") + d.date + App.lang.getLang("lang_client_477") +
-            d.hours + App.lang.getLang("lang_client_478") + d.minutes + App.lang.getLang("lang_client_479") + d.seconds + App.lang.getLang("lang_client_480");
+        t = d.fullYear + Global.lang.getLang("lang_client_475") + (d.month + 1) + Global.lang.getLang("lang_client_476") + d.date + Global.lang.getLang("lang_client_477") +
+            d.hours + Global.lang.getLang("lang_client_478") + d.minutes + Global.lang.getLang("lang_client_479") + d.seconds + Global.lang.getLang("lang_client_480");
         return t;
     };
     StringFormat.formatTimeToLog = function (time) {
@@ -388,25 +388,25 @@ var StringFormat = (function () {
     StringFormat.formatTimeToDay = function (time) {
         var t = "";
         var d = new flash.As3Date(time * 1000);
-        t = d.fullYear + App.lang.getLang("lang_client_475") + (d.month + 1) + App.lang.getLang("lang_client_476") + d.date + App.lang.getLang("lang_client_477"); //{0}年{1}月{2}日
+        t = d.fullYear + Global.lang.getLang("lang_client_475") + (d.month + 1) + Global.lang.getLang("lang_client_476") + d.date + Global.lang.getLang("lang_client_477"); //{0}年{1}月{2}日
         return t;
     };
     StringFormat.formatTimeToMin = function (time) {
         var t = "";
         var d = new flash.As3Date(time * 1000);
-        t = d.fullYear + App.lang.getLang("lang_client_475") + (d.month + 1) + App.lang.getLang("lang_client_476") + d.date + App.lang.getLang("lang_client_477") + d.hours + App.lang.getLang("lang_client_478") + d.minutes + App.lang.getLang("lang_client_479");
+        t = d.fullYear + Global.lang.getLang("lang_client_475") + (d.month + 1) + Global.lang.getLang("lang_client_476") + d.date + Global.lang.getLang("lang_client_477") + d.hours + Global.lang.getLang("lang_client_478") + d.minutes + Global.lang.getLang("lang_client_479");
         return t;
     };
     StringFormat.formatTimeToMin2 = function (time) {
         var t = "";
         var d = new flash.As3Date(time * 1000);
-        t = d.fullYear + App.lang.getLang("lang_client_475") + (d.month + 1) + App.lang.getLang("lang_client_476") + d.date + App.lang.getLang("lang_client_477") + (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes);
+        t = d.fullYear + Global.lang.getLang("lang_client_475") + (d.month + 1) + Global.lang.getLang("lang_client_476") + d.date + Global.lang.getLang("lang_client_477") + (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes);
         return t;
     };
     StringFormat.formatTimeToSec2 = function (time) {
         var t = "";
         var d = new flash.As3Date(time * 1000);
-        t = d.fullYear + App.lang.getLang("lang_client_475") + (d.month + 1) + App.lang.getLang("lang_client_476") + d.date + App.lang.getLang("lang_client_477") + (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes) + ":" + (d.seconds < 10 ? "0" + d.seconds : "" + d.seconds);
+        t = d.fullYear + Global.lang.getLang("lang_client_475") + (d.month + 1) + Global.lang.getLang("lang_client_476") + d.date + Global.lang.getLang("lang_client_477") + (d.hours < 10 ? "0" + d.hours : "" + d.hours) + ":" + (d.minutes < 10 ? "0" + d.minutes : "" + d.minutes) + ":" + (d.seconds < 10 ? "0" + d.seconds : "" + d.seconds);
         return t;
     };
     /**
@@ -429,7 +429,7 @@ var StringFormat = (function () {
         var min = value / 60;
         var sec = value % 60;
         //{min}分{sec}秒:{min}分钟
-        var t = sec > 0 ? min + App.lang.getLang("lang_client_479") + sec + App.lang.getLang("lang_client_480") : min + App.lang.getLang("lang_client_479") + App.lang.getLang("lang_client_481");
+        var t = sec > 0 ? min + Global.lang.getLang("lang_client_479") + sec + Global.lang.getLang("lang_client_480") : min + Global.lang.getLang("lang_client_479") + Global.lang.getLang("lang_client_481");
         return t;
     };
     StringFormat.format = function (date, formatStr) {
@@ -468,18 +468,18 @@ var StringFormat = (function () {
         var t = parseInt("" + (nowTime - startTime) / 1000); //秒
         var str = "";
         if (t < 60) {
-            str = parseInt("" + t) + App.lang.getLang("lang_client_480"); //秒
+            str = parseInt("" + t) + Global.lang.getLang("lang_client_480"); //秒
         }
         else if (t < 3600) {
-            str = parseInt("" + (t / 60)) + App.lang.getLang("lang_client_456"); //分钟
+            str = parseInt("" + (t / 60)) + Global.lang.getLang("lang_client_456"); //分钟
         }
         else if (t < 86400) {
-            str = parseInt("" + (t / 3600)) + App.lang.getLang("lang_client_455"); //小时
+            str = parseInt("" + (t / 3600)) + Global.lang.getLang("lang_client_455"); //小时
         }
         else {
-            str = parseInt("" + (t / 86400)) + App.lang.getLang("lang_client_454"); //天
+            str = parseInt("" + (t / 86400)) + Global.lang.getLang("lang_client_454"); //天
         }
-        return App.lang.getLang("lang_panel_63", str); //{0}前
+        return Global.lang.getLang("lang_panel_63", str); //{0}前
     };
     StringFormat.getSubstitute = function (str) {
         var rest = [];
@@ -562,21 +562,21 @@ var StringFormat = (function () {
     // 		k = key.replace("Max", "");
     // 		let o: any = {};
     // 		if (k == "dc")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_503") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_503") ;
     // 		if (k == "mc")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_504") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_504") ;
     // 		if (k == "ac")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_505") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_505") ;
     // 		if (k == "mac")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_506") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_506") ;
     // 		if (k == "maxHp")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_507") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_507") ;
     // 		if (k == "holyAtk")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_508") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_508") ;
     // 		if (k == "hit")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_509") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_509") ;
     // 		if (k == "sc")
-    // 			o["name"] = "" + App.lang.getLang("lang_client_510") ;
+    // 			o["name"] = "" + Global.lang.getLang("lang_client_510") ;
     // 		if (<any>!o["name"]) {
     // 			continue;
     // 		}

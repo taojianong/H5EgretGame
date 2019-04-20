@@ -42,9 +42,9 @@ module fairui {
 			return true;
 		}
 
-		public AddRootListener() {
+		public addAllListener():void {
 
-			super.AddRootListener();
+			super.addAllListener();
 		}
 
 		/**设置上一页按钮 */
@@ -429,14 +429,14 @@ module fairui {
 				this.elements.push(item);
 			}
 			//列表渲染单个条目
-			let evt: UIGameEvent = new UIGameEvent(UIGameEvent.EGLIST_RENDER);
+			let evt: GameEvent = new GameEvent(GameEvent.EGLIST_RENDER);
 			evt.data = { "index": index, "obj": obj };
 			evt.thisObject = this._thisObject;
 			this.dispatchEvent(evt);
 			//列表渲染完成
 			if (index == (this._array.length - 1)) {
 
-				let completeEvt: UIGameEvent = new UIGameEvent(UIGameEvent.EGLIST_COMPLETE);
+				let completeEvt: GameEvent = new GameEvent(GameEvent.EGLIST_COMPLETE);
 				completeEvt.thisObject = this._thisObject;
 				this.dispatchEvent(completeEvt);
 			}
@@ -450,7 +450,7 @@ module fairui {
 			}
 
 			if( egret.is( obj , "IComponent" ) ){
-				this.AddComponent( <any>obj );
+				this.addComponent( <any>obj );
 			}			
 		}
 
@@ -825,6 +825,19 @@ module fairui {
 			this._elements = [];
 			this._array = [];
 		}
+
+		/**
+		 * 重置
+		 */
+		public clear(): void {
+
+			super.clear();
+
+			this.sliderTo(0,false);
+
+			this.clearData();
+		}
+
 		/**
 		 * 释放
 		 */
@@ -832,7 +845,7 @@ module fairui {
 
 			super.dispose();
 
-			this.clearData();
+			this.clear();
 
 			if (this.list != null) {
 				this.list.removeEventListener(fairygui.ItemEvent.CLICK, this.clickItem, this);
@@ -851,27 +864,6 @@ module fairui {
 			this._array = null;			
 			this._elements = null;
 			this._lastclickItem = null;
-		}
-
-		//------------------------------------------------
-		/**
-		 * 重置
-		 */
-		public Reset(): void {
-
-			super.Reset();
-
-			this.sliderTo(0,false);
-
-			this.clearData();
-		}
-
-		/**
-		 * 销毁，完全销毁对象和资源
-		 */
-		public Destroy(): void {
-
-			super.Destroy();
 		}
 	}
 }

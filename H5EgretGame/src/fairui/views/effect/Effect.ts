@@ -99,7 +99,7 @@ module fairui {
 		}
 
 		public rantionView() {
-			if (this._angle != 0 && this.isDispose == false && this.animator) {
+			if (this._angle != 0 && this.isDisposed == false && this.animator) {
 				let image: SingleImage = this.animator.getImage(this._currentIndex);
 				if (image) {
 					this._matrix.tx = this.x + image.offsetX;

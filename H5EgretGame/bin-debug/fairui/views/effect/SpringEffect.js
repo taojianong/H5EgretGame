@@ -45,7 +45,7 @@ var fairui;
                 }
                 img.x = startPos.x - img.width * 0.5;
                 img.y = startPos.y - img.height * 0.5;
-                parent.addChild(img.displayObject);
+                parent.addEgretChild(img.displayObject);
                 //TweenLite.to(img, 0.2, { x: startPos.x + (area - Math.random() * area * 2), y: startPos.y + (area - Math.random() * area * 2), ease: Linear.easeInOut, onComplete:onStartOver, onCompleteParams: [img, i, targetPos] });
             }
             function onStartOver(img, i, targetPos) {

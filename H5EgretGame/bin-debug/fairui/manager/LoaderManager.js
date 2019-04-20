@@ -117,24 +117,24 @@ var fairui;
          * 加载多个组资源
          * @param groups 资源组 如：login,main
          * @param loadComplete 加载完成方法
+         * @param thisObj
          * @param params 加载完成方法参数
          * @param reporte 加载进度
-         * @param thisObj
          */
-        LoaderManager.loadGroups = function (groups, loadComplete, params, reporte, thisObj) {
+        LoaderManager.loadGroups = function (groups, loadComplete, thisObj, params, reporte) {
             if (loadComplete === void 0) { loadComplete = null; }
+            if (thisObj === void 0) { thisObj = null; }
             if (params === void 0) { params = null; }
             if (reporte === void 0) { reporte = null; }
-            if (thisObj === void 0) { thisObj = null; }
             var arr = groups.split(",");
             loadNext();
             function loadGroup(group) {
-                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, function loadComplete(event) {
+                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, function loadComplete1(event) {
                     if (event.groupName == group) {
                         loadNext();
                     }
                 }, this);
-                RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, function loadComplete(event) {
+                RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, function loadComplete2(event) {
                     if (event.groupName == group) {
                         loadNext();
                     }
@@ -144,7 +144,9 @@ var fairui;
             //加载下一个
             function loadNext() {
                 if (arr.length <= 0) {
-                    loadComplete.apply(thisObj, params);
+                    if (loadComplete != null) {
+                        loadComplete.apply(thisObj, params);
+                    }
                 }
                 else {
                     var group = arr.shift();

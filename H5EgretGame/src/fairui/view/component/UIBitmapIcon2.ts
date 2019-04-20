@@ -14,9 +14,15 @@ module fairui {
 			this.touchable = false;
 		}
 
-		public LoadImage(url: string, callback: Function = null, thisObject: any = null, level: number = LoadLevel.DEFAULT, IsClearTexture: boolean = false): void {
+		/**
+		 * 加载图片
+		 * @param url 			图片地址
+		 * @param callback 		加载完成调用方法
+		 * @param thisObject
+		 */
+		public loadImage(url: string, callback: Function = null, thisObject: any = null ): void {
 
-			super.LoadImage( url , callback , thisObject , level , IsClearTexture );
+			super.loadImage( url , callback , thisObject );
 		}
 
 		public set texture(value: egret.Texture) {
@@ -32,18 +38,10 @@ module fairui {
 
 			return (<fairygui.GLoader>this._iconObject).texture;
 		}
-
-		/**设置高宽 */
-		// public setSize( wv: number, hv: number, ignorePivot?: boolean ):void{
-
-		// 	if( this._iconObject ) {
-		// 		(<fairygui.GLoader>this._iconObject).setSize( wv , hv , ignorePivot );
-		// 	}			
-		// }
-
+		
 		public dispose(): void {
 
-			this.Reset();
+			this.dispose();
 		}
 	}
 

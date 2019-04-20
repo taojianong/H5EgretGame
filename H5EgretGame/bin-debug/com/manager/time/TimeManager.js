@@ -8,8 +8,9 @@ var com;
         /**时钟管理器[同一函数多次计时，默认会被后者覆盖,delay小于1会立即执行]*/
         var TimeManager = (function () {
             function TimeManager() {
-                /**当前帧的时间点*/
+                /**当前帧的时间点,毫秒，进入游戏开始计时*/
                 this._currTimer = 0;
+                /**当前帧数 */
                 this._currFrame = 0;
                 this._count = 0;
                 this._index = 0;
@@ -23,8 +24,16 @@ var com;
                 this._handlers = new flash.Dictionary();
                 this._serverTimeDict = new flash.Dictionary();
                 this._currTimer = egret.getTimer();
-                App.stage.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+                Global.stage.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
             }
+            Object.defineProperty(TimeManager.prototype, "currFrame", {
+                /**当前进入游戏时间，毫秒 */
+                get: function () {
+                    return this._currFrame;
+                },
+                enumerable: true,
+                configurable: true
+            });
             Object.defineProperty(TimeManager.prototype, "frametime", {
                 get: function () {
                     return this._frametime;
@@ -35,19 +44,17 @@ var com;
             TimeManager.prototype.onEnterFrame = function (e) {
                 var key, handler;
                 var _self__ = this;
-                // try {
                 _self__._currFrame++;
                 _self__._currTimer = egret.getTimer();
                 _self__._frametime = _self__._currTimer - _self__._lastTime;
                 _self__._lastTime = _self__._currTimer;
                 var fpsInv = _self__._currTimer - _self__._fpsLastTime;
                 if (fpsInv > 1000) {
-                    var fps = (_self__._currFrame - _self__._fpsCount) / (fpsInv * 0.001); //(fpsInv / 1000);
+                    var fps = (_self__._currFrame - _self__._fpsCount) / (fpsInv * 0.001);
                     _self__._fpsCount = _self__._currFrame;
                     _self__._fpsLastTime = _self__._currTimer;
-                    Config.currentGameFps = Math.floor(fps * 1000) * 0.001; //Math.floor(fps * 1000) / 1000;
+                    Config.currentGameFps = Math.floor(fps * 1000) * 0.001;
                 }
-                //let lastTime:number = egret.getTimer();
                 _self__._handlers.forEach(function (key, handler) {
                     if (handler != null && handler.method != null) {
                         var t = (handler.userFrame ? _self__._currFrame : _self__._currTimer);
@@ -56,7 +63,6 @@ var com;
                             var args = handler.args;
                             if (handler.repeat) {
                                 while (t >= handler.exeTime) {
-                                    //if (key in this._handlers) {
                                     if (_self__._handlers.hasOwnProperty(key)) {
                                         handler.exeTime += handler.delay;
                                         method.apply(method["owner"], args);
@@ -73,43 +79,7 @@ var com;
                         }
                     }
                 }, _self__);
-                //App.log.debug(egret.getTimer() - lastTime);
-                // for (key in this._handlers.map) {
-                // 	//key = this._handlers.map[forinlet__][0];						
-                // 	handler = <any>this._handlers.getItem(key);
-                // 	if (handler == null && handler.method == null)
-                // 		continue;
-                // 	let t: number = (handler.userFrame ? this._currFrame : this._currTimer);
-                // 	if (t >= handler.exeTime) {
-                // 		let method: Function = handler.method;
-                // 		let args: Array<any> = handler.args;
-                // 		if (handler.repeat) {
-                // 			while (t >= handler.exeTime) {
-                // 				if (key in this._handlers) {
-                // 					handler.exeTime += handler.delay;
-                // 					method.apply(method["owner"], args);
-                // 				}
-                // 				else {
-                // 					break;
-                // 				}
-                // 			}
-                // 		}
-                // 		else {
-                // 			this.clearTimer(key);
-                // 			method.apply(method["owner"], args);
-                // 		}
-                // 	}
-                // }
                 _self__.serverTimeHandler();
-                // }
-                // catch (e) {
-                // 	// let str: string = "";
-                // 	// if (key != null)
-                // 	// 	str += "@@key" + key;
-                // 	// if (handler != null)
-                // 	// 	str += handler.method + "@@" + handler.delay + "@@" + handler.exeTime + "@@" + handler.repeat + "@@" + handler.userFrame + "@@" + handler.args;
-                // 	App.log.error("TimeManager.onEnterFrame Error.", e);
-                // }
             };
             TimeManager.prototype.serverTimeHandler = function () {
                 var _self__ = this;
@@ -130,22 +100,6 @@ var com;
                         }
                     }, _self__);
                 }
-                // for (let key in this._serverTimeDict.map) {
-                // 	//let key = this._serverTimeDict.map[forinlet__][0];
-                // 	let data: ServerTimeData = <any>this._serverTimeDict.getItem(key);
-                // 	let time: number = data.endServerTime - ctSec;
-                // 	if (time != data.spuleTime) {
-                // 		data.spuleTime = time;
-                // 		let arry: Array<any> = [data];
-                // 		if (data.args) {
-                // 			arry = arry.concat(data.args);
-                // 		}
-                // 		data.method.apply(data.method["owner"], arry);//(null, arry);
-                // 	}
-                // 	if (time <= 0) {
-                // 		this.clearTimer(key);
-                // 	}
-                // }
             };
             TimeManager.prototype.create = function (useFrame, repeat, delay, method, args, cover) {
                 if (args === void 0) { args = null; }
@@ -229,7 +183,7 @@ var com;
                 if (data.args) {
                     arry = arry.concat(data.args);
                 }
-                data.method.apply(data.method["owner"], arry); //(null, arry);
+                data.method.apply(data.method["owner"], arry);
                 return key;
             };
             Object.defineProperty(TimeManager.prototype, "count", {

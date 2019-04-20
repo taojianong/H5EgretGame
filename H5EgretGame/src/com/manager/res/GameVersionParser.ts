@@ -37,12 +37,12 @@ module com.manager {
 			this._parmas = parmas;
 			if (packData) {
 				packData.position = 0;
-				App.log.debug(packData.length);
+				egret.log(packData.length);
 				let length_type: number = flash.checkInt(packData.readInt());
 				if (length_type <= 0 || length_type >= 0x0000ffff) {
 					let configVer_1: string = packData.readUTFBytes(20);
-					App.log.debug("游戏资源版本打包(java)：resourceCfg\n版本号:" + configVer_1);
-					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_732") + configVer_1);
+					egret.log("游戏资源版本打包(java)：resourceCfg\n版本号:" + configVer_1);
+					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_732") + configVer_1);
 
 					let configData_1: egret.ByteArray = new egret.ByteArray();
 					packData.readBytes(configData_1, 0, 0);
@@ -57,8 +57,8 @@ module com.manager {
 				else {
 					let leng: number = flash.checkInt(length_type);
 					let configVer_2: string = packData.readUTFBytes(leng);
-					App.log.debug("游戏资源版本打包：resourceCfg\n版本号:" + configVer_2);
-					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_735") + configVer_2);
+					egret.log("游戏资源版本打包：resourceCfg\n版本号:" + configVer_2);
+					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_735") + configVer_2);
 
 					let configData_2: egret.ByteArray = new egret.ByteArray();
 					packData.readBytes(configData_2, 0, 0);
@@ -73,7 +73,7 @@ module com.manager {
 			}
 			else {
 				if (!Config.isDebug) {
-					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_736"));
+					EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_736"));
 				}
 				else {
 					this.readFinish();

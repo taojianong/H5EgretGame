@@ -20,19 +20,16 @@ module fairui {
         protected _btnController: fairygui.Controller;
 
         //组件缓存池
-        protected m_componentPool: Array<IComponent> = null;
-        //组件缓存池
-        protected m_componentDic: Dictionary = null;
-        //事件缓存池
-        protected m_eventPool: EventPool = null;
+		protected m_componentDic: flash.Dictionary = null;
+		//事件缓存池
+		protected m_eventPool: EventPool = null;
 
         public constructor() {
 
             super();
 
-            this.m_componentPool = new Array<IComponent>();
-            this.m_eventPool = new EventPool();
-            this.m_componentDic = new Dictionary();
+            this.m_eventPool = EventPool.create();
+			this.m_componentDic = new flash.Dictionary();
         }
 
         protected constructFromXML(xml: any): void {
@@ -43,7 +40,7 @@ module fairui {
 
             this._btnController = this["_buttonController"];
 
-            this.Init(null);
+            this.init(null);
         }
 
         public IsInited(): boolean {
@@ -144,75 +141,6 @@ module fairui {
             }
         }
 
-        protected _listenerList: Array<any> = []; //监听事件列表
-
-		/******************************************移除所有监听*********************************************
-		 * 重载的 addEventListener方法，在添加事件侦听时将其存在一个数组中，以便记录所有已添加的事件侦听
-		 */
-        public addEventListener(type: string, listener: Function, thisObject: any): void {
-
-            var obj: Object = new Object();
-            obj["type"] = type;
-            obj["listener"] = listener;
-            obj["thisObject"] = thisObject;
-            this._listenerList = this._listenerList || [];
-            this._listenerList.push(obj);
-            super.addEventListener(type, listener, thisObject);
-        }
-
-        public removeEventListener(type: string, listener: Function, thisObject: any): void {
-
-            var obj: Object;
-            if (this._listenerList != null) {
-                this._listenerList.forEach((obj) => {
-                    if (obj.type == type && obj.listener == listener) {
-                        this._listenerList.splice(this._listenerList.indexOf(obj), 1);
-                        return;
-                    }
-                });
-            }
-            super.removeEventListener(type, listener, thisObject);
-        }
-
-		/**
-		 * 自我毁灭，删除所有事件侦听器以及从父显示对象中移除，等待垃圾回收
-		 */
-        public removeAllListeners(): void {
-            var obj: Object;
-            while (this._listenerList && this._listenerList.length > 0) {
-                obj = this._listenerList.shift();
-                if (obj) {
-                    this.removeEventListener(obj["type"], obj["listener"], obj["thisObject"]);
-                }
-            }
-        }
-
-        /**
-		 * 监听事件列表
-		 *
-		 **/
-        public get listenerList(): Array<any> {
-
-            return this._listenerList;
-        }
-
-		/**
-		 * 是否有对应事件的监听事件
-		 * @param	type      事件类型
-		 * @param	listener  事件方法
-		 * @return
-		 */
-        public hasListenerOf(type: string, listener: Function = null): boolean {
-
-            var obj: Object;
-            for (obj of this._listenerList) {
-                if (obj && obj["type"] == type && (obj["listener"] == listener || listener == null)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         /**
          * 获取条目
          * @param name 组件名字
@@ -302,182 +230,145 @@ module fairui {
             }            
         }
 
-		/**
-		 * 清理数据
-		 */
-        public clear(): void {
-
-            this.removeAllListeners();
-        }
-
-        public dispose(): void {
-
-            this.clear();
-
-            super.dispose();
-
-            this._listenerList = null;
-            this.__data = null;
-            if (this._iconObject) {
-                this._iconObject.dispose();
-            }
-            this._iconObject = null;
-            this.isDispose = true;
-        }
-
         //--------------------------------------
-
+        
         //初始化
-        public Init(param: any): void {
+		public init(param: any): void {
+            
+            this.initUI();
 
-            this.isInit = true;
-            this.InitUI();
-            this.InitData(param);
-            this.AddRootListener();
-        }
+            this.addAllListener();
+		}
 
         //初始化UI
-        public InitUI(): void {
+		public initUI(): void {
 
-        }
+		}
 
-        //初始传递参数
-        public InitData(param: any): void {
+		//增加监听事件函数
+		public addAllListener():void {
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).addAllListener();
+				}
+			} , this );
+		}
 
-        }
+		//移除监听事件函数
+		public removeAllListener():void {
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).removeAllListener();
+				}
+			} , this );
+		}
 
-        public InitComplete(): boolean {
+		/**
+		 * 添加事件监听
+		 */
+		public addGameListener(type: string, listener: Function, thisObject: any, target?: any) {
+			if( this.m_eventPool != null ){
+				this.m_eventPool.addListener( type , listener , target , thisObject );
+			}
+		}
 
-            return true;
-        }
+		/**
+		 * 移除事件监听
+		 */
+		public removeGameListener(type: string, listener: Function, thisObject: any, target?: any) {
+			if( this.m_eventPool != null ){
+				this.m_eventPool.removeListener( type , listener , target , thisObject );
+			}
+		}
 
-        //增加监听事件函数
-        public AddRootListener() {
-            if (this.m_componentPool != null) {
-                var length: number = this.m_componentPool.length;
-                for (var i: number = 0; i < length; i++) {
-                    let obj: any = this.m_componentPool[i];
-                    this.m_componentPool[i].AddRootListener();
-                }
-            }
-            this.addEventListener(egret.TouchEvent.TOUCH_END, this.onBtnEnd, this);
-            this.addEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onBtnReleaseOutsidEnd, this);
-        }
-
-        //移除监听事件函数（自己在AddRootListener函数里监听的事件要在这里自己主动移除）
-        public RemoveRootListener() {
-            if (this.m_componentPool != null) {
-                var length: number = this.m_componentPool.length;
-                for (var i: number = 0; i < length; i++) {
-                    this.m_componentPool[i].RemoveRootListener();
-                }
-            }
-            this.removeEventListener(egret.TouchEvent.TOUCH_END, this.onBtnEnd, this);
-            this.removeEventListener(egret.TouchEvent.TOUCH_RELEASE_OUTSIDE, this.onBtnReleaseOutsidEnd, this);
-        }
-
-        //释放后也触发点击事件 2019.3.15
-        private onBtnReleaseOutsidEnd( e:egret.TouchEvent ):void{
-
-            this.dispatchEvent( new egret.TouchEvent( egret.TouchEvent.TOUCH_TAP ) );
-            this.dispatchEvent( new egret.TouchEvent( egret.TouchEvent.TOUCH_END ) );
-        }
-
-        private onBtnEnd(event: egret.TouchEvent): void {
-            
-            sound.SoundManager.Inst.playSound(10010);
-        }
-
-        //全局监听事件函数（GameDispatcher.Inst派发的事件，关闭界面时会帮助移除事件）
-        public AddGameListener(type: string, listener: Function, thisObject: any, target?: any) {
-            this.m_eventPool.AddListenerInPool(type, listener, thisObject, target);
-            if (target) {
-                target.addEventListener(type, listener, thisObject);
-            } else {
-                GameDispatcher.Inst.addEventListener(type, listener, thisObject);
-            }
-        }
-
-        public RemoveGameListener(type: string, listener: Function, thisObject: any, target?: any) {
-            this.m_eventPool.RemoveListenerFromPool(type, listener, target);
-            if (target) {
-                target.removeEventListener(type, listener, thisObject);
-            } else {
-                GameDispatcher.Inst.removeEventListener(type, listener, thisObject);
-            }
-        }
-        /**
+		/**
 		 * 添加组件
 		 */
-        public AddComponent(component: IComponent): any {
+		public addComponent(component: IComponent): any {
 
-            if (component.GetHashCode() in this.m_componentDic) {
-                //console.log("已有相同组件");
-                return component;
-            }
+			if ( component == null || this.m_componentDic.hasOwnProperty( component.getHashCode() ) ) {
+				//console.log("已有相同组件");
+				return component;
+			}
 
-            this.m_componentPool.push(component);
-            this.m_componentDic[component.GetHashCode()] = component;
-            return component;
-        }
+			this.m_componentDic.setItem( component.getHashCode(), component );
+			return component;
+		}
 
 		/**
 		 * 移除组件
 		 */
-        public removeComponent(component: IComponent): void {
+		public removeComponent(component: IComponent): void {
 
-            var pool: IComponent = this.m_componentDic[component.GetHashCode()];
-            if (pool == null) return;
+			if( component == null ) return;
+			var pool: IComponent = this.m_componentDic[component.getHashCode()];
+			if (pool == null) return;
 
-            delete this.m_componentDic[component.GetHashCode()];
-            let index: number = this.m_componentPool.indexOf(component);
-            if (index != -1) {
-                this.m_componentPool.splice(index, 1);
-            }
-        }
+			delete this.m_componentDic[component.getHashCode()];
+		}
 
-        /**
-		 * 重置
+		/**
+		 * 移除所有组件
 		 */
-        public Reset(): void {
+		public removeAllComponent():void{
 
-            if (this.m_eventPool != null) {
-                this.m_eventPool.ClearListenerFromPool(GameDispatcher.Inst);
-            }
-            if (this.m_componentPool != null) {
-                var length: number = this.m_componentPool.length;
-                for (var i: number = 0; i < length; i++) {
-                    this.m_componentPool[i].Reset();
-                }
-            }
-        }
+			this.m_componentDic.reset();
+		}
 
-        protected DestroyComponent(): void {
-            var length: number = this.m_componentPool.length;
-            for (var i: number = 0; i < length; i++) {
-                this.m_componentPool[i].Destroy();
-            }
+		/**
+		 * 重置界面
+		 */
+		public clear(): void {
+
+			if (this.m_eventPool != null) {
+				this.m_eventPool.removeAllListener();
+			}
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).clear();
+				}
+			} , this );
+		}
+
+		protected destroyComponent(): void {
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).dispose();
+				}
+			} , this );		
+		}
+
+		/**
+		 * 获取唯一hashCode
+		 */
+		public getHashCode(): number {
+
+			return this.hashCode;
+		}
+
+        public get isDisposed(): boolean {
+            return this["_disposed"];
         }
 
 		/**
-		 * 销毁，完全销毁对象和资源
+		 * 释放所有资源
 		 */
-        public Destroy(): void {
+		public dispose():void{
 
-            this.DestroyComponent();
-            if (this.m_eventPool) {
-                this.m_eventPool.Dispose();
-            }
-            this.m_componentPool = null;
-            this.m_componentDic = null;
-            this.m_eventPool = null;
+            if (this["_disposed"])
+                return;
 
-            this.dispose();
-        }
+			super.dispose();
 
-        public GetHashCode(): number {
+			this.clear();
 
-            return this.hashCode;
-        }
+            this.__data = null;
+			if (this.m_eventPool) {
+				this.m_eventPool.dispose();
+			}
+			this.m_componentDic = null;
+			this.m_eventPool = null;
+		}
+
     }
 }

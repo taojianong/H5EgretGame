@@ -12,7 +12,7 @@ var com;
                 this._isCache = false;
                 this._httpStatus = "";
                 if (GLoaderManager.instance) {
-                    App.log.error("GLoaderManager an only use getInstance() to get an instance!");
+                    egret.error("GLoaderManager an only use getInstance() to get an instance!");
                     return;
                 }
                 this._loadMap = new flash.Dictionary();
@@ -106,7 +106,7 @@ var com;
                 }
                 request = new egret.URLRequest(this._url);
                 this._urlLoader.load(request);
-                //App.log.warn("GLoaderManager.onLoad：" + this._url);
+                //egret.warn("GLoaderManager.onLoad：" + this._url);
             };
             GLoaderManager.prototype.onComplete = function (event) {
                 var content = this._urlLoader.data;
@@ -192,7 +192,7 @@ var com;
             // protected onStatus(e: egret.HTTPStatusEvent) {
             // }
             GLoaderManager.prototype.onLoadError = function (event) {
-                App.log.warn("GLoaderManager.onLoadError：" + this._url, "httpStatus", this._httpStatus, event); //yr_engine.core.utils.debug.log.logWarn("加载错误:",e,this._url,"_httpStatus",this._httpStatus);
+                egret.warn("GLoaderManager.onLoadError：" + this._url, "httpStatus", this._httpStatus, event); //yr_engine.core.utils.debug.log.logWarn("加载错误:",e,this._url,"_httpStatus",this._httpStatus);
                 var loadData;
                 var loadDataList = this._loadMap.getItem(this._url);
                 this._loadMap.delItem(this._url);

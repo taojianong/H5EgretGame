@@ -2,9 +2,13 @@
 * 对象存储器,可根据字符名称和对象作为标签名来存储的数据.
 * 建议"get"一次后缓存好数据不要频繁使用"get对象key","字符key"不影响
 * 支持用对象作为key存储数据.
-* @author 肖亮亮
+* @author clong 2019.4.20
 */
 module flash {
+
+    /**
+     * 数据字典
+     */
     export class Dictionary {
         public static hashCode: number = 0;
         public static HASCODE_NAME: string = "____hashCode";
@@ -20,17 +24,14 @@ module flash {
         private _hashMaps: Object;
 
         private _objectMaps: Object;
+
         public constructor(weak?: boolean) {
+
             this._maps = {};
             this._hashMaps = {};
             this._objectMaps = {};
-            // this._objKeys = [];
-            // this._objDatum = [];
         }
-        // /**对象索引数组*/
-        // private _objKeys: Array<any>;
-        // /**对象索引数组对应的数据*/
-        // private _objDatum: Array<any>;
+
         /**
          * 添加指定类型的数据
          * @param key 可以是对象、字符、数字
@@ -50,7 +51,7 @@ module flash {
                 this._hashMaps[key.hashCode] = [key, data];
             } else {                
                 if( !key ){
-                    App.log.error("key can not null.");
+                    egret.error("key can not null.");
                     return;
                 }
                 if (!key.hasOwnProperty(Dictionary.HASCODE_NAME)) {
@@ -59,14 +60,6 @@ module flash {
                 }
                 this._objectMaps[key[Dictionary.HASCODE_NAME]] = [key, data];
                 this._count++;
-                // let index: number = this._objKeys.lastIndexOf(key);
-                // if (index == -1) {
-                //     this._objKeys.push(key);
-                //     this._objDatum.push(data);
-                //     this._count++;
-                // } else {
-                //     this._objDatum[index] = data;
-                // }
             }
         }
         /**
@@ -92,12 +85,6 @@ module flash {
                         this._count--;
                     }
                 }
-                // index = this._objKeys.lastIndexOf(key);
-                // if (index != -1) {
-                //     this._objKeys.splice(index, 1);
-                //     this._objDatum.splice(index, 1);
-                //     this._count--;
-                // }
             }
         }
         /**
@@ -118,18 +105,14 @@ module flash {
                 }
                 return this._hashMaps[key.hashCode][1];
             } else {
-                // let index: number = this._objKeys.lastIndexOf(key);
-                // if (index != -1) {
-                //     return this._objDatum[index];
-                // }
                 if (key && key.hasOwnProperty(Dictionary.HASCODE_NAME)) {
                     if (this._objectMaps[key[Dictionary.HASCODE_NAME]])
                         return this._objectMaps[key[Dictionary.HASCODE_NAME]][1];
                     else
                         return null;
-                }
-                else
+                }else{
                     return null;
+                } 
             }
         }
         /**
@@ -143,10 +126,6 @@ module flash {
             } else if (key instanceof egret.HashObject) {
                 return this._hashMaps[key.hashCode] ? true : false;
             } else {
-                // let index: number = this._objKeys.lastIndexOf(key);
-                // if (index != -1) {
-                //     return true;
-                // }
                 if (key.hasOwnProperty(Dictionary.HASCODE_NAME)) {
                     return this._objectMaps[key[Dictionary.HASCODE_NAME]] ? true : false;
                 }
@@ -154,18 +133,20 @@ module flash {
                     return false;
             }
         }
+
         /**
          *  获取字典中储存数据的个数
          *
          */
         public get length(): number {
+
             return this._count;
         }
+
         /**
          * 对字典中的每一项执行函数，用该函数可以省去for循环，
          * 允许回调函数中删除当前正在执行的key，
          * 但是删除字典中的其他key可能会出现少遍历或重复遍历的情况.
-         *
          */
         public forEach(callback: (key: any, data: any, ...args) => void, thisObject: any, ...args): void {
             let name, arr;
@@ -179,15 +160,8 @@ module flash {
             for (name in this._objectMaps) {
                 callback.call(thisObject, this._objectMaps[name][0], this._objectMaps[name][1], args);
             }
-            // let j: number = 0;
-            // for (j = 0; j < this._objKeys.length; j++) {
-            //     //  let key: any = this._objKeys[j];
-            //     callback.apply(thisObject, [this._objKeys[j], this._objDatum[j], args]);
-            //     // if (key != this._objKeys[j]) {
-            //     //     j--;
-            //     // }
-            // }
         }
+
         /**
          *  获取字典中储存key和data的队列
          *
@@ -205,10 +179,6 @@ module flash {
             for (name in this._objectMaps) {
                 _list.push({ key: this._objectMaps[name][0], data: this._objectMaps[name][1] });
             }
-            // let len: number = this._objectMaps[key[Dictionary.HASCODE_NAME]].length;
-            // for (let j: number = 0; j < len; j++) {
-            //     _list.push({ key: this._objKeys[j], data: this._objDatum[j] });
-            // }
             return _list;
         }
         /**
@@ -227,10 +197,9 @@ module flash {
             for (name in this._objectMaps) {
                 _list.push(this._objectMaps[name][0]);
             }
-            // this._objectMaps[key[Dictionary.HASCODE_NAME]]
-            // _list = _list.concat(this._objKeys);
             return _list;
         }
+
         /**获取字典中储存data的队列*/
         public get datum(): Array<any> {
             let _list: Array<{ key: any; data: any }> = [];
@@ -244,21 +213,30 @@ module flash {
             for (name in this._objectMaps) {
                 _list.push(this._objectMaps[name][1]);
             }
-            //_list = _list.concat(this._objDatum);
             return _list;
         }
+
         /**删除字典中的所有数据*/
-        public destroy(): void {
+        public reset(): void {
             this._maps = {};
             this._hashMaps = {};
             this._objectMaps = {};
-            // this._objKeys.length = 0;
-            // this._objDatum.length = 0;
             this._count = 0;
         }
+
+        /**
+         * 字典释放
+         */
+        public dispose():void{
+
+            this._maps = null;
+            this._hashMaps = null;
+            this._objectMaps = null;
+            this._count = 0;
+        }
+        
         /**
          *  打印字典中的所有数据
-         *
          */
         public dump(): void {
             let name, arr;
@@ -273,10 +251,6 @@ module flash {
                 arr = this._objectMaps[name];
                 console.log("key:", arr[0], "---> data:", arr[1]);
             }
-            // let len: number = this._objKeys.length;
-            // for (let j: number = 0; j < len; j++) {
-            //     console.log("key:", typeof (this._objKeys[j]), " ---> data:", this._objDatum[j]);
-            // }
         }
     }
 }

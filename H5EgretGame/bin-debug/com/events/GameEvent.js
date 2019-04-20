@@ -27,6 +27,20 @@ var GameEvent = (function (_super) {
     GameEvent.STGAE_RESIZE = "GameEvent.stageResize";
     /**加载进度 */
     GameEvent.LOAD_PROGRESS = "GameEvent.loadProgress";
+    /**列表渲染 */
+    GameEvent.EGLIST_RENDER = "GameEvent.EGlistRender";
+    /**列表渲染完成 */
+    GameEvent.EGLIST_COMPLETE = "GameEvent.EGlistComplete";
+    /**结束引导 */
+    GameEvent.GUIDE_END = "GameEvent.guideEnd";
+    /**寻找引导对象 */
+    GameEvent.GUIDE_SEARCH_TARGET = "GameEvent.guideSearchTarget";
+    /**设置引导目标对象 */
+    GameEvent.GUIDE_TARGET = "GameEvent.guideTarget";
+    /**主加载界面加载完成 */
+    GameEvent.MAIN_LOAD_COMPLETE = "GameEvent.mainLoadComplete";
+    /**开始游戏 */
+    GameEvent.START_GAME = "GameEvent.stageGame";
     return GameEvent;
 }(egret.Event));
 __reflect(GameEvent.prototype, "GameEvent");

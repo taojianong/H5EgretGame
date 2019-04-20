@@ -1,10 +1,11 @@
 module com.time {
 	/**时钟管理器[同一函数多次计时，默认会被后者覆盖,delay小于1会立即执行]*/
 	export class TimeManager {
-		private _pool: Array<TimerHandler>;// = new Array<TimerHandler>();
-		private _handlers: flash.Dictionary;// = new flash.Dictionary();
-		/**当前帧的时间点*/
+		private _pool: Array<TimerHandler>;
+		private _handlers: flash.Dictionary;
+		/**当前帧的时间点,毫秒，进入游戏开始计时*/
 		private _currTimer: number = 0;
+		/**当前帧数 */
 		private _currFrame: number = 0;
 		private _count: number = 0;
 		private _index: number = 0;
@@ -14,98 +15,67 @@ module com.time {
 		/**上一帧的时间点*/
 		private _fpsLastTime: number = 0;
 		private _fpsCount: number = 0;
-		private _serverTimeDict: flash.Dictionary;// = new flash.Dictionary();
+		private _serverTimeDict: flash.Dictionary;
 
 		public constructor() {
+
 			this._pool = new Array<TimerHandler>();
 			this._handlers = new flash.Dictionary();
 			this._serverTimeDict = new flash.Dictionary();
 			this._currTimer = egret.getTimer();
-			App.stage.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+			Global.stage.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+		}
+
+		/**当前进入游戏时间，毫秒 */
+		public get currFrame():number{
+
+			return this._currFrame;
 		}
 
 		public get frametime(): number {
+
 			return this._frametime;
 		}
 
 		private onEnterFrame(e: egret.Event) {
 			let key: any, handler: TimerHandler;
 			let _self__: TimeManager = this;
-			// try {
-				_self__._currFrame++;
-				_self__._currTimer = egret.getTimer();
-				_self__._frametime = _self__._currTimer - _self__._lastTime;
-				_self__._lastTime = _self__._currTimer;
-				let fpsInv: number = _self__._currTimer - _self__._fpsLastTime;
-				if (fpsInv > 1000) {
-					let fps: number = (_self__._currFrame - _self__._fpsCount) / (fpsInv * 0.001)//(fpsInv / 1000);
-					_self__._fpsCount = _self__._currFrame;
-					_self__._fpsLastTime = _self__._currTimer;
-					Config.currentGameFps = Math.floor(fps * 1000) * 0.001;//Math.floor(fps * 1000) / 1000;
-				}
-				//let lastTime:number = egret.getTimer();
-				_self__._handlers.forEach(function (key, handler) {
-					if (handler != null && handler.method != null) {
-						let t: number = (handler.userFrame ? _self__._currFrame : _self__._currTimer);
-						if (t >= handler.exeTime) {
-							let method: Function = handler.method;
-							let args: any[] = handler.args;
-							if (handler.repeat) {
-								while (t >= handler.exeTime) {
-									//if (key in this._handlers) {
-									if (_self__._handlers.hasOwnProperty(key)) {
-										handler.exeTime += handler.delay;
-										method.apply(method["owner"], args);
-									}
-									else {
-										break;
-									}
+			_self__._currFrame++;
+			_self__._currTimer = egret.getTimer();
+			_self__._frametime = _self__._currTimer - _self__._lastTime;
+			_self__._lastTime = _self__._currTimer;
+			let fpsInv: number = _self__._currTimer - _self__._fpsLastTime;
+			if (fpsInv > 1000) {
+				let fps: number = (_self__._currFrame - _self__._fpsCount) / (fpsInv * 0.001);
+				_self__._fpsCount = _self__._currFrame;
+				_self__._fpsLastTime = _self__._currTimer;
+				Config.currentGameFps = Math.floor(fps * 1000) * 0.001;
+			}
+			_self__._handlers.forEach(function (key, handler) {
+				if (handler != null && handler.method != null) {
+					let t: number = (handler.userFrame ? _self__._currFrame : _self__._currTimer);
+					if (t >= handler.exeTime) {
+						let method: Function = handler.method;
+						let args: any[] = handler.args;
+						if (handler.repeat) {
+							while (t >= handler.exeTime) {
+								if (_self__._handlers.hasOwnProperty(key)) {
+									handler.exeTime += handler.delay;
+									method.apply(method["owner"], args);
+								}
+								else {
+									break;
 								}
 							}
-							else {
-								_self__.clearTimer(key);
-								method.apply(method["owner"], args);
-							}
+						}
+						else {
+							_self__.clearTimer(key);
+							method.apply(method["owner"], args);
 						}
 					}
-				}, _self__);
-				//App.log.debug(egret.getTimer() - lastTime);
-				// for (key in this._handlers.map) {
-				// 	//key = this._handlers.map[forinlet__][0];						
-				// 	handler = <any>this._handlers.getItem(key);
-				// 	if (handler == null && handler.method == null)
-				// 		continue;
-				// 	let t: number = (handler.userFrame ? this._currFrame : this._currTimer);
-				// 	if (t >= handler.exeTime) {
-				// 		let method: Function = handler.method;
-				// 		let args: Array<any> = handler.args;
-				// 		if (handler.repeat) {
-				// 			while (t >= handler.exeTime) {
-				// 				if (key in this._handlers) {
-				// 					handler.exeTime += handler.delay;
-				// 					method.apply(method["owner"], args);
-				// 				}
-				// 				else {
-				// 					break;
-				// 				}
-				// 			}
-				// 		}
-				// 		else {
-				// 			this.clearTimer(key);
-				// 			method.apply(method["owner"], args);
-				// 		}
-				// 	}
-				// }
-				_self__.serverTimeHandler();
-			// }
-			// catch (e) {
-			// 	// let str: string = "";
-			// 	// if (key != null)
-			// 	// 	str += "@@key" + key;
-			// 	// if (handler != null)
-			// 	// 	str += handler.method + "@@" + handler.delay + "@@" + handler.exeTime + "@@" + handler.repeat + "@@" + handler.userFrame + "@@" + handler.args;
-			// 	App.log.error("TimeManager.onEnterFrame Error.", e);
-			// }
+				}
+			}, _self__);
+			_self__.serverTimeHandler();
 		}
 
 		private serverTimeHandler() {
@@ -127,22 +97,6 @@ module com.time {
 					}
 				}, _self__);
 			}
-			// for (let key in this._serverTimeDict.map) {
-			// 	//let key = this._serverTimeDict.map[forinlet__][0];
-			// 	let data: ServerTimeData = <any>this._serverTimeDict.getItem(key);
-			// 	let time: number = data.endServerTime - ctSec;
-			// 	if (time != data.spuleTime) {
-			// 		data.spuleTime = time;
-			// 		let arry: Array<any> = [data];
-			// 		if (data.args) {
-			// 			arry = arry.concat(data.args);
-			// 		}
-			// 		data.method.apply(data.method["owner"], arry);//(null, arry);
-			// 	}
-			// 	if (time <= 0) {
-			// 		this.clearTimer(key);
-			// 	}
-			// }
 		}
 
 		private create(useFrame: boolean, repeat: boolean, delay: number, method: Function, args: Array<any> = null, cover: boolean = true): any {
@@ -169,6 +123,7 @@ module com.time {
 			this._count++;
 			return key;
 		}
+
 		/**
 		 * 定时执行一次
 		 * @param	delay  延迟时间(单位毫秒)
@@ -219,7 +174,7 @@ module com.time {
 			if (data.args) {
 				arry = arry.concat(data.args);
 			}
-			data.method.apply(data.method["owner"], arry);//(null, arry);
+			data.method.apply(data.method["owner"], arry);
 			return key;
 		}
 

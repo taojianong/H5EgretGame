@@ -18,10 +18,10 @@ var com;
                 set: function (value) {
                     this._playType = value;
                     if (this._playType) {
-                        App.timer.doFrameLoop(20, flash.bind(this.playSoundHandler, this));
+                        Global.timer.doFrameLoop(20, flash.bind(this.playSoundHandler, this));
                     }
                     else {
-                        App.timer.clearTimer(flash.bind(this.playSoundHandler, this));
+                        Global.timer.clearTimer(flash.bind(this.playSoundHandler, this));
                     }
                 },
                 enumerable: true,
@@ -40,7 +40,7 @@ var com;
                 if (this._playList.length > 0) {
                     var jsons = JSON.stringify(this._playList);
                     egret.ExternalInterface.call("playSound", jsons);
-                    App.log.debug("开始播放音效" + jsons);
+                    egret.log("开始播放音效" + jsons);
                     this._playList = [];
                 }
             };

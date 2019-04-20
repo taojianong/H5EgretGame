@@ -7,9 +7,7 @@ module fairui {
 	export class HSlider extends fairygui.GSlider implements IComponent {
 
 		//组件缓存池
-		protected m_componentPool: Array<IComponent> = null;
-		//组件缓存池
-		protected m_componentDic: Dictionary = null;
+		protected m_componentDic: flash.Dictionary = null;
 		//事件缓存池
 		protected m_eventPool: EventPool = null;
 
@@ -19,16 +17,15 @@ module fairui {
 
 			super();
 
-			this.m_componentPool = new Array<IComponent>();
 			this.m_eventPool = new EventPool();
-			this.m_componentDic = new Dictionary();
+			this.m_componentDic = new flash.Dictionary();
 		}
 
 		protected constructExtension(buffer: fairygui.ByteBuffer): void {
 
 			super.constructExtension(buffer);
 
-			this.Init(null);
+			this.init(null);
 		}
 
 		protected constructFromXML(xml: any): void {
@@ -60,84 +57,76 @@ module fairui {
 
 		//-------------------------------------------------------
 
-		//初始化
-		public Init(param: any): void {
+		/**
+		 * 增加监听事件函数
+		 */
+		public addAllListener():void {
 
-			this.InitUI();
-			this.AddRootListener();
+			if( this.m_eventPool != null ){
+				this.m_eventPool.relistenerAll();
+				this.m_componentDic.forEach( function( key:any , data:any ):void{
+					if( egret.is( data , "IComponent" ) ){
+						(<IComponent>data).addAllListener();
+					}
+				} , this );
+			}			
+		}
+
+		/**
+		 * 移除监听事件函数
+		 */
+		public removeAllListener():void {
+
+			if( this.m_eventPool != null ){
+				this.m_eventPool.removeAllListener();
+				this.m_componentDic.forEach( function( key:any , data:any ):void{
+					if( egret.is( data , "IComponent" ) ){
+						(<IComponent>data).removeAllListener();
+					}
+				} , this );
+			}			
+		}
+
+		/**
+		 * 添加事件监听
+		 */
+		public addGameListener(type: string, listener: Function, thisObject: any, target?: any) {
+			if( this.m_eventPool != null ){
+				this.m_eventPool.addListener( type , listener , target , thisObject );
+			}
+		}
+
+		/**
+		 * 移除事件监听
+		 */
+		public removeGameListener(type: string, listener: Function, thisObject: any, target?: any) {
+			if( this.m_eventPool != null ){
+				this.m_eventPool.removeListener( type , listener , target , thisObject );
+			}
+		}
+
+		//初始化
+		public init(param: any): void {
+
+			this.initUI();
+			this.addAllListener();
 		}
 
 		//初始化UI
-		public InitUI(): void {
+		public initUI(): void {
 
 			// this.titleTxt = this.getChild("title").asTextField;
-		}
-
-		//初始传递参数
-		public InitData(param: any): void {
-
-		}
-
-		public InitComplete(): boolean {
-
-			return true;
-		}
-
-		//增加监听事件函数
-		public AddRootListener() {
-			if (this.m_componentPool != null) {
-				var length: number = this.m_componentPool.length;
-				for (var i: number = 0; i < length; i++) {
-					let obj: any = this.m_componentPool[i];
-					this.m_componentPool[i].AddRootListener();
-				}
-			}
-
-			this.AddGameListener(fairygui.StateChangeEvent.CHANGED, this.onSliderChangedHandler, this, this);
-		}
-
-		//移除监听事件函数（自己在AddRootListener函数里监听的事件要在这里自己主动移除）
-		public RemoveRootListener() {
-			if (this.m_componentPool != null) {
-				var length: number = this.m_componentPool.length;
-				for (var i: number = 0; i < length; i++) {
-					this.m_componentPool[i].RemoveRootListener();
-				}
-			}
-			this.RemoveGameListener(fairygui.StateChangeEvent.CHANGED, this.onSliderChangedHandler, this, this);
-		}
-
-		//全局监听事件函数（GameDispatcher.Inst派发的事件，关闭界面时会帮助移除事件）
-		public AddGameListener(type: string, listener: Function, thisObject: any, target?: any) {
-			this.m_eventPool.AddListenerInPool(type, listener, thisObject, target);
-			if (target) {
-				target.addEventListener(type, listener, thisObject);
-			} else {
-				GameDispatcher.Inst.addEventListener(type, listener, thisObject);
-			}
-		}
-
-		public RemoveGameListener(type: string, listener: Function, thisObject: any, target?: any) {
-			this.m_eventPool.RemoveListenerFromPool(type, listener, target);
-			if (target) {
-				target.removeEventListener(type, listener, thisObject);
-			} else {
-				GameDispatcher.Inst.removeEventListener(type, listener, thisObject);
-			}
 		}
 
 		/**
 		 * 添加组件
 		 */
-		public AddComponent(component: IComponent): any {
+		public addComponent(component: IComponent): any {
 
-			if (component.GetHashCode() in this.m_componentDic) {
-				//console.log("已有相同组件");
-				return component;
+			if( component ){
+				let hashCode:number = component.getHashCode();
+				this.m_componentDic.setItem( hashCode , component );
 			}
-
-			this.m_componentPool.push(component);
-			this.m_componentDic[component.GetHashCode()] = component;
 			return component;
 		}
 
@@ -146,49 +135,60 @@ module fairui {
 		 */
 		public removeComponent(component: IComponent): void {
 
-			var pool: IComponent = this.m_componentDic[component.GetHashCode()];
-			if (pool == null) return;
-
-			delete this.m_componentDic[component.GetHashCode()];
-			let index: number = this.m_componentPool.indexOf(component);
-			if (index != -1) {
-				this.m_componentPool.splice(index, 1);
+			if( component != null ){
+				let hashCode:number = component.getHashCode();
+				this.m_componentDic.delItem( hashCode  );
 			}
 		}
 
 		/**
-		 * 重置
+		 * 移除所有组件
 		 */
-		public Reset(): void {
+		public removeAllComponent():void{
 
-			if (this.m_eventPool != null) {
-				this.m_eventPool.ClearListenerFromPool(GameDispatcher.Inst);
-			}
-			if (this.m_componentPool != null) {
-				var length: number = this.m_componentPool.length;
-				for (var i: number = 0; i < length; i++) {
-					this.m_componentPool[i].Reset();
-				}
-			}
+			this.m_componentDic.reset();
 		}
 
-		protected DestroyComponent(): void {
-			var length: number = this.m_componentPool.length;
-			for (var i: number = 0; i < length; i++) {
-				this.m_componentPool[i].Destroy();
+		/**
+		 * 获取唯一hashCode
+		 */
+		public getHashCode(): number {
+
+			return this.hashCode;
+		}
+
+		/**
+		 * 重置界面
+		 */
+		public clear(): void {
+
+			if (this.m_eventPool != null) {
+				this.m_eventPool.removeAllListener();
 			}
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).clear();
+				}
+			} , this );
+		}
+
+		protected destroyComponent(): void {
+			this.m_componentDic.forEach( function( key:any , data:any ):void{
+				if( egret.is( data , "IComponent" ) ){
+					(<IComponent>data).dispose();
+				}
+			} , this );
 		}
 
 		/**
 		 * 销毁，完全销毁对象和资源
 		 */
-		public Destroy(): void {
+		public dispose(): void {
 
-			this.DestroyComponent();
+			this.destroyComponent();
 			if (this.m_eventPool) {
-				this.m_eventPool.Dispose();
+				this.m_eventPool.dispose();
 			}
-			this.m_componentPool = null;
 			this.m_componentDic = null;
 			this.m_eventPool = null;
 

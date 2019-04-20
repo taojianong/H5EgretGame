@@ -58,7 +58,7 @@ var fairui;
             this._progressDict = new flash.Dictionary();
             this._completeDict = new flash.Dictionary();
         };
-        Object.defineProperty(NetHandler.prototype, "isDispose", {
+        Object.defineProperty(NetHandler.prototype, "isDisposed", {
             get: function () {
                 return this._isDispose;
             },

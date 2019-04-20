@@ -1,54 +1,103 @@
 
 /**
- * 通用事件类 cl 2019.3.23
+ * 通用事件类
+ * @author clong 2019.3.23
  */
 class EventObj {
 
-    private _eventKey: string;
-    private _fun: Function;
-    private _source: egret.EventDispatcher;
-    private _handler: Function;
+    private static pool:Array<EventObj> = [];
+
+    public static create( type: string, listener: Function, target: egret.EventDispatcher = null, thisObj: any = null ):EventObj{
+
+        let obj:EventObj = EventObj.pool.shift();
+        if( obj == null ){
+            obj = new EventObj();
+        }
+        obj.type = type;
+        obj.listener = listener;
+        obj.target = target;
+        obj.thisObj = thisObj;
+        return obj;
+    }
+
+    public static recover( obj:EventObj ):void{
+
+        if( obj != null && EventObj.pool.indexOf( obj ) == -1 ){
+            EventObj.pool.push( obj );
+        }
+    }
+
+    //----------------------------------------------------
+
+    private _type: string;
+    private _listener: Function;
+    private _target: egret.EventDispatcher;
     private _thisObj: any;
 
     /**
      * 事件构造函数
-     * @param eventKey 事件Key
-     * @param fun 事件响应处理函数
-     * @param source 事件绑定的控件
-     * @param handler 是否是绑定控件的 handler方法
+     * @param type      事件类型
+     * @param listener       事件响应处理函数
+     * @param target    事件绑定的控件
+     * @param _hisObj   是否是绑定控件的 handler方法
      * 
      */
-    public constructor(eventKey: string, fun: Function, source: egret.EventDispatcher = null, thisObj: any = null, handler: Function = null, args: Array<any> = null) {
+    public constructor( type: string = "" , listener: Function = null , target: egret.EventDispatcher = null, thisObj: any = null ) {
 
-        this._eventKey = eventKey;
-        this._fun = fun;
-        this._source = source;
-        this._handler = handler;
+        this._type = type;
+        this._listener = listener;
+        this._target = target;
         this._thisObj = thisObj;
     }
 
-    public get eventKey(): string {
+    public set type(value:string){
 
-        return this._eventKey;
+        this._type = value;
     }
 
-    public get fun(): Function {
+    public get type(): string {
 
-        return this._fun;
+        return this._type;
     }
 
-    public get source(): egret.EventDispatcher {
+    public set listener( value:Function ){
 
-        return this._source;
+        this._listener = value;
     }
 
-    public get handler(): Function {
+    public get listener(): Function {
 
-        return this._handler;
+        return this._listener;
+    }
+
+    public set target( value:egret.EventDispatcher ){
+
+        this._target = value;
+    }
+
+    public get target(): egret.EventDispatcher {
+
+        return this._target;
+    }
+
+    public set thisObj( value:any ){
+
+        this._thisObj = value;
     }
 
     public get thisObj(): any {
 
         return this._thisObj;
+    }
+
+    /**重置并回收 */
+    public recover():void{
+
+        this._type = "";
+        this._listener = null;
+        this._target = null;
+        this._thisObj = null;
+
+        EventObj.recover( this );
     }
 }

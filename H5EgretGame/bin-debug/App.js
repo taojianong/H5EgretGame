@@ -11,11 +11,11 @@ var App = (function () {
     /**APP启动*/
     App.init = function (main) {
         App.mainUI = main;
-        App.stage = main.stage;
-        App.lang = new LangManager();
+        // App.stage = main.stage;
+        // App.lang = new LangManager();
         //App.lang.addLangObject(RES.getRes("login_language"));
-        App.log = new LogManager();
-        App.timer = new com.time.TimeManager();
+        // App.log = new LogManager();
+        // App.timer = new com.time.TimeManager();
         App.asset = new com.manager.AssetManager();
         App.config = new com.bean.DataManager();
         App.mousic = new com.manager.MousicManager();
@@ -38,24 +38,6 @@ var App = (function () {
         },
         set: function (value) {
             this._stageY = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(App, "stageWidth", {
-        /**有效显示区域宽度 */
-        get: function () {
-            return this.stage.stageWidth;
-            //return window.innerWidth;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(App, "stageHeight", {
-        /**有效显示区域高度 */
-        get: function () {
-            //return window.innerHeight;
-            return this.stage.stageHeight;
         },
         enumerable: true,
         configurable: true

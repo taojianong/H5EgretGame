@@ -11,7 +11,7 @@ var com;
                 /**是否完成了策划配置文件解析*/
                 this.isComplete = false;
                 if (DataConfigUtils._instances) {
-                    App.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
+                    Global.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
                     return;
                 }
                 this._beanConfigPropertyErrorDict = new flash.Dictionary();
@@ -74,8 +74,8 @@ var com;
                 }
             };
             DataConfigUtils.prototype.notHaveBean = function (configName, key) {
-                var info = App.lang.getLang("lang_client_721", configName, key); //配置表里缺少条目，表名：{0}，主键Id：{1}
-                App.log.error(info);
+                var info = Global.lang.getLang("lang_client_721", configName, key); //配置表里缺少条目，表名：{0}，主键Id：{1}
+                egret.error(info);
             };
             DataConfigUtils.prototype.beanConfigPropertyError = function (configName, key) {
                 var dict = this._beanConfigPropertyErrorDict.getItem(configName);

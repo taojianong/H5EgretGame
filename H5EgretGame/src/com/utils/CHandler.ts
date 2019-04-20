@@ -38,7 +38,7 @@ class CHandler implements IDispose {
 		}
 	}
 
-	public get isDispose(): boolean {
+	public get isDisposed(): boolean {
 		return this._isDispose;
 	}
 

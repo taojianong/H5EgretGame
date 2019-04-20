@@ -22,7 +22,7 @@ class AssetPathManager {
 
 	public constructor() {
 		if (AssetPathManager.instance) {
-			App.log.error("AssetPathManager an only use getInstance() to get an instance!");
+			egret.error("AssetPathManager an only use getInstance() to get an instance!");
 			return;
 		}
 	}

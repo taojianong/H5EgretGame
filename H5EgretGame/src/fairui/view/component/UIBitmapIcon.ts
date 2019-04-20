@@ -47,10 +47,11 @@ module fairui {
 			}
 			
 			if (this._iconUrl != value && value) {
-				LoadQueue.Inst.loadTexture( value , function loadComplete(value: TextureResource, param: string): void {					
-					this.texture = value.Res();
+				LoaderManager.loadImageRes( this._iconUrl , this , function loadComplete(texture:egret.Texture):void{
+					this.texture = texture;
 					this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
-				}, this,null);
+				} );
+
 			} else if (!value) {
 				(<fairygui.GLoader>this._iconObject).texture = null;
 			}
@@ -79,13 +80,13 @@ module fairui {
 			return this._iconUrl;
 		}
 
-		public setIcon(url: string, callback: Function = null, thisObject: any = null, level: number = LoadLevel.DEFAULT, IsClearTexture: boolean = false): void {
+		public setIcon(url: string, callback: Function = null, thisObject: any = null ): void {
 			
 			if (!url) {
 				if (callback != null && thisObject != null) {
 					callback.call(thisObject);
 				}
-				this.Reset();
+				this.clear();
 			}else if( url && url.indexOf("ui://") == 0 ){
 				this.icon = url;
 				if (callback != null && thisObject != null) {
@@ -94,23 +95,29 @@ module fairui {
 			}else if ( url.indexOf("/") < 0 ) {
 				this.texture = RES.getRes(url);
 			} else {
-				this.LoadImage(url, callback, thisObject, level, IsClearTexture);
+				this.loadImage(url, callback, thisObject );
 			}
 			this._iconUrl = url;
 		}
 
-		public LoadImage(url: string, callback: Function = null, thisObject: any = null, level: number = LoadLevel.DEFAULT, IsClearTexture: boolean = false): void {
+		/**
+		 * 加载图片
+		 * @param url 			图片地址
+		 * @param callback 		加载完成调用方法
+		 * @param thisObject
+		 */
+		public loadImage(url: string, callback: Function = null, thisObject: any = null ): void {
 
 			var sel: UIBitmapIcon = this;
 			if (sel._iconUrl == url) return;
-			sel.Reset();//IsClearTexture ? sel.Dispose() : sel.Reset();
+			sel.clear();
 			sel._iconUrl = url;
 			if (url != null) {
-				LoadQueue.Inst.loadTexture(url, onComplete, sel, url, level);
+				LoaderManager.loadImageRes( this._iconUrl , this , onComplete );
 			}			
-			function onComplete(value: TextureResource, param: string): void {
+			function onComplete(value: egret.Texture, param: string): void {
 				if (value && url == param) {
-					sel.texture = value.Res();
+					sel.texture = value;
 					if (callback != null && thisObject != null) {
 						callback.call(thisObject);
 					}
@@ -118,24 +125,23 @@ module fairui {
 			}
 		}
 
-		public LoadRes(resName: string, atlas: string, callback: Function = null, thisObject: any = null, level: number = LoadLevel.DEFAULT): void {
+		public LoadRes(resName: string, atlas: string, callback: Function = null, thisObject: any = null ): void {
 			var sel: UIBitmapIcon = this;
 			if (sel._iconUrl == resName) return;
-			sel.Dispose();
+			sel.dispose();
 			sel._iconUrl = resName;
-			if (atlas != null) LoadQueue.Inst.loadGroup(atlas, onComplete, sel, resName, level);
-			function onComplete(value: GroupResource, param: string): void {
-				if (value.name == atlas && resName == param) {
-					this.resource = value;
-					sel.texture = value.ResByName(resName);
-					if (callback != null && thisObject != null) {
-						callback.call(thisObject);
-					}
+			if (atlas != null){
+				LoaderManager.loadGroups( atlas , onComplete );
+			}
+			function onComplete(): void {
+				sel.texture = RES.getRes(resName);
+				if (callback != null && thisObject != null) {
+					callback.call(thisObject);
 				}
 			}
 		}
 
-		public HasUrl(url: string): boolean {
+		public hasUrl(url: string): boolean {
 
 			return this._iconUrl == url;
 		}
@@ -144,31 +150,24 @@ module fairui {
 
 			super.show( data );
 			
-			this.LoadImage( data );
+			this.loadImage( data );
 		}
 
 		public hide():void{
 
 			super.hide();
 
-			this.Reset();
+			this.clear();
 		}
 
-		public Reset(): void {
+		public clear(): void {
 
 			this.texture = null;
 			this._iconUrl = null;
 			this._source = null;
 		}
 
-		public Dispose(): void {
-
-			this.dispose();
-		}
-
 		public dispose(): void {
-
-			this.Reset();
 
 			super.dispose();
 

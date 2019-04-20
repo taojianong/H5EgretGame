@@ -78,7 +78,7 @@ var fairui;
         };
         GameEffect.prototype.onPlayComplete = function () {
             this.stop();
-            App.timer.doTimeOnce(2000, flash.bind(this.onEnterFrame, this));
+            Global.timer.doTimeOnce(2000, flash.bind(this.onEnterFrame, this));
         };
         GameEffect.prototype.onEnterFrame = function () {
             this.palyOnceStop();
@@ -125,13 +125,13 @@ var fairui;
             configurable: true
         });
         GameEffect.prototype.clear = function () {
-            App.timer.clearTimer(flash.bind(this.onEnterFrame, this));
+            Global.timer.clearTimer(flash.bind(this.onEnterFrame, this));
             this.stop();
             this._effect.restart();
             this._effect.url = "";
         };
         GameEffect.prototype.dispose = function () {
-            App.timer.clearTimer(flash.bind(this.onEnterFrame, this));
+            Global.timer.clearTimer(flash.bind(this.onEnterFrame, this));
             this.stop();
             if (this.parent != null) {
                 this.parent.removeChild(this);

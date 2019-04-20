@@ -20,33 +20,33 @@ module fairui {
 			fairui.FairyUtils.setVar(this, this);
 		}
 
-		public Init(param: any): void {
+		public init(param: any): void {
 
-			// super.Init(param);
+			// super.init(param);
 			this.param = param;
 
-			this.InitUI();
-			this.AddRootListener();
-			this.InitData(param);
-			this.OnResize();
+			this.initUI();
+			this.addAllListener();
+			this.initData(param);
+			this.onResize();
 
 			if (this.maskClick) {
 				EffectUtil.openWindowEffect(this);
 			}
 		}
 
-		public AddRootListener(): void {
+		public addAllListener(): void {
 
-			super.AddRootListener();
+			super.addAllListener();
 
-			this.AddGameListener(egret.TouchEvent.TOUCH_END, this.stageHandler, this, Global.stage);
+			this.addGameListener(egret.TouchEvent.TOUCH_END, this.stageHandler, this, Global.stage);
 		}
 
-		public RemoveRootListener(): void {
+		public removeAllListener(): void {
 
-			super.RemoveRootListener();
+			super.removeAllListener();
 
-			this.RemoveGameListener(egret.TouchEvent.TOUCH_END, this.stageHandler, this, Global.stage);
+			this.removeGameListener(egret.TouchEvent.TOUCH_END, this.stageHandler, this, Global.stage);
 		}
 
 		private stageHandler(e: egret.TouchEvent): void {
@@ -105,9 +105,9 @@ module fairui {
 			}
 		}
 
-		public Destroy(): void {
+		public dispose(): void {
 
-			super.Destroy();
+			super.dispose();
 		}
 	}
 }

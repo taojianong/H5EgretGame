@@ -95,7 +95,7 @@ var fairui;
                     fairui.NetResourceManager.getInstance().getResource(this);
                 }
                 else {
-                    App.log.error(App.lang.getLang("panel_error_4")); //NetEffect >> 加载路径有问题
+                    Global.log.error("加载路径有问题"); //NetEffect >> 加载路径有问题
                 }
             }
         };

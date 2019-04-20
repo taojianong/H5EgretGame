@@ -43,7 +43,7 @@ module fairui {
             this.panelid = panelId;
             this.panelType = panelType;
             this.res = res;
-            this.loadingTip = App.lang.getLang(loadingTip);
+            this.loadingTip = Global.lang.getLang(loadingTip);
             this.className = className;
             this.canDispose = canDispose;
             this.showBottomBtn = showBottomBtn;
@@ -53,7 +53,7 @@ module fairui {
         /**面板配置数据 */
         // public get bean():Q_panel_registerExpandBean{
 
-        //     return App.config.q_panel_registerContainer.getDataBean( this.panelid );
+        //     return Global.config.q_panel_registerContainer.getDataBean( this.panelid );
         // }
 
         public onProgress(current: number, total: number): void {

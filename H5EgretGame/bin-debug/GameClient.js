@@ -15,7 +15,15 @@ r.prototype = e.prototype, t.prototype = new r();
 var GameClient = (function (_super) {
     __extends(GameClient, _super);
     function GameClient() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        /**游戏层 */
+        _this.gameLayer = new egret.Sprite();
+        /**界面层 */
+        _this.uiLayer = new egret.Sprite();
+        _this.addChild(_this.gameLayer);
+        _this.addChild(_this.uiLayer);
+        fairui.FairyUIManager.init(_this.uiLayer);
+        return _this;
     }
     return GameClient;
 }(egret.DisplayObjectContainer));

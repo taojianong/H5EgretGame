@@ -38,11 +38,4 @@ class LangManager {
 		}
 		return str;
 	}
-
-	// public addLangObject(object: Object) {
-	// 	if (this.data != null)
-	// 		this.data = Object.assign(this.data, object);
-	// 	else
-	// 		this.data = object;
-	// }
 }

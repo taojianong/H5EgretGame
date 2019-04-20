@@ -45,7 +45,7 @@ var com;
                     }
                 }
             };
-            Object.defineProperty(ListenerHandlers.prototype, "isDispose", {
+            Object.defineProperty(ListenerHandlers.prototype, "isDisposed", {
                 get: function () {
                     return this._isDispose;
                 },

@@ -39,9 +39,9 @@ module fairui {
 			}	
 		}
 
-		public InitUI():void{
+		public initUI():void{
 
-			super.InitUI();
+			super.initUI();
 
 			this.rect_bg  = <fairygui.GGraph>this.getChild("icon");
 			this.titleTxt = <fairygui.GTextInput>this.getChild("title");

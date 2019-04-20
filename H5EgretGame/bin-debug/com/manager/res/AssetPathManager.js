@@ -9,7 +9,7 @@ var AssetPathManager = (function () {
         /**游戏的资源基础路径前缀*/
         this.RES_PATH = "res/"; //public RES_PATH: string = "resource/res/";
         if (AssetPathManager.instance) {
-            App.log.error("AssetPathManager an only use getInstance() to get an instance!");
+            egret.error("AssetPathManager an only use getInstance() to get an instance!");
             return;
         }
     }

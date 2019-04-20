@@ -22,7 +22,7 @@ module com.bean {
 
 		public constructor() {
 			if (DataConfigUtils._instances) {
-				App.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
+				Global.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
 				return;
 			}
 			this._beanConfigPropertyErrorDict = new flash.Dictionary();
@@ -85,8 +85,8 @@ module com.bean {
 		}
 
 		public notHaveBean(configName: string, key: string) {
-			let info: string = App.lang.getLang("lang_client_721", configName, key);//配置表里缺少条目，表名：{0}，主键Id：{1}
-			App.log.error(info);
+			let info: string = Global.lang.getLang("lang_client_721", configName, key);//配置表里缺少条目，表名：{0}，主键Id：{1}
+			egret.error(info);
 		}
 
 		public beanConfigPropertyError(configName: string, key: any) {

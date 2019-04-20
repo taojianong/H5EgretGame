@@ -112,7 +112,7 @@ var fairui;
             configurable: true
         });
         Effect.prototype.rantionView = function () {
-            if (this._angle != 0 && this.isDispose == false && this.animator) {
+            if (this._angle != 0 && this.isDisposed == false && this.animator) {
                 var image = this.animator.getImage(this._currentIndex);
                 if (image) {
                     this._matrix.tx = this.x + image.offsetX;

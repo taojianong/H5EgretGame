@@ -30,12 +30,10 @@ module fairui {
 
 			super.constructFromXML(xml);
 
-			this.InitUI();
+			this.initUI();
 		}
 
-		public InitUI():void{
-
-			super.InitUI();
+		public initUI():void{
 
 			this.callbackThisObj = this;
 			this.list.callbackThisObj = this;
@@ -60,20 +58,20 @@ module fairui {
 				this.elements.push(item);
 			}
 			//列表渲染单个条目
-			let evt: UIGameEvent = new UIGameEvent(UIGameEvent.EGLIST_RENDER);
+			let evt: GameEvent = new GameEvent(GameEvent.EGLIST_RENDER);
 			evt.data = { "index": index, "obj": obj };
 			evt.thisObject = this._thisObject;
 			this.dispatchEvent(evt);
 			//列表渲染完成
 			if (index == (this._array.length - 1)) {
 
-				let completeEvt: UIGameEvent = new UIGameEvent(UIGameEvent.EGLIST_COMPLETE);
+				let completeEvt: GameEvent = new GameEvent(GameEvent.EGLIST_COMPLETE);
 				completeEvt.thisObject = this._thisObject;
 				this.dispatchEvent(completeEvt);
 			}
 			
 			if( egret.is( obj , "IComponent" ) ){
-				this.AddComponent( <any>obj );
+				this.addComponent( <any>obj );
 			}			
 		}
 
@@ -272,11 +270,6 @@ module fairui {
 			this._selectedPage = null;
 			this._array = null;			
 			this._elements = null;
-		}
-
-		public Destory():void{
-
-			super.Destroy();
 		}
 	}
 }

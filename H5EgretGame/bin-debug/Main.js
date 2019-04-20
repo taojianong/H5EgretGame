@@ -80,7 +80,7 @@ var Main = (function (_super) {
         return _this;
     }
     Main.prototype.onAddToStage = function (event) {
-        this.stage.addEventListener(egret.Event.RESIZE, this.resizeHandler, this);
+        Global.initStage(this.stage);
         egret.lifecycle.addLifecycleListener(function (context) {
             // custom lifecycle plugin
             context.onUpdate = function () {
@@ -140,9 +140,6 @@ var Main = (function (_super) {
     Main.prototype.createGameScene = function () {
         this.gameClient = new GameClient();
         this.addChild(this.gameClient);
-    };
-    Main.prototype.resizeHandler = function () {
-        EventManager.dispatchEvent(GameEvent.STGAE_RESIZE);
     };
     return Main;
 }(egret.DisplayObjectContainer));

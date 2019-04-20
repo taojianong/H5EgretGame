@@ -162,7 +162,7 @@ module fairui {
 			}
 		}
 
-		public get isDispose(): boolean {
+		public get isDisposed(): boolean {
 			return this._isDisposed;
 		}
 
@@ -216,7 +216,7 @@ module fairui {
 			this._father = null;
 		}
 
-		public dispose() {
+		public dispose():void {
 			this.resetAndClear();
 			this._bitmap = null;
 			this._isDisposed = true;

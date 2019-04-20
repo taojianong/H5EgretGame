@@ -11,7 +11,6 @@ module fairui {
         private eloader_bg:fairui.ELoader;
         private lab_pro:fairygui.GTextField;
         private lab_tip:fairygui.GTextField;
-        private lab_tip0:fairygui.GTextField;
         private proBar:fairui.ProgressBar;
 
         private group_start:fairygui.GGroup;
@@ -29,27 +28,25 @@ module fairui {
 
         public InitUI(): void {
 
-            super.InitUI();
+            super.initUI();
 
             this.lab_tip.visible = false;
-            this.lab_tip0.visible = false;
             this.lab_tip.text = "";
-            this.lab_tip0.text = Global.lang.getLang("lang_43");//此版本为封测版本
         }
 
-        public SetViewStruct(): void {
+        protected setViewStruct(): void {
 
-            super.SetViewStruct();
-            this.viewStruct.IsWindow = false;
-            this.viewStruct.layerType = LayerType.TYPE_TOP;
+            super.setViewStruct();
+            this.viewStruct.isWindow = false;
+            this.viewStruct.layerType = UILayout.TYPE_TOP;
         }
 
         /**
          * 外部不要调用
          */
-        public InitData(param: any): void {
+        public initData(param: any): void {
 
-            super.InitData(param);
+            super.initData(param);
 
             this.proBar.progress = 0;
             this.proBar.isPlayTween = true;
@@ -60,9 +57,10 @@ module fairui {
             this.changeBgImg();
             Global.timer.doTimeLoop(6000, flash.bind(this.changeBgImg, this));
 
-            let handler = <utils.Handler>param;
-            handler.execute();
-            GlobalJugger.add(this);
+            if( param instanceof utils.Handler ){
+                param.execute();
+            }
+            // GlobalJugger.add(this);
         }
 
         private labelFunction( value:number , max:number ):string{
@@ -71,8 +69,8 @@ module fairui {
         }
 
         public advanceTime(time: number): void {
-            var lq: LoadQueue = LoadQueue.Inst;
-            this.onImitateProgress(lq.itemsLoaded, lq.itemsTotal);
+            // var lq: LoadQueue = LoadQueue.Inst;
+            // this.onImitateProgress(lq.itemsLoaded, lq.itemsTotal);
         }
 
         private index: number = 1;
@@ -86,39 +84,43 @@ module fairui {
                 }
             }
             //加载对应背景图片
-            this.eloader_bg.LoadImage( UrlUtil.getPanelUrl("loading" + num, "loading") , null, null, LoadLevel.VIP );
+            this.eloader_bg.loadImage( UrlUtil.getPanelUrl("loading" + num, "loading") , null );
         }
 
         /**
          * 添加事件函数
          */
-        public AddRootListener() {
+        public addAllListener() {
 
-            super.AddRootListener();
+            super.addAllListener();
 
-            this.AddGameListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnStartHandler, this, this);
+            this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnStartHandler, this, this);
         }
 
         /**
          * 移除事件函数
          */
-        public RemoveRootListener() {
+        public removeAllListener() {
 
-            super.RemoveRootListener();
+            super.removeAllListener();
 
-            this.RemoveGameListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnStartHandler, this, this);
+            this.removeGameListener(egret.TouchEvent.TOUCH_TAP, this.clickBtnStartHandler, this, this);
         }
 
         /**
          * 加载完成
          */
         private onComplete(): void {
-            var lq: LoadQueue = LoadQueue.Inst;
-            Logger.log(this, lq.itemsLoaded + "  /  " + lq.itemsTotal);
-            if (lq.itemsLoaded < lq.itemsTotal){
-                return;
+            // var lq: LoadQueue = LoadQueue.Inst;
+            // Global.log.log(this, lq.itemsLoaded + "  /  " + lq.itemsTotal);
+            // if (lq.itemsLoaded < lq.itemsTotal){
+            //     return;
+            // }
+            // KeyFrameJugger.delayFrame(1, utils.Handler.Create(this.OnDelayFrameComplete, this));
+
+            if( this.proBar.progress >= 1 ) {
+                Global.timer.doFrameOnce( 1 , flash.bind( this.OnDelayFrameComplete , this ) );
             }
-            KeyFrameJugger.delayFrame(1, utils.Handler.Create(this.OnDelayFrameComplete, this));
         }
 
         private OnDelayFrameComplete(): void {
@@ -128,8 +130,8 @@ module fairui {
             this.lab_pro.text = "100%";
             this.currentState = "loaded";
 
-            GameDispatcher.Inst.DispatchGameEvent(UIGameEvent.MAIN_LOAD_COMPLETE);
-            GlobalJugger.remove(this);        
+            // GlobalJugger.remove(this); 
+            EventManager.dispatchEvent( GameEvent.MAIN_LOAD_COMPLETE );       
         }
 
         /**
@@ -141,7 +143,7 @@ module fairui {
 
             this.proBar.setVal( itemsLoaded , itemsTotal , 0 , true , this.onComplete , this );
             this.proBar.setLabel( "" );
-            this.lab_pro.text = NumberUtil.toInt( progress * 100) + "%";
+            this.lab_pro.text = MathUtil.toInt( progress * 100 ) + "%";
         }
 
         /**
@@ -150,13 +152,13 @@ module fairui {
         private clickBtnStartHandler(e: egret.TouchEvent): void {
 
             if (this.btn_start.touchable) {
-                GameDispatcher.Inst.DispatchGameEvent(UIGameEvent.START_GAME);
+                EventManager.dispatchEvent( GameEvent.START_GAME );
             }
         }
 
-        public OnResize(): void {
+        public onResize(): void {
 
-            super.OnResize();
+            super.onResize();
             this.btn_start.width = Global.stageWidth;
             this.group_start.y = Global.stageHeight - this.group_start.height;
 
@@ -166,13 +168,12 @@ module fairui {
             this.eloader_bg.scaleY = scaleY;      
         }
 
-        public Reset(): void {
+        public clear(): void {
 
-            super.Reset();
-            this.eloader_bg.Dispose();
+            super.clear();
 
             Global.timer.clearTimer(flash.bind(this.changeBgImg, this));
-            GlobalJugger.remove(this);
+            // GlobalJugger.remove(this);
         }
     }
 }

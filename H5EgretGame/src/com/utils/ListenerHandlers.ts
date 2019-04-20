@@ -45,7 +45,7 @@ module com.utils {
 			}
 		}
 
-		public get isDispose(): boolean {
+		public get isDisposed(): boolean {
 			return this._isDispose;
 		}
 

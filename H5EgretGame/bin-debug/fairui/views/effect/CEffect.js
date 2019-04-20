@@ -107,12 +107,12 @@ var fairui;
         EffectAdvanceTimeCenter.prototype.addEffect = function (data) {
             this._effectHash.setItem(data, data);
             if (this._isStart == false) {
-                App.timer.doFrameLoop(1, flash.bind(this.onEnterFrame, this));
+                Global.timer.doFrameLoop(1, flash.bind(this.onEnterFrame, this));
                 this._isStart = true;
             }
         };
         EffectAdvanceTimeCenter.prototype.onEnterFrame = function () {
-            var time = App.timer.frametime;
+            var time = Global.timer.frametime;
             this._gapTime += time;
             if (this._gapTime > 50) {
                 this._effectHash.forEach(function (key, data) {

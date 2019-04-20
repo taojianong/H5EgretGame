@@ -4,7 +4,7 @@ module fairui {
      * 加载图片
      * @author cl 2019.1.29
      */
-    export class ELoader extends BaseSprite implements IDispose {
+    export class ELoader extends BaseSprite {
 
         public img: fairygui.GLoader;
 
@@ -21,10 +21,6 @@ module fairui {
             this.img = loader || new fairygui.GLoader();
             this.img.touchable = false;
         }
-
-        public IsInited(): boolean {
-			return true;
-		}
 
         public addEventListener(type: string, listener: Function, thisObject: any ): void {
 
@@ -119,21 +115,19 @@ module fairui {
             return this._source;
         }
 
-        public LoadImage(url: string, callback: Function = null, thisObject: any = null, level: number = LoadLevel.DEFAULT ): void {
+        public loadImage(url: string, callback: Function = null, thisObject: any = null ): void {
 
             var sel: ELoader = this;
             if (sel._url == url) return;
-            sel.Reset();
+            sel.clear();
             sel._url = url;
             if (url != null) {
-                LoadQueue.Inst.loadTexture(url, onComplete, sel, url, level);
+                LoaderManager.loadImageRes( url , this , onComplete );
             }
-            function onComplete(value: TextureResource, param: string): void {
-                if (value && url == param) {
-                    sel.texture = value.Res();
-                    if (callback != null && thisObject != null) {
-                        callback.call(thisObject);
-                    }
+            function onComplete(value:egret.Texture ): void {
+               sel.texture = value;
+                if (callback != null && thisObject != null) {
+                    callback.call(thisObject);
                 }
             }
         }
@@ -148,9 +142,9 @@ module fairui {
                 if( value.indexOf("ui:") == 0 ){
                     _self.img.url = value;
                 }else{
-                    LoadQueue.Inst.loadTexture(value,  function loadComplete(value: TextureResource, param: string): void {
-                        _self.texture = value.Res();
-                    }, _self,null);
+                    LoaderManager.loadImageRes(value,_self,  function loadComplete(value:egret.Texture): void {
+                        _self.texture = value;
+                    } );
                 }                
             } else if (!value) {
                 _self.texture = null;
@@ -318,6 +312,12 @@ module fairui {
             return this.img.content;
         }
 
+        public clear(): void {
+            super.clear();
+            this._url = "";
+            this.texture = null;
+        }
+
         public dispose(): void {
             
             super.dispose();
@@ -328,24 +328,6 @@ module fairui {
             this._texture = null;
             this._url = null;
             this._source = null;
-        }
-
-        //--------------------------------------
-
-        public Reset(): void {
-            super.Reset();
-            this._url = "";
-            this.texture = null;
-        }
-
-        public Destroy(): void {
-
-            super.Destroy();
-        }
-
-        public Dispose(): void {
-
-            this.Destroy();
         }
     }
 }

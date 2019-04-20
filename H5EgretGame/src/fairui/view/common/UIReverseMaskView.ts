@@ -30,9 +30,9 @@ module fairui {
 			super("common", "UIReverseMaskView");
 		}
 
-		public InitUI(): void {
+		public initUI(): void {
 
-			super.InitUI();
+			super.initUI();
 			this.circle.downScaled = false;
 			this.maskClick = false;
 
@@ -42,13 +42,13 @@ module fairui {
 			this.rmsk.setTarget( this.eloader_icon , this.onUpdate , this.onComplete , this );	
 		}
 
-		public InitData( param:any ):void{
+		public initData( param:any ):void{
 
-			super.InitData( param );
+			super.initData( param );
 
 			if( param == "msk" ){
 				this.currentState = "msk";
-				this.OnResize();
+				this.onResize();
 				return;
 			}
 
@@ -77,33 +77,31 @@ module fairui {
 				this.img_arrow.rotation = 50;
 			}
 
-			this.OnResize();
+			this.onResize();
 			
 			this.setTarget( target );
 		}
 
-		public AddRootListener():void{
+		public addAllListener():void{
 			
-			super.AddRootListener();
+			super.addAllListener();
 
-			this.AddGameListener( egret.TouchEvent.TOUCH_BEGIN , this.beginGuide , this , Global.stage );
+			this.addGameListener( egret.TouchEvent.TOUCH_BEGIN , this.beginGuide , this , Global.stage );
 		}
 
 		public RemoveRootListener():void{
 
 			
-			super.RemoveRootListener();
+			super.removeAllListener();
 
-			this.RemoveGameListener( egret.TouchEvent.TOUCH_BEGIN , this.beginGuide , this , Global.stage );
+			this.removeGameListener( egret.TouchEvent.TOUCH_BEGIN , this.beginGuide , this , Global.stage );
 		}
 
 		private beginGuide( e:egret.TouchEvent):void{
 			
-			// e.stopImmediatePropagation();
-			// e.preventDefault();
 			e.stopPropagation();	
 			if( this.btn_center.containsGlobalPoint(e.stageX,e.stageY) && !this.rmsk.isMoving ){
-				GameDispatcher.Inst.dispatchEvent( new UIGameEvent(UIGameEvent.GUIDE_END) );
+				EventManager.dispatchEvent( GameEvent.GUIDE_END );//结束引导
 			}	
 		}
 
@@ -135,21 +133,6 @@ module fairui {
 					lp.y += this._target.height * 0.5;
 				}
 				this.show( lp.x + offsetX , lp.y + offsetY );		
-			}else if( this._target instanceof scene.Building ){
-
-				fairygui.GTween.delayedCall( 0.2 ).onComplete( function():void{
-					let p:egret.Point = new egret.Point( _self._target.buildInfo.GetCenterX() , _self._target.buildInfo.GetCenterY() );
-					let gp:egret.Point = _self._target.parent.localToGlobal( p.x , p.y );
-					_self.show( gp.x + offsetX , gp.y + offsetY );
-				} , _self );
-				
-			}else if( this._other != null ){
-				let build:any = this._other["build"];
-				if( build instanceof scene.Building ){
-					let p:egret.Point = new egret.Point( build.buildInfo.GetCenterX() , build.buildInfo.GetCenterY() );
-					let gp:egret.Point = build.parent.localToGlobal( p.x , p.y );
-					this.show( gp.x + offsetX , gp.y + offsetY );
-				}
 			}
 		}
 
@@ -214,29 +197,29 @@ module fairui {
 			super.closeHandler(e);
 		}
 
-		public Reset(): void {
+		public clear(): void {
 
-			super.Reset();
+			super.clear();
 			
 			this._target = null;
 			this._other = null;
 		}
 
-		public OnResize(): void {
+		public onResize(): void {
 
 			this.setSize(Global.stageWidth, Global.stageHeight);
 
-			super.OnResize();		
+			super.onResize();		
 
 			this.updateCirclePoint();
 		}
 
-		public Destroy(): void {
+		public dispose(): void {
 
-			super.Destroy();
+			super.dispose();
 
 			if( this.rmsk ){
-				this.rmsk.Destroy();
+				this.rmsk.dispose();
 				this.rmsk = null;
 			}
 		}

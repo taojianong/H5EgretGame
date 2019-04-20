@@ -180,7 +180,7 @@ var fairui;
                 }
             }
         };
-        Object.defineProperty(FramePlayer.prototype, "isDispose", {
+        Object.defineProperty(FramePlayer.prototype, "isDisposed", {
             get: function () {
                 return this._isDisposed;
             },

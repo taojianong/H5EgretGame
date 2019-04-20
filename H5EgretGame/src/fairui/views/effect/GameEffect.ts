@@ -57,7 +57,7 @@ module fairui {
 
 		private onPlayComplete() {
 			this.stop();
-			App.timer.doTimeOnce(2000, flash.bind(this.onEnterFrame, this));
+			Global.timer.doTimeOnce(2000, flash.bind(this.onEnterFrame, this));
 		}
 
 		private onEnterFrame() {
@@ -107,7 +107,7 @@ module fairui {
 		}
 
 		public clear() {
-			App.timer.clearTimer(flash.bind(this.onEnterFrame, this));
+			Global.timer.clearTimer(flash.bind(this.onEnterFrame, this));
 			this.stop();
 			this._effect.restart();
 			this._effect.url = "";
@@ -115,7 +115,7 @@ module fairui {
 
 		public dispose() {
 
-			App.timer.clearTimer(flash.bind(this.onEnterFrame, this));
+			Global.timer.clearTimer(flash.bind(this.onEnterFrame, this));
 			this.stop();
 			if (this.parent != null) {
 				this.parent.removeChild(this);

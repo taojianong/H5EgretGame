@@ -26,13 +26,11 @@ module fairui {
 
 			super.constructFromXML(xml);
 
-			this.InitUI();
+			this.initUI();
 		}
 
-		public InitUI(): void {
-
-			super.InitUI();
-
+		public initUI(): void {
+			
 			this.sp.blendMode = egret.BlendMode.ERASE;
 		}
 
@@ -127,9 +125,9 @@ module fairui {
 			return this._isMoving;
 		}
 
-		public Reset():void{
+		public clear():void{
 
-			super.Reset();
+			super.clear();
 
 			this._isMoving = false;
 		}
@@ -149,11 +147,6 @@ module fairui {
 			this.sp = null;
 			this.bg = null;
 			this._isMoving = false;
-		}
-
-		public Destroy(): void {
-
-			super.Destroy();
 		}
 	}
 }

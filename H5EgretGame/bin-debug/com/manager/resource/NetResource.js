@@ -131,7 +131,7 @@ var fairui;
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(NetResource.prototype, "isDispose", {
+        Object.defineProperty(NetResource.prototype, "isDisposed", {
             get: function () {
                 return this._isDispose;
             },
@@ -161,7 +161,7 @@ var fairui;
                 App.asset.deleteResAsset(this.url);
             }
             if (this._hash)
-                this._hash.destroy();
+                this._hash.reset();
             this._hash = null;
             this._resource = null;
             this._delayDisposeTime = 0;

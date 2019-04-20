@@ -28,5 +28,70 @@ module fairui {
 		public static createGObject(pkgName: string, resName: string): any {
 			return fairygui.UIPackage.createObjectFromURL(fairygui.UIPackage.getItemURL(pkgName, resName));
 		}
+
+		//-------------------------------------------
+		/**注册的面板类 */
+		private static dmap: flash.Dictionary = new flash.Dictionary();
+
+		/**注册界面 */
+		public static registerPanels(): void {
+
+			//主界面注册
+			//PanelRegister.register(EnumPanelID.MAIN_MENU, new PanelInfo(EnumPanelID.MAIN_MENU, EnumPanel.TYPE_MAIUI, "main", "", fairui.MenuPanel, false, true));
+			
+			//Alert层界面注册 警示类的面板定义为Alert层
+			// PanelRegister.register(EnumPanelID.DEBUG_VIEW, new PanelInfo(EnumPanelID.DEBUG_VIEW, EnumPanel.TYPE_ALERT, "", App.lang.getLang("uiload_txt_1"), DebugPanel));//正在加载错误日志面板资源
+			PanelRegister.register(EnumPanelID.MAIN_LOADING, new PanelInfo(EnumPanelID.MAIN_LOADING, EnumPanel.TYPE_ALERT, "", "", fairui.LoadingPanel, false, true));
+			
+		}
+
+		/**
+		 * 注册面板
+		 * @param id 	面板ID
+		 * @param panel PanelInfo
+		 */
+		public static register(id: number, panel: PanelInfo ): void {
+
+			PanelRegister.dmap.setItem(id, panel);
+			PanelRegister.dmap.setItem( panel , id );
+		}
+
+		/**
+		 * 获取对应面板
+		 * @param idOrCls 面板ID
+		 * @return id => PanelInfo , cls => panelid
+		 */
+		public static getPanel( idOrCls: any ): any {
+			return this.dmap.getItem( idOrCls );
+		}
+
+		/**
+		 * 获取对应面板的panelid
+		 * @param panel fairui.BasePanel
+		 * @return 面板ID
+		 */
+		public static getPanelId(panel: any): number {
+			let thisObj: any = this;
+			let index: number = -1;
+			if ( panel instanceof fairui.BasePanel && panel.panelInfo ) {
+				index = PanelRegister.getPanel( panel.panelInfo );
+			}
+			return index;
+		}
+
+		/**
+		 * 移除注册
+		 * @param panelid 面板ID
+		 */
+		public static removeRegister(panelid: number): void {
+
+			if (PanelRegister.dmap.hasOwnProperty(panelid)) {
+				let panelinfo: PanelInfo = PanelRegister.dmap.getItem(panelid);
+				if (panelinfo != null) {
+					PanelRegister.dmap.delItem(panelid);
+					panelinfo = null;
+				}
+			}
+		}
 	}
 }

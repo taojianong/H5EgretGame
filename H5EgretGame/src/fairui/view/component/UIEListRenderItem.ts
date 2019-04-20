@@ -23,22 +23,22 @@ module fairui {
 			super.constructFromXML(xml);
 		}
 
-		public InitComplete(): boolean {			
+		public initComplete(): boolean {			
 
 			//检测初始化是否完成
-			if (!this.IsInited()) {
+			if (!this.isInited()) {
 				return false;
 			}
 			
-			if (!this.IsOpened) {
-				this.IsOpened = true;
-				this.InitUI();
+			if (!this.isOpened) {
+				this.isOpened = true;
+				this.initUI();
 			}
 
-			this.InitData(this.param);
+			this.initData(this.param);
 			// this.AddRootListener();//此方法在show方法的时候调用
 
-			this.IsComplyed = true;
+			this.isComplyed = true;
 			return true;
 		}		
 
@@ -69,29 +69,29 @@ module fairui {
 		public show( data:any ):void{
 
 			this.data = this._data = data;
-			this.AddRootListener();
+			this.addAllListener();
 		}
 
 		public hide():void{
 
-			this.Reset();
+			this.clear();
 		}
 
 		/**
 		 * 重置
 		 */
-		public Reset(): void {
+		public clear(): void {
 
-			super.Reset();
-			this.RemoveRootListener();
+			super.clear();
+			this.removeAllListener();
 		}
 
 		/**
 		 * 释放资源
 		 */
-		public Destroy(): void {
+		public dispose(): void {
 
-			super.Destroy();
+			super.dispose();
 		}
 	}
 }

@@ -132,21 +132,21 @@ module fairui{
 		 * 加载多个组资源 
          * @param groups 资源组 如：login,main
          * @param loadComplete 加载完成方法
+         * @param thisObj 
          * @param params 加载完成方法参数
          * @param reporte 加载进度
-         * @param thisObj 
 		 */
-		public static loadGroups( groups:string , loadComplete:Function = null , params:Array<any> = null , reporte:RES.PromiseTaskReporter=null , thisObj:any = null ):void{
+		public static loadGroups( groups:string , loadComplete:Function = null , thisObj:any = null , params:Array<any> = null , reporte:RES.PromiseTaskReporter=null ):void{
 
             let arr:Array<string> = groups.split(",");
             loadNext();
             function loadGroup( group:string ):void{
-                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, function loadComplete(event: RES.ResourceEvent): void {
+                RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, function loadComplete1(event: RES.ResourceEvent): void {
                     if (event.groupName == group ) {
                         loadNext();
                     }
                 }, this);
-                RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, function loadComplete(event: RES.ResourceEvent): void {
+                RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, function loadComplete2(event: RES.ResourceEvent): void {
                     if (event.groupName == group ) {//加载完成
                         loadNext();
                     }
@@ -156,7 +156,9 @@ module fairui{
             //加载下一个
             function loadNext():void{
                 if( arr.length <= 0 ){//加载完成
-                    loadComplete.apply( thisObj , params );
+                    if( loadComplete != null ){
+                        loadComplete.apply( thisObj , params );
+                    }                    
                 }else{
                     let group:string = arr.shift();
                     if( !RES.isGroupLoaded(group) ){

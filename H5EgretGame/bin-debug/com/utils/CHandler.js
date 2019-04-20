@@ -39,7 +39,7 @@ var CHandler = (function () {
             this._handler.apply(null, this._params ? this._params.concat(data) : data);
         }
     };
-    Object.defineProperty(CHandler.prototype, "isDispose", {
+    Object.defineProperty(CHandler.prototype, "isDisposed", {
         get: function () {
             return this._isDispose;
         },

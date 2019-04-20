@@ -5,12 +5,10 @@ module fairui {
 	 */
 	export class UIComponent extends BaseSprite {
 
-		/**是否已初始化界面 */
-		// protected isInit: boolean;
 		/**是否打开过界面 */
-		protected IsOpened: boolean;
+		protected isOpened: boolean;
 		/**是否初始化执行结束 */
-		protected IsComplyed: boolean;
+		protected isComplyed: boolean;
 		/**参数 */
 		public param: any;		
 
@@ -23,70 +21,69 @@ module fairui {
 
 			super.constructFromXML(xml);
 			
-			this.InitComplete();
+			this.initComplete();
 		}
 
-		public IsInited(): boolean {
-			return !this.IsComplyed;
+		public isInited(): boolean {
+			return !this.isComplyed;
 		}
 
-		public InitComplete(): boolean {			
+		public initComplete(): boolean {			
 
 			//检测初始化是否完成
-			if (!this.IsInited()) {
+			if (!this.isInited()) {
 				return false;
 			}
 			
-			if (!this.IsOpened) {
-				this.IsOpened = true;
-				this.InitUI();
+			if (!this.isOpened) {
+				this.isOpened = true;
+				this.initUI();
 			}
 
-			this.InitData(this.param);
-			this.AddRootListener();
+			this.initData(this.param);
+			this.addAllListener();
 
-			this.IsComplyed = true;
+			this.isComplyed = true;
 			return true;
 		}
 
 		/**
 		 * 外部不要调用
 		 */
-		public Init(param: any): void {
+		public init(param: any): void {
 			this.param = param;
-			this.InitComplete();
+			this.initComplete();
 		}
 
 		/**
 		 * 初始化UI界面
 		 */
-		public InitUI(): void {
+		public initUI(): void {
 
 		}
 
 		/**
 		 * 初始化参数
 		 */
-		public InitData(param: any = null): void {
+		public initData(param: any = null): void {
 
 		}
 
 		/**
 		 * 关闭界面时调用
 		 */
-		public Reset():void{
+		public clear():void{
 
-			super.Reset();
+			super.clear();
 
 			this.param = null;
-			this.IsComplyed = false;
+			this.isComplyed = false;
 		}
 
-		public Destroy():void{
+		public dispose():void{
 
-			super.Destroy();
+			super.dispose();
 
-			// this.isInit = false;
 			this.param = null;
 		}
 	}

@@ -49,7 +49,7 @@ module com.loader {
 						this.onError();
 				}
 				catch (e) {
-					App.log.error("AvatarResDecode.parser:", e)
+					egret.error("AvatarResDecode.parser:", e)
 					this.onError();
 				}
 			}, this, bytes, url, onFinish, onFail, isCache);
@@ -88,7 +88,7 @@ module com.loader {
 			// 		this.onError();
 			// }
 			// catch (e) {
-			// 	App.log.error("AvatarResDecode.parser:", e)
+			// 	egret.error("AvatarResDecode.parser:", e)
 			// 	this.onError();
 			// }
 		}

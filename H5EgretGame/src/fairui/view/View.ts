@@ -1,6 +1,9 @@
 module fairui {
 	
-	export class View extends fairui.UIComponent {
+	export class View extends fairui.UIComponent implements IView {
+
+		/**资源可释放后缓存时间,毫秒 */
+		public static readonly CACHE_TIME: number = 5000;
 
 		public cls: any = null;
 		//释放时间
@@ -11,37 +14,57 @@ module fairui {
 			super();
 		}
 
-		public Init(param: any): void {
-			super.Init(param);
-			this.gcTime = Number.MAX_VALUE;
-		}
-
 		/**获取当前组件Class类 */
 		public getCls(): any {
 
 			return this.cls;
 		}
 
+		//------------------------------------------------
+
+		//初始化UI
+		public initUI(): void {
+
+		}
+
+		public init(param: any): void {
+			super.init(param);
+			this.gcTime = Number.MAX_VALUE;
+		}
+
+		/**
+		 * 自适应接口
+		 */
+		public onResize():void{
+
+
+		}
+
+		/**
+		 * 是否可回收
+		 */
+		public isCanGc(): boolean {
+
+			return Global.timer.currFrame >= this.gcTime;
+		}
+
 		/**
 		 * 重置,每次关闭界面调用
 		 */
-		public Reset(): void {
+		public clear(): void {
 
-			super.Reset();
-			this.gcTime = GlobalJugger.timeMS + Resource.CACHE_TIME;
-		}
+			super.clear();
+			this.gcTime = Global.timer.currFrame + View.CACHE_TIME;
+		}		
 
-		public IsCanGc(): boolean {
-			return GlobalJugger.timeMS >= this.gcTime;
-		}
 		/**
 		 * 销毁，完全销毁对象和资源
 		 * 接口除了组件你们其它地方不要调用这个接口
 		 * 只有回收资源的时候会调用一次
 		 */
-		public Destroy(): void {
+		public dispose(): void {
 
-			super.Destroy();
+			super.dispose();
 			this.cls = null;
 		}
 	}

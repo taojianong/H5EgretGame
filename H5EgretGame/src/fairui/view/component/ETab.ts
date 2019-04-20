@@ -208,16 +208,9 @@ module fairui {
         }
 
         //---------------------------------------------------
-        public Reset(): void {
+        public clear(): void {
 
-            super.Reset();           
-        }
-		/**
-		 * 销毁，完全销毁对象和资源
-		 */
-        public Destroy(): void {
-
-            super.Destroy();
+            super.clear();           
         }
 
         public dispose(): void {
@@ -237,9 +230,6 @@ module fairui {
             this.initX = 0;
             this.initY = 0;            
             this._itemNum = 0;
-            // this._selectedHandler = null;
-            // this._buttonArray = [];
-            // this.tabGroup = null;
         }        
     }
 }

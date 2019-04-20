@@ -40,7 +40,7 @@ module flash {
 					this._poolDict.setItem(data, data);
 				}
 				else {
-					App.log.error("有重复的对象入池", data.toString());
+					egret.error("有重复的对象入池", data.toString());
 				}
 			}
 			else {

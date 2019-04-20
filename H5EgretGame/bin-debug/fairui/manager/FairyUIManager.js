@@ -3,48 +3,72 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 };
 var fairui;
 (function (fairui) {
-    /**FairyUI管理器 cl 2018.3.5*/
+    /**
+     * FairyUI管理器
+     * @author clong 2019.2.20
+     * */
     var FairyUIManager = (function () {
         function FairyUIManager() {
         }
         /**初始化*/
         FairyUIManager.init = function (container) {
+            if (!this.parent) {
+                FairyUIManager.mainLayer = new fairui.BaseSprite();
+                FairyUIManager.windowLayer = new fairui.BaseSprite();
+                FairyUIManager.promptLayer = new fairui.BaseSprite();
+                FairyUIManager.topLayer = new fairui.BaseSprite();
+                FairyUIManager.alertLayer = new fairui.BaseSprite();
+                FairyUIManager.tipLayer = new fairui.BaseSprite();
+                FairyUIManager.guideLayer = new fairui.BaseSprite();
+            }
+            else {
+                this.parent.removeChild(fairygui.GRoot.inst.displayObject);
+            }
             container.addChild(fairygui.GRoot.inst.displayObject);
-            //console.log("clientWidth: " + document.body.clientWidth + " clientHeight: " + document.body.clientHeight);
-            //fairygui.GRoot.inst.setSize( document.body.clientWidth , document.body.clientHeight );
-            this.bottomLayer = new fairui.BaseSprite();
-            this.uiLayer = new fairui.BaseSprite();
-            this.topLayer = new fairui.BaseSprite();
-            this.mainuiLayer = new fairui.BaseSprite();
-            this.alertLayer = new fairui.BaseSprite();
-            this.tipLayer = new fairui.BaseSprite();
-            this.guideLayer = new fairui.BaseSprite();
-            fairygui.GRoot.inst.addChild(this.bottomLayer);
-            fairygui.GRoot.inst.addChild(this.uiLayer);
-            fairygui.GRoot.inst.addChild(this.mainuiLayer);
-            fairygui.GRoot.inst.addChild(this.topLayer);
-            fairygui.GRoot.inst.addChild(this.alertLayer);
-            fairygui.GRoot.inst.addChild(this.tipLayer);
-            fairygui.GRoot.inst.addChild(this.guideLayer);
+            this.parent = container;
+            fairygui.GRoot.inst.addChild(FairyUIManager.mainLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.windowLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.promptLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.alertLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.topLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.tipLayer);
+            fairygui.GRoot.inst.addChild(FairyUIManager.guideLayer);
             //重写fairygui UIContainer hitTest 方法
-            // UIContainer.prototype.$hitTest = function (stageX: number, stageY: number): DisplayObject {
-            // 	let ret: egret.DisplayObject = egret.DisplayObjectContainer.prototype.$hitTest.apply(this, [stageX, stageY]);
-            // 	if (ret == this) {
-            // 		if (!this.touchEnabled || this._hitArea == null)
-            // 			return null;
-            // 	}
-            // 	return ret;
-            // }
+            fairygui.UIContainer.prototype.$hitTest = function (stageX, stageY) {
+                var ret = egret.DisplayObjectContainer.prototype.$hitTest.apply(this, [stageX, stageY]);
+                if (ret == this) {
+                    if (!this.touchEnabled || this._hitArea == null)
+                        return null;
+                }
+                return ret;
+            };
+        };
+        /**
+         * 初始化common资源
+         */
+        FairyUIManager.initCommon = function () {
+            fairygui.UIConfig.defaultFont = Global.defaultFont;
+            fairygui.UIConfig.defaultComboBoxVisibleItemCount = 5; //下拉条默认显示条数为5
             fairygui.UIPackage.addPackage("common");
-            fairui.PanelRegister.registerClass("common", "LoaderButton", fairui.LoaderButton);
             fairui.PanelRegister.registerClass("common", "BaseSprite", fairui.BaseSprite);
             fairui.PanelRegister.registerClass("common", "BaseTextField", fairui.BaseTextField);
             fairui.PanelRegister.registerClass("common", "EButton", fairui.EButton);
-            fairui.PanelRegister.registerClass("common", "ExternalImage", fairui.EImage);
+            fairui.PanelRegister.registerClass("common", "ECButton", fairui.ECButton);
+            fairui.PanelRegister.registerClass("common", "ESButton", fairui.ESButton);
+            fairui.PanelRegister.registerClass("common", "ESCButton", fairui.ESCButton);
+            fairui.PanelRegister.registerClass("common", "UIBitmapIcon", fairui.UIBitmapIcon);
+            fairui.PanelRegister.registerClass("common", "UIBitmapIcon2", fairui.UIBitmapIcon2);
+            fairui.PanelRegister.registerClass("common", "UIDropDownList", fairui.UIDropDownList);
+            fairui.PanelRegister.registerClass("common", "UILabel", fairui.UILabel);
+            fairui.PanelRegister.registerClass("common", "HSlider", fairui.HSlider);
+            fairui.PanelRegister.registerClass("common", "HEGList", fairui.HEGList);
             fairui.PanelRegister.registerClass("common", "ProgressBar", fairui.ProgressBar);
-            fairui.PanelRegister.registerClass("common", "PageButton", fairui.PageButton);
             fairui.PanelRegister.registerClass("common", "ECheckBox", fairui.ECheckbox);
-            fairui.PanelRegister.registerClass("common", "ELinkButton", fairui.ELinkButton);
+            fairui.PanelRegister.registerClass("common", "ExpStar", fairui.ExpStar);
+            fairui.PanelRegister.registerClass("common", "UITextInput", fairui.UITextInput);
+            fairui.PanelRegister.registerClass("common", "UINumberItemComp", fairui.UINumberItemComp);
+            fairui.PanelRegister.registerClass("common", "LabButton", fairui.LabButton);
+            fairui.PanelRegister.registerClass("common", "ReverseMask", fairui.ReverseMask);
         };
         /**
          * 根据面板Id打开对应的面板
@@ -61,62 +85,49 @@ var fairui;
             if (complete === void 0) { complete = null; }
             try {
                 var panel = this.cachePanelMap.getItem(panelId);
-                var panelInfo = void 0;
-                // if (this.isLoading(panelId)) {
-                // 	// Notice.showBottomMessage( "-----" + panelInfo.loadingTip + " panelId: " + panelId );
-                // 	return;
-                // }
-                var container = this.getPanelTypeLayer(panel.panelType);
+                var panelInfo = fairui.PanelRegister.getPanel(panelId);
+                if (panelInfo == null) {
+                    Global.log.error("没有对应面板 panelId:" + panelId);
+                    if (complete != null)
+                        complete();
+                    return;
+                }
+                if (this.isLoading(panelId)) {
+                    // Notice.showBottomMessage( "-----" + panelInfo.loadingTip + " panelId: " + panelId );
+                    return;
+                }
+                var container = this.getPanelTypeLayer(panelInfo.panelType);
                 if (panel == null) {
                     if (panelInfo) {
                         panelInfo.callback = this.loadCompeteAndOpenPanel;
                         panelInfo.callbackParams = [panelId, data, container, x, y, complete];
                         if (panelInfo.res && !fairui.LoaderManager.hasLoadAllGroups(panelInfo.res)) {
-                            // App.log.debug("加载资源组: " + panelInfo.res);
+                            // Global.log.debug("加载资源组: " + panelInfo.res);
                             //打开加载界面
                             this.openPanel(EnumPanelID.MAIN_LOADING, { "text": panelInfo.loadingTip, "panelId": panelId });
                             //加载资源组
-                            fairui.LoaderManager.loadGroups(panelInfo.res, panelInfo.callback, panelInfo.callbackParams, panelInfo, this);
+                            fairui.LoaderManager.loadGroups(panelInfo.res, panelInfo.callback, this, panelInfo.callbackParams);
                         }
                         else {
                             this.loadCompeteAndOpenPanel(panelId, data, container, x, y, complete);
                         }
                     }
-                    else
-                        fairui.Alert.show(App.lang.getLang("panel_error_1", panelId)); //面板打开错误：面板ID[{0}]还未注册！
+                    else {
+                        fairui.Alert.show(Global.lang.getLang("panel_error_1", panelId)); //面板打开错误：面板ID[{0}]还未注册！
+                    }
                 }
                 else if (panel.parent == null) {
                     this.loadCompeteAndOpenPanel(panelId, data, container, x, y, complete);
                 }
                 else {
-                    // panelInfo.callbackParams = [panelId, data, container, x, y, complete];
-                    // if (panelInfo.callback != null) {
-                    // 	panelInfo.callback.apply(this, panelInfo.callbackParams);
-                    // }
+                    panelInfo.callbackParams = [panelId, data, container, x, y, complete];
+                    if (panelInfo.callback != null) {
+                        panelInfo.callback.apply(this, panelInfo.callbackParams);
+                    }
                 }
             }
             catch (e) {
-                App.log.error("FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
-            }
-        };
-        FairyUIManager.getPanelTypeLayer = function (type) {
-            switch (type) {
-                case EnumPanel.TYPE_WINDOW1:
-                    return this.uiLayer;
-                case EnumPanel.TYPE_WINDOW2:
-                    return this.topLayer;
-                case EnumPanel.TYPE_BOTTOM:
-                    return this.bottomLayer;
-                case EnumPanel.TYPE_ALERT:
-                    return this.alertLayer;
-                case EnumPanel.TYPE_TIPS:
-                    return this.tipLayer;
-                case EnumPanel.TYPE_MAIUI:
-                    return this.mainuiLayer;
-                case EnumPanel.TYPE_Guide:
-                    return this.guideLayer;
-                default:
-                    return null;
+                Global.log.error("FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
             }
         };
         /**加载完成并打开面板*/
@@ -129,13 +140,13 @@ var fairui;
                 this.closePanel(EnumPanelID.MAIN_LOADING); //关闭加载界面
             }
             var panelid;
-            if (egret.is(panel, "fairui.BasePanel")) {
-                // panelid = PanelRegister.getPanelId(panel);
+            if (panel instanceof fairui.BasePanel) {
+                panelid = fairui.PanelRegister.getPanelId(panel);
             }
             else {
                 panelid = panel;
             }
-            var pinfo = null; // PanelRegister.getPanel(panelid);
+            var pinfo = fairui.PanelRegister.getPanel(panelid);
             panel = this.cachePanelMap.getItem(panelid);
             //没有缓存则重新创建
             if (panel == null) {
@@ -145,28 +156,15 @@ var fairui;
                 //可释放的面板才加入到缓存面板中
                 this.cachePanelMap.setItem(panelid, panel);
             }
-            switch (pinfo.panelType) {
-                case EnumPanel.TYPE_BOTTOM:
-                    this.closeAllTypePanel(EnumPanel.TYPE_BOTTOM);
-                    this.closeAllTypePanel(EnumPanel.TYPE_WINDOW1);
-                    this.closeAllTypePanel(EnumPanel.TYPE_WINDOW2);
-                    // EventManager.dispatchEvent(fairui.PanelEvent.SHOW_MAINUI, pinfo.panelid);
-                    break;
-                case EnumPanel.TYPE_WINDOW1:
-                    this.closeAllTypePanel(EnumPanel.TYPE_WINDOW1);
-                    this.closeAllTypePanel(EnumPanel.TYPE_WINDOW2);
-                    // EventManager.dispatchEvent(fairui.PanelEvent.HIDE_MAINUI, pinfo.panelid);
-                    break;
-            }
             container.addChild(panel);
             if (isNaN(x) && isNaN(y)) {
                 if (pinfo.panelType == EnumPanel.TYPE_BOTTOM) {
-                    panel.x = App.stageWidth - panel.width >> 1;
-                    panel.y = App.stageHeight - panel.height;
+                    panel.x = Global.stageWidth - panel.width >> 1;
+                    panel.y = Global.stageHeight - panel.height;
                 }
                 else {
-                    panel.x = App.stageWidth - panel.width >> 1;
-                    panel.y = App.stageHeight - panel.height >> 1;
+                    panel.x = Global.stageWidth - panel.width >> 1;
+                    panel.y = Global.stageHeight - panel.height >> 1;
                 }
             }
             else {
@@ -178,6 +176,45 @@ var fairui;
             if (complete != null) {
                 complete();
             }
+        };
+        FairyUIManager.getPanelTypeLayer = function (type) {
+            switch (type) {
+                case EnumPanel.TYPE_BOTTOM:
+                    return this.mainLayer;
+                case EnumPanel.TYPE_WINDOW1:
+                    return this.windowLayer;
+                case EnumPanel.TYPE_WINDOW2:
+                    return this.topLayer;
+                case EnumPanel.TYPE_ALERT:
+                    return this.alertLayer;
+                case EnumPanel.TYPE_TIPS:
+                    return this.tipLayer;
+                case EnumPanel.TYPE_MAIUI:
+                    return this.windowLayer;
+                case EnumPanel.TYPE_Guide:
+                    return this.guideLayer;
+                default:
+                    return null;
+            }
+        };
+        /**
+         * 是否正在加载某个界面
+         * @param panelId 面板ID
+         */
+        FairyUIManager.isLoading = function (panelId) {
+            // let panel: LoadingUI = <LoadingUI>this.getPanel(EnumPanelID.MAIN_LOADING);
+            // if (panel != null && panel.parent != null && panel.data && panel.data.hasOwnProperty("panelId") && panel.data["panelId"] == panelId) {
+            // 	return true;
+            // }
+            return false;
+        };
+        /**
+         * 根据面板ID获取对应面板
+         * @param id 面板ID 参考EnumPanelID
+         * @return PanelInfo
+         */
+        FairyUIManager.getPanel = function (id) {
+            return this.cachePanelMap.getItem(id);
         };
         /**
          * 关闭面板
@@ -192,10 +229,11 @@ var fairui;
             try {
                 var panelid = void 0;
                 if (egret.is(panel, "fairui.BasePanel")) {
-                    // panelid = PanelRegister.getPanelId(panel);
+                    panelid = fairui.PanelRegister.getPanelId(panel);
                 }
                 else {
                     panelid = panel;
+                    panel = this.cachePanelMap.getItem(panelid);
                 }
                 if (panel) {
                     if (panel.parent != null) {
@@ -208,88 +246,23 @@ var fairui;
                         this.cachePanelMap.delItem(panelid);
                     }
                 }
+                if (disposeRegsiter) {
+                    fairui.PanelRegister.removeRegister(panelid);
+                }
             }
             catch (e) {
-                App.log.error("FairyUIManager.closePanel Id[" + panel + "] Error.", e);
+                Global.log.error("FairyUIManager.closePanel Id[" + panel + "] Error.", e);
             }
         };
-        /**
-         * 根据面板类型关闭所有该类型的面板
-         * @param type
-         */
-        FairyUIManager.closeAllTypePanel = function (type) {
-            var layer = this.getPanelTypeLayer(type);
-            var oldPenel;
-            var len = layer.numChildren;
-            for (var i = 0; i < len; i++) {
-                if (!egret.is(layer.getChildAt(0), "fairygui.GGraph")) {
-                    oldPenel = layer.getChildAt(0);
-                    // this.closePanel(oldPenel.panelInfo.panelid, oldPenel.panelInfo.canDispose, false, true);
-                }
-                else {
-                    layer.removeChildAt(0);
-                    //oldPenel.close();
-                }
-            }
-        };
-        /**
-         * 关闭所有面板
-         * @param isDispose 是否释放所有面板
-         */
-        FairyUIManager.closeAllPanel = function (isDispose) {
-            if (isDispose === void 0) { isDispose = false; }
-            for (var i = this.cachePanelMap.keys.length - 1; i >= 0; i--) {
-                var panelid = this.cachePanelMap.keys[i];
-                var pinfo = null; // PanelRegister.getPanel(panelid);
-                if (pinfo) {
-                    if (pinfo.canDispose) {
-                        this.closePanel(panelid, true);
-                    }
-                    else {
-                        this.closePanel(panelid, isDispose);
-                    }
-                }
-            }
-        };
-        /**
-         * 根据面板ID获取正在显示中的对应面板
-         * @param panel
-         */
-        FairyUIManager.getShowPeanl = function (panelid) {
-            var panel = this.cachePanelMap.getItem(panelid);
-            if (panel && panel.parent)
-                return panel;
-        };
-        /**
-         * 根据面板ID获取对应面板
-         * @param id 面板ID 参考EnumPanelID
-         * @return PanelInfo
-         */
-        FairyUIManager.getPanel = function (id) {
-            return this.cachePanelMap.getItem(id);
-        };
-        /**
-         * 是否正在显示某个面板
-         * @param panelid 面板ID
-         */
-        FairyUIManager.isShow = function (panelid) {
-            var panel = this.cachePanelMap.getItem(panelid);
-            return panel && panel.parent != null && panel.visible;
-        };
-        //底层
-        FairyUIManager.bottomLayer = null;
-        //ui层
-        FairyUIManager.uiLayer = null;
-        //顶层
-        FairyUIManager.topLayer = null;
-        //主UI层
-        FairyUIManager.mainuiLayer = null;
-        //弹框层
-        FairyUIManager.alertLayer = null;
-        //tip层
+        /**缓存所有打开的面板 */
+        // private static cachePanelMap: Dictionary = new Dictionary();	
+        /**装载 */
+        FairyUIManager.parent = null;
+        /**tip层 */
         FairyUIManager.tipLayer = null;
-        //引导层
+        /**引导层 */
         FairyUIManager.guideLayer = null;
+        //-----------------------------------------------------------		
         /**缓存所有打开的面板 */
         FairyUIManager.cachePanelMap = new flash.Dictionary();
         return FairyUIManager;

@@ -60,7 +60,7 @@ var base;
                         }
                     }
                 }
-                this._eventMap.destroy();
+                this._eventMap.reset();
             }
             this._eventMap = null;
         };

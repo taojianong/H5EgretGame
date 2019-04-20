@@ -43,7 +43,7 @@ module fairui {
 				resource.delayDisposeTime = 0;
 				this._delayDisposeHash.delItem(resource);
 			}
-			if (resource == null || resource.isDispose) {
+			if (resource == null || resource.isDisposed) {
 				resource = this.makeResource(request.resType);
 				resource.type = request.resType;
 				resource.url = request.url;
@@ -160,7 +160,7 @@ module fairui {
 		 */
 		private loadSourceError(loadData: com.loader.LoaderData): void {
 
-			App.log.error("加载资源错误,url:" + loadData.url);
+			egret.error("加载资源错误,url:" + loadData.url);
 		}
 
 		/**

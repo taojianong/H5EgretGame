@@ -13,9 +13,9 @@ module fairui {
 			super();
 		}
 
-		public InitUI():void{
+		public initUI():void{
 
-			super.InitUI();
+			super.initUI();
 
 			this.lab = this.getChild("title").asTextField;
 		}

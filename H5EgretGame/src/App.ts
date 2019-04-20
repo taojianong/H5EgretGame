@@ -4,10 +4,10 @@
  */
 class App {
 	public static mainUI: Main;
-	public static timer: com.time.TimeManager;
-	public static lang: LangManager;
-	public static log: LogManager;
-	public static stage: egret.Stage;
+	// public static timer: com.time.TimeManager;
+	// public static lang: LangManager;
+	// public static log: LogManager;
+	// public static stage: egret.Stage;
 
 	public static config: com.bean.DataManager;
 	/**资源管理器*/
@@ -22,11 +22,11 @@ class App {
 	/**APP启动*/
 	public static init(main: Main) {
 		App.mainUI = main;
-		App.stage = main.stage;
-		App.lang = new LangManager();
+		// App.stage = main.stage;
+		// App.lang = new LangManager();
 		//App.lang.addLangObject(RES.getRes("login_language"));
-		App.log = new LogManager();
-		App.timer = new com.time.TimeManager();
+		// App.log = new LogManager();
+		// App.timer = new com.time.TimeManager();
 		App.asset = new com.manager.AssetManager();
 		App.config = new com.bean.DataManager();
 		App.mousic = new com.manager.MousicManager();
@@ -53,16 +53,7 @@ class App {
 	public static get stageY(): number {
 		return this._stageY;
 	}
-	/**有效显示区域宽度 */
-	public static get stageWidth(): number {
-		return this.stage.stageWidth;
-		//return window.innerWidth;
-	}
-	/**有效显示区域高度 */
-	public static get stageHeight(): number {
-		//return window.innerHeight;
-		return this.stage.stageHeight;
-	}
+	
 	/**刷新游戏*/
 	public static refresh(): void {
 		let url: string = location.href;

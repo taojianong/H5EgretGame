@@ -23,33 +23,33 @@ module fairui {
 			super();
 		}
 
-		public InitUI():void{
+		public initUI():void{
 
-			super.InitUI();
+			super.initUI();
 
 			this.lab_num = this.getChild("title").asTextField;			
 			this.lab_num.touchable = true;
 		}
 
-		public AddRootListener():void{
+		public addAllListener():void{
 
-			super.AddRootListener();
+			super.addAllListener();
 
-			this.AddGameListener( egret.TouchEvent.TOUCH_TAP , this.touchAddHandler , this , this.btn_add );
-			this.AddGameListener( egret.TouchEvent.TOUCH_TAP , this.touchRedHandler , this , this.btn_red );
-			this.AddGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLabHandler , this , this.lab_num );
-			this.AddGameListener( UIGameEvent.CLICK_COUNTER , this.clickCounterHandler , this );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchAddHandler , this , this.btn_add );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchRedHandler , this , this.btn_red );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLabHandler , this , this.lab_num );
+			// this.addGameListener( GameEvent.CLICK_COUNTER , this.clickCounterHandler , this );
 			
 		}
 
-		public RemoveRootListener():void{
+		public removeAllListener():void{
 
-			super.RemoveRootListener();
+			super.removeAllListener();
 
-			this.RemoveGameListener( egret.TouchEvent.TOUCH_TAP , this.touchAddHandler , this , this.btn_add );
-			this.RemoveGameListener( egret.TouchEvent.TOUCH_TAP , this.touchRedHandler , this , this.btn_red );
-			this.RemoveGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLabHandler , this , this.lab_num );
-			this.RemoveGameListener( UIGameEvent.CLICK_COUNTER , this.clickCounterHandler , this );
+			this.removeGameListener( egret.TouchEvent.TOUCH_TAP , this.touchAddHandler , this , this.btn_add );
+			this.removeGameListener( egret.TouchEvent.TOUCH_TAP , this.touchRedHandler , this , this.btn_red );
+			this.removeGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLabHandler , this , this.lab_num );
+			// this.removeGameListener( GameEvent.CLICK_COUNTER , this.clickCounterHandler , this );
 
 		}
 
@@ -86,7 +86,7 @@ module fairui {
 		}
 
 		/**获取点击计算器的值 */
-		private clickCounterHandler( e:UIGameEvent ):void{
+		private clickCounterHandler( e:GameEvent ):void{
 
 			let item:any = e.data["item"];
 			if( item != this ){
@@ -127,7 +127,7 @@ module fairui {
 		/**打开计算器 */
 		private touchLabHandler( e:egret.TouchEvent ):void{
 
-			UISystem.Inst.CreateWindowView( ui.UIStoreCounterView , {"min":this._minVal,"max":this._maxVal,"item":this} );
+			// UISystem.Inst.createWindowView( UIStoreCounterView , {"min":this._minVal,"max":this._maxVal,"item":this} );
 		}
 
 		public set addValue( value:number ){
@@ -218,9 +218,9 @@ module fairui {
 			return num;
 		}
 
-		public Destroy():void{
+		public dispose():void{
 
-			super.Destroy();
+			super.dispose();
 
 			if( this._addHandler != null ){
 				this._addHandler.gc();

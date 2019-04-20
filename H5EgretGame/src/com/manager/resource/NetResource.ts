@@ -132,7 +132,7 @@ module fairui {
 			return this._isLoading;
 		}
 
-		public get isDispose(): boolean {
+		public get isDisposed(): boolean {
 			return this._isDispose;
 		}
 
@@ -159,7 +159,7 @@ module fairui {
 				App.asset.deleteResAsset(this.url);
 			}
 			if (this._hash)
-				this._hash.destroy();
+				this._hash.reset();
 			this._hash = null;
 			this._resource = null;
 			this._delayDisposeTime = 0;

@@ -25,7 +25,7 @@ module fairui {
 			dict.setItem(fiveDir, animator);
 		}
 
-		public get isDispose(): boolean {
+		public get isDisposed(): boolean {
 			return this._isDispose;
 		}
 

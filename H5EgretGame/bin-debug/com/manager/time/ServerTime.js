@@ -19,7 +19,7 @@ var com;
                 if (ServerTime._init == false) {
                     ServerTime._init = true;
                     ServerTime._lastEnterTime = 0;
-                    App.stage.addEventListener(egret.Event.ENTER_FRAME, ServerTime.onEnterFrame, this);
+                    Global.stage.addEventListener(egret.Event.ENTER_FRAME, ServerTime.onEnterFrame, this);
                 }
             };
             ServerTime.onEnterFrame = function (e) {

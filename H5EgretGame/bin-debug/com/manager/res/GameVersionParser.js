@@ -36,12 +36,12 @@ var com;
                 this._parmas = parmas;
                 if (packData) {
                     packData.position = 0;
-                    App.log.debug(packData.length);
+                    egret.log(packData.length);
                     var length_type = flash.checkInt(packData.readInt());
                     if (length_type <= 0 || length_type >= 0x0000ffff) {
                         var configVer_1 = packData.readUTFBytes(20);
-                        App.log.debug("游戏资源版本打包(java)：resourceCfg\n版本号:" + configVer_1);
-                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_732") + configVer_1);
+                        egret.log("游戏资源版本打包(java)：resourceCfg\n版本号:" + configVer_1);
+                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_732") + configVer_1);
                         var configData_1 = new egret.ByteArray();
                         packData.readBytes(configData_1, 0, 0);
                         var inflate1 = new Zlib.Inflate(configData_1.bytes);
@@ -53,8 +53,8 @@ var com;
                     else {
                         var leng = flash.checkInt(length_type);
                         var configVer_2 = packData.readUTFBytes(leng);
-                        App.log.debug("游戏资源版本打包：resourceCfg\n版本号:" + configVer_2);
-                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_735") + configVer_2);
+                        egret.log("游戏资源版本打包：resourceCfg\n版本号:" + configVer_2);
+                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_735") + configVer_2);
                         var configData_2 = new egret.ByteArray();
                         packData.readBytes(configData_2, 0, 0);
                         var inflate2 = new Zlib.Inflate(configData_2.bytes);
@@ -66,7 +66,7 @@ var com;
                 }
                 else {
                     if (!Config.isDebug) {
-                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, App.lang.getLang("lang_client_736"));
+                        EventManager.dispatchEvent(LoginEvent.SHOW_INIT_GAME_PROGRESS, Global.lang.getLang("lang_client_736"));
                     }
                     else {
                         this.readFinish();

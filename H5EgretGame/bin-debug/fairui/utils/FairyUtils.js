@@ -8,7 +8,7 @@ var fairui;
     var GLoader = fairygui.GLoader;
     /**
      * FairyGUI工具
-     * @author cl 2018.4.24
+     * @author cl 2019.1.29
      */
     var FairyUtils = (function () {
         function FairyUtils() {
@@ -28,12 +28,18 @@ var fairui;
                     }
                     if (disObj.name && disObj.name.indexOf("tab_") == 0 && disObj instanceof GGroup) {
                         thisObject[disObj.name] = new fairui.ETab(disObj, thisObject);
+                        if (thisObject instanceof fairui.BaseSprite)
+                            thisObject.addComponent(thisObject[disObj.name]);
                     }
                     else if (disObj.name && disObj.name.indexOf("eglist_") == 0 && disObj instanceof GList) {
                         thisObject[disObj.name] = new fairui.EGList(disObj, thisObject);
+                        if (thisObject instanceof fairui.BaseSprite)
+                            thisObject.addComponent(thisObject[disObj.name]);
                     }
                     else if (disObj.name && disObj.name.indexOf("eloader_") == 0 && disObj instanceof GLoader) {
                         thisObject[disObj.name] = new fairui.ELoader(disObj);
+                        if (thisObject instanceof fairui.BaseSprite)
+                            thisObject.addComponent(thisObject[disObj.name]);
                     }
                     else {
                         thisObject[disObj.name] = disObj;

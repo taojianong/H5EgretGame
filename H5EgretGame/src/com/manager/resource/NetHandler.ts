@@ -70,7 +70,7 @@ module fairui {
 			this._completeDict = new flash.Dictionary();
 		}
 
-		public get isDispose(): boolean {
+		public get isDisposed(): boolean {
 			return this._isDispose;
 		}
 

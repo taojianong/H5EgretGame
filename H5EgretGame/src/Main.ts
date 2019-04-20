@@ -29,16 +29,15 @@
 
 class Main extends egret.DisplayObjectContainer {
 
-
-
     public constructor() {
+
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
     }
 
     private onAddToStage(event: egret.Event) {
 
-        this.stage.addEventListener(egret.Event.RESIZE, this.resizeHandler, this);
+        Global.initStage( this.stage );
 
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
@@ -95,9 +94,5 @@ class Main extends egret.DisplayObjectContainer {
         
         this.gameClient = new GameClient();
         this.addChild( this.gameClient );
-    }
-
-    private resizeHandler() {
-        EventManager.dispatchEvent(GameEvent.STGAE_RESIZE);
     }
 }
