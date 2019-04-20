@@ -18,5 +18,14 @@ class GameClient extends egret.DisplayObjectContainer {
 		this.addChild( this.uiLayer );
 
 		fairui.FairyUIManager.init( this.uiLayer );
+
+		fairui.LoaderManager.loadGroups( "common" , this.loadCommonComplete , this );
+	}
+
+	private loadCommonComplete():void{
+
+		fairui.FairyUIManager.initCommon();
+
+		UISystem.Inst.createWindowView( fairui.UIAdVideoView );
 	}
 }

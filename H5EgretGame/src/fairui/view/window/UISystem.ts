@@ -25,7 +25,7 @@ class UISystem {
 		if (DEBUG) {//如果为调试模式
 			loopTime = 5000;
 		}
-		Global.timer.doTimeLoop(loopTime, this.checkCache);
+		Global.timer.doTimeLoop(loopTime, flash.bind( this.checkCache , this ) );
 	}
 
 	/**

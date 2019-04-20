@@ -7,6 +7,7 @@ class UrlUtil {
     public static readonly resPng: string = ".png";
     public static readonly resJpg: string = ".jpg";
     public static readonly resMP3: string = ".mp3";
+    public static readonly resMP4: string = ".mp4";
     public static readonly resJson: string = ".json";
     public static readonly resTmx: string = ".tmx";
     public static readonly resGfx: string = ".gfx";
@@ -33,63 +34,19 @@ class UrlUtil {
     public static readonly PANEL: string = UrlUtil.ASSETS + "panel/";
     /**字体资源地址 resource/assets/res/font/ */
     public static readonly FONT: string = UrlUtil.ASSETS + "font/";
-    /**字体资源地址 resource/assets/res/sound/ */
+    /**音乐资源地址 resource/assets/res/sound/ */
     public static readonly SOUND: string = UrlUtil.ASSETS + "sound/";
+    /**视频资源地址 resource/assets/res/video/ */
+    public static readonly VIDEO: string = UrlUtil.ASSETS + "video/";
 
     /**物品图标 resource/assets/res/icon/goods/ */
     public static readonly URL_GOODS_ICON: string = UrlUtil.ICON + "goods/";
 
-    // public static readonly EFFECT_PARTICLE: string = UrlUtil.EFFECT_ANI + "2/";//粒子特效
-    // public static readonly MAP: string = UrlUtil.ASSETS + "map/";
-    // public static readonly BUILD: string = UrlUtil.MAP + "build/";
-    // public static readonly AREA: string = UrlUtil.MAP + "areas/";
-    // public static readonly IMAGES: string = UrlUtil.MAP + "images/";
-    // public static readonly CONFIG: string = UrlUtil.MAP + "config/";
-    // public static readonly MINS: string = UrlUtil.MAP + "mins/";
-    // public static readonly UI: string = UrlUtil.ASSETS + "ui/";//UI模块资源
-    // public static readonly FONT: string = UrlUtil.ASSETS + "font/";//字体模块资源
-    // public static readonly URL_UI_MODEL: string = UrlUtil.UI + "model/";
-    // public static readonly URL_UI_JSON: string = UrlUtil.UI + "json/";
-
-
-    // public static readonly URL_ZONE: string = UrlUtil.MAP + "zone/";
-    // public static readonly URL_PRODUCE: string = UrlUtil.MAP + "produce/";
-    // public static readonly URL_ICON_SEED: string = UrlUtil.ICON + "seed/";
-    // public static readonly URL_SKILL: string = UrlUtil.AVATAR + UrlUtil.EFFECT + "/";
-    // public static readonly URL_SKILL_ICON: string = UrlUtil.ICON + "skill/";
-    // public static readonly URL_MONSTER_BACK_ICON: string = UrlUtil.ICON + "monsterbackicon/";
-    // public static readonly URL_GOURDDOLL_ICON: string = UrlUtil.ICON + "gourddollicon/";    
-    // /**物品图标 */
-    // public static readonly URL_BUILDING_ICON: string = UrlUtil.ICON + "goods/";
-    // /**种子图标 */
-    // public static readonly URL_SEED_ICON: string = UrlUtil.ICON + "goods/";
-    // /**科技图标 */
-    // public static readonly URL_SCIENCE_ICON: string = UrlUtil.ICON + "science/";
-    // /**订单图标 */
-    // public static readonly URL_ORDER_ICON: string = UrlUtil.ICON + "order/";
-    // /**外发光物品图标 */
-    // public static readonly URL_LIGHT_GOODS_ICON:string = UrlUtil.ICON + "lightgoods/";
-    // /**头像图标 resource/assets/res/icon/head */
-    // public static readonly URL_HEAD_ICON: string = UrlUtil.ICON + "head/";
-
-    // /**捣乱图标 */
-    // public static readonly URL_MAKE_TROUBLE_ICON: string = UrlUtil.ICON + "maketrouble/";
-
-    // public static readonly URL_EFFECT: string = UrlUtil.ICON + "effect/";
-
-    /**表情动画地址 */
-    // public static readonly URL_EXPRESS:string = UrlUtil.EFFECT_ANI +"express/";
-
-    // /**任务图标 */
-    // public static readonly URL_TASK_ICON: string = UrlUtil.ICON + "task/";
-    // public static readonly URL_COIN_ICON: string = UrlUtil.ICON + "coinicon/";
-
-    // public static readonly URL_MAIN_ICON: string = UrlUtil.ICON + "mainicon/";
-    // public static readonly URL_SHOP_ICON: string = UrlUtil.ICON + "shopicon/";
-    // public static readonly URL_MOUSE_CREAT_ICON: string = UrlUtil.ICON + "mouscreaticon/";
-    // /**小游戏图标 */
-    // public static readonly URL_SMALL_GAME_ICON: string = UrlUtil.ICON + "smallgame/";
-    public static readonly URL_MUSIC: string = "music/";
+    private static getAction(str: string): string {
+        if (str.length < 3) str = "0" + str;
+        if (str.length < 3) str = "0" + str;
+        return str;
+    }
 
     public static getCommonAssetsUrl(job: number, action: number = 201): string {
         var str: string = UrlUtil.getAction(action + "");
@@ -135,13 +92,8 @@ class UrlUtil {
     }
 
     public static getEffectImgUrl(name: string): string {
-        return UrlUtil.EFFECT + "normal/" + name + UrlUtil.resPng;
-    }
 
-    public static getAction(str: string): string {
-        if (str.length < 3) str = "0" + str;
-        if (str.length < 3) str = "0" + str;
-        return str;
+        return UrlUtil.EFFECT + "normal/" + name + UrlUtil.resPng;
     }
 
     /**
@@ -152,4 +104,21 @@ class UrlUtil {
         return UrlUtil.SOUND + resName + UrlUtil.resMP3;
     }
 
+    /**
+     * 获取视频地址
+     */
+    public static getVideoAdUrl( resName:string ):string{
+
+        return UrlUtil.VIDEO + resName + UrlUtil.resMP4;
+    }
+
+    /**
+     * 获取视频图片资源
+     */
+    public static getVideoAdImgUrl( resName:string ):string{
+
+        return UrlUtil.VIDEO + resName + UrlUtil.resJpg;
+    }
+
+    
 }

@@ -94,7 +94,8 @@ module fairui {
 			fairui.PanelRegister.registerClass("common", "UITextInput", fairui.UITextInput);
 			fairui.PanelRegister.registerClass( "common" , "UINumberItemComp" , fairui.UINumberItemComp );
 			fairui.PanelRegister.registerClass( "common" , "LabButton" , fairui.LabButton );
-			fairui.PanelRegister.registerClass( "common" , "ReverseMask" , fairui.ReverseMask );			
+			fairui.PanelRegister.registerClass( "common" , "ReverseMask" , fairui.ReverseMask );
+			fairui.PanelRegister.registerClass( "common" , "TipBottomItem" ,TipBottomItem)			
 		}
 
 		//-----------------------------------------------------------		
@@ -116,7 +117,7 @@ module fairui {
 				let panel: fairui.BasePanel = this.cachePanelMap.getItem(panelId);
 				let panelInfo: fairui.PanelInfo = PanelRegister.getPanel(panelId);
 				if (panelInfo == null) {
-					Global.log.error("没有对应面板 panelId:" + panelId);
+					Global.log.error( this , "没有对应面板 panelId:" + panelId);
 					if (complete != null) complete();
 					return;
 				}
@@ -154,7 +155,7 @@ module fairui {
 				}
 			}
 			catch (e) {
-				Global.log.error("FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
+				Global.log.error( this , "FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
 			}
 		}
 
@@ -275,7 +276,7 @@ module fairui {
 					PanelRegister.removeRegister(panelid);
 				}
 			} catch (e) {
-				Global.log.error("FairyUIManager.closePanel Id[" + panel + "] Error.", e);
+				Global.log.error( this , "FairyUIManager.closePanel Id[" + panel + "] Error.", e);
 			}
 		}
 	}

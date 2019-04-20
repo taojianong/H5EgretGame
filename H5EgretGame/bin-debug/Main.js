@@ -103,12 +103,8 @@ var Main = (function (_super) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        // const loadingView = new LoadingUI();
-                        // this.stage.addChild(loadingView);
                         return [4 /*yield*/, RES.loadConfig("resource/default.res.json", "resource/")];
                     case 1:
-                        // const loadingView = new LoadingUI();
-                        // this.stage.addChild(loadingView);
                         _a.sent();
                         return [3 /*break*/, 3];
                     case 2:

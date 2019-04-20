@@ -37,7 +37,8 @@ module fairui {
 			
 			if (!this.isOpened) {
 				this.isOpened = true;
-				this.initUI();
+				// this.initUI();
+				this.init(null);
 			}
 
 			this.initData(this.param);
@@ -52,7 +53,8 @@ module fairui {
 		 */
 		public init(param: any): void {
 			this.param = param;
-			this.initComplete();
+			// this.initComplete();
+			this.initUI();
 		}
 
 		/**

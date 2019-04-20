@@ -69,6 +69,7 @@ var fairui;
             fairui.PanelRegister.registerClass("common", "UINumberItemComp", fairui.UINumberItemComp);
             fairui.PanelRegister.registerClass("common", "LabButton", fairui.LabButton);
             fairui.PanelRegister.registerClass("common", "ReverseMask", fairui.ReverseMask);
+            fairui.PanelRegister.registerClass("common", "TipBottomItem", fairui.TipBottomItem);
         };
         /**
          * 根据面板Id打开对应的面板
@@ -87,7 +88,7 @@ var fairui;
                 var panel = this.cachePanelMap.getItem(panelId);
                 var panelInfo = fairui.PanelRegister.getPanel(panelId);
                 if (panelInfo == null) {
-                    Global.log.error("没有对应面板 panelId:" + panelId);
+                    Global.log.error(this, "没有对应面板 panelId:" + panelId);
                     if (complete != null)
                         complete();
                     return;
@@ -127,7 +128,7 @@ var fairui;
                 }
             }
             catch (e) {
-                Global.log.error("FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
+                Global.log.error(this, "FairyUIManager.openPanel Id[" + panelId + "] Error.", e);
             }
         };
         /**加载完成并打开面板*/
@@ -251,7 +252,7 @@ var fairui;
                 }
             }
             catch (e) {
-                Global.log.error("FairyUIManager.closePanel Id[" + panel + "] Error.", e);
+                Global.log.error(this, "FairyUIManager.closePanel Id[" + panel + "] Error.", e);
             }
         };
         /**缓存所有打开的面板 */

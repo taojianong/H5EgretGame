@@ -33,7 +33,8 @@ var fairui;
             }
             if (!this.isOpened) {
                 this.isOpened = true;
-                this.initUI();
+                // this.initUI();
+                this.init(null);
             }
             this.initData(this.param);
             this.addAllListener();
@@ -45,7 +46,8 @@ var fairui;
          */
         UIComponent.prototype.init = function (param) {
             this.param = param;
-            this.initComplete();
+            // this.initComplete();
+            this.initUI();
         };
         /**
          * 初始化UI界面

@@ -26,13 +26,13 @@ var Global = (function () {
     Global.onDeActive = function (event) {
         Global.isActive = false;
         Global.isMusic = false;
-        Global.log.debug("游戏进入缓慢运动状态");
+        Global.log.debug(this, "游戏进入缓慢运动状态");
         // SoundManager.getInstance().backGroundMusicVolume(0);
     };
     Global.onActive = function (event) {
         Global.isActive = true;
         Global.isMusic = true;
-        Global.log.debug("游戏进入正常运动状态");
+        Global.log.debug(this, "游戏进入正常运动状态");
         // SoundManager.getInstance().backGroundMusicVolume(0.8);
     };
     Object.defineProperty(Global, "stageWidth", {

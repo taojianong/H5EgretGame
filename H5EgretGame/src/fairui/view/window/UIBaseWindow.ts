@@ -67,11 +67,10 @@ module fairui {
 
 		public init(param: any, cfgParam: any = null): void {
 
-			if (cfgParam) {
-				this._cfgParam = cfgParam;
-			}
 			this.maskClick = true;
-			super.init(param);
+
+			this.param = param;
+			this._cfgParam = cfgParam;
 
 			//加载资源
 			this.loadAtlas( cfgParam );
@@ -91,7 +90,7 @@ module fairui {
 		private loadAtlas(cfgParam: any): void {
 			this._cfgParam = cfgParam;
 			if (this._pkgName) {
-				LoaderManager.loadGroups( this._pkgName , this.loadAtlasComplete );
+				LoaderManager.loadGroups( this._pkgName , this.loadAtlasComplete , this );
 			} else {
 				this.isLoaded = true;
 				this.initComplete();
@@ -105,7 +104,7 @@ module fairui {
 			_self.isLoaded = true;
 			_self.registerClasses();
 			//注册类需要一定延时才生效！
-			Global.timer.doFrameOnce( 1 , _self.initComplete );
+			Global.timer.doFrameOnce( 1 , flash.bind( _self.initComplete , _self ) );
 		}
 
 		/**

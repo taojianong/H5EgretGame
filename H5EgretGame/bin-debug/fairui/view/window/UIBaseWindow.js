@@ -62,11 +62,9 @@ var fairui;
         };
         UIBaseWindow.prototype.init = function (param, cfgParam) {
             if (cfgParam === void 0) { cfgParam = null; }
-            if (cfgParam) {
-                this._cfgParam = cfgParam;
-            }
             this.maskClick = true;
-            _super.prototype.init.call(this, param);
+            this.param = param;
+            this._cfgParam = cfgParam;
             //加载资源
             this.loadAtlas(cfgParam);
         };
@@ -84,7 +82,7 @@ var fairui;
         UIBaseWindow.prototype.loadAtlas = function (cfgParam) {
             this._cfgParam = cfgParam;
             if (this._pkgName) {
-                fairui.LoaderManager.loadGroups(this._pkgName, this.loadAtlasComplete);
+                fairui.LoaderManager.loadGroups(this._pkgName, this.loadAtlasComplete, this);
             }
             else {
                 this.isLoaded = true;
@@ -97,7 +95,7 @@ var fairui;
             _self.isLoaded = true;
             _self.registerClasses();
             //注册类需要一定延时才生效！
-            Global.timer.doFrameOnce(1, _self.initComplete);
+            Global.timer.doFrameOnce(1, flash.bind(_self.initComplete, _self));
         };
         /**
          * 当加载完对应包时注册面板需要用到的对应编辑器中的类

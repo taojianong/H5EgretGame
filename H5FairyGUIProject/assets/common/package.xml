@@ -39,7 +39,7 @@
     <image id="my99z" name="commom_diban10.png" path="/images/"/>
     <image id="my9910" name="common_04.png" path="/images/"/>
     <image id="my9911" name="common_05.png" path="/images/"/>
-    <image id="my9912" name="common_anniu001.png" path="/images/"/>
+    <image id="my9912" name="common_anniu001.png" path="/images/" scale="9grid" scale9grid="36,30,12,6"/>
     <image id="my9913" name="common_anniu002.png" path="/images/"/>
     <image id="my9914" name="common_anniu003.png" path="/images/"/>
     <image id="my9915" name="common_anniu005.png" path="/images/"/>
@@ -176,6 +176,8 @@
     <component id="my994w" name="UIMoneyComp.xml" path="/component/" exported="true"/>
     <component id="my994x" name="UINumberItemComp.xml" path="/component/" exported="true"/>
     <component id="my994y" name="UITextInput.xml" path="/component/" exported="true"/>
+    <component id="r7y04z" name="TipBottomItem.xml" path="/item/" exported="true"/>
+    <component id="r7y050" name="UIAdVideoView.xml" path="/views/" exported="true"/>
   </resources>
   <publish name="common"/>
 </packageDescription>

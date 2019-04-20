@@ -10,6 +10,9 @@ class GameEvent extends egret.Event{
 	/**渲染事件 */
 	public static RENDER:string = "GameEvent.render";
 
+	/**加载完成 */
+	public static LOAD_COMPLETE:string = "GameEvent.loadComplete";
+
 	/**舞台自适应 */
 	public static STGAE_RESIZE:string = "GameEvent.stageResize";
 
@@ -35,6 +38,12 @@ class GameEvent extends egret.Event{
 
 	/**开始游戏 */
 	public static START_GAME:string = "GameEvent.stageGame";
+
+	/**添加消息 */
+	public static ADD_MESSAGE:string = "GameEvent.addMessage";
+
+	/**播放广告完成 */
+	public static END_PLAY_AD:string = "GameEvent.endPlayAd";
 
 	public thisObject:any = null;
 

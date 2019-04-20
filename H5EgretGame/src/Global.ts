@@ -58,14 +58,14 @@ class Global {
 	protected static onDeActive(event: egret.Event): void {
         Global.isActive = false;
         Global.isMusic = false;
-        Global.log.debug( "游戏进入缓慢运动状态");
+        Global.log.debug( this , "游戏进入缓慢运动状态");
         // SoundManager.getInstance().backGroundMusicVolume(0);
     }
 
     protected static onActive(event: egret.Event): void {
         Global.isActive = true;
         Global.isMusic = true;
-        Global.log.debug( "游戏进入正常运动状态");
+        Global.log.debug( this , "游戏进入正常运动状态");
 		// SoundManager.getInstance().backGroundMusicVolume(0.8);
     }
 

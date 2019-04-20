@@ -34,6 +34,9 @@ var fairui;
             _this.m_componentDic = new flash.Dictionary();
             return _this;
         }
+        /**初始创建时的方法，用于继承IPool的类 */
+        BaseButton.prototype.create = function () {
+        };
         BaseButton.prototype.constructFromXML = function (xml) {
             _super.prototype.constructFromXML.call(this, xml);
             fairui.FairyUtils.setVar(this, this);
@@ -59,9 +62,11 @@ var fairui;
         });
         BaseButton.prototype.show = function (value) {
             this.__data = value;
+            this.addAllListener();
         };
         BaseButton.prototype.hide = function () {
             this.__data = null;
+            this.removeAllListener();
         };
         Object.defineProperty(BaseButton.prototype, "enabled", {
             /**
@@ -314,6 +319,9 @@ var fairui;
             enumerable: true,
             configurable: true
         });
+        /**回收到池中 */
+        BaseButton.prototype.recover = function () {
+        };
         /**
          * 释放所有资源
          */
@@ -332,6 +340,6 @@ var fairui;
         return BaseButton;
     }(fairygui.GButton));
     fairui.BaseButton = BaseButton;
-    __reflect(BaseButton.prototype, "fairui.BaseButton", ["IComponent", "IDispose"]);
+    __reflect(BaseButton.prototype, "fairui.BaseButton", ["IComponent", "IDispose", "IPool"]);
 })(fairui || (fairui = {}));
 //# sourceMappingURL=BaseButton.js.map

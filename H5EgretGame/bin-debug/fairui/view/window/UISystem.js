@@ -18,7 +18,7 @@ var UISystem = (function () {
         if (true) {
             loopTime = 5000;
         }
-        Global.timer.doTimeLoop(loopTime, this.checkCache);
+        Global.timer.doTimeLoop(loopTime, flash.bind(this.checkCache, this));
     }
     Object.defineProperty(UISystem, "Inst", {
         get: function () {

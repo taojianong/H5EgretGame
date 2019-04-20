@@ -4,7 +4,7 @@ module fairui {
      * 基类按钮
      * @author cl 2019.1.29
      */
-    export class BaseButton extends fairygui.GButton implements IComponent {
+    export class BaseButton extends fairygui.GButton implements IComponent,IPool {
 
         /**是否已经释放 */
         public isDispose: boolean = false;
@@ -30,6 +30,12 @@ module fairui {
 
             this.m_eventPool = EventPool.create();
 			this.m_componentDic = new flash.Dictionary();
+        }
+
+        /**初始创建时的方法，用于继承IPool的类 */
+        public create():void{
+
+
         }
 
         protected constructFromXML(xml: any): void {
@@ -64,11 +70,15 @@ module fairui {
         public show(value: any): void {
 
             this.__data = value;
+
+            this.addAllListener();
         }
 
         public hide(): void {
 
             this.__data = null;
+
+            this.removeAllListener();
         }
 
         public set enabled(value: boolean) {
@@ -348,6 +358,12 @@ module fairui {
 
         public get isDisposed(): boolean {
             return this["_disposed"];
+        }
+
+        /**回收到池中 */
+        public recover():void{
+
+            
         }
 
 		/**

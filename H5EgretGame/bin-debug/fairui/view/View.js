@@ -24,12 +24,12 @@ var fairui;
             return this.cls;
         };
         //------------------------------------------------
-        //初始化UI
-        View.prototype.initUI = function () {
-        };
         View.prototype.init = function (param) {
             _super.prototype.init.call(this, param);
             this.gcTime = Number.MAX_VALUE;
+        };
+        //初始化UI
+        View.prototype.initUI = function () {
         };
         /**
          * 自适应接口

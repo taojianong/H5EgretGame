@@ -22,14 +22,14 @@ module fairui {
 
 		//------------------------------------------------
 
-		//初始化UI
-		public initUI(): void {
-
-		}
-
 		public init(param: any): void {
 			super.init(param);
 			this.gcTime = Number.MAX_VALUE;
+		}
+		
+		//初始化UI
+		public initUI(): void {
+
 		}
 
 		/**

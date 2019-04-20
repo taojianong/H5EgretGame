@@ -22,7 +22,7 @@ module com.bean {
 
 		public constructor() {
 			if (DataConfigUtils._instances) {
-				Global.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
+				Global.log.error( this , "Error: DataConfigUtils an only use instances() to get an instance!");
 				return;
 			}
 			this._beanConfigPropertyErrorDict = new flash.Dictionary();

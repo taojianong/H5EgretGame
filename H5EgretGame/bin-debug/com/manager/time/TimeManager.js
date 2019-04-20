@@ -65,7 +65,7 @@ var com;
                                 while (t >= handler.exeTime) {
                                     if (_self__._handlers.hasOwnProperty(key)) {
                                         handler.exeTime += handler.delay;
-                                        method.apply(method["owner"], args);
+                                        method.apply(method["owner"], args); ////请使用flash.bind()方法
                                     }
                                     else {
                                         break;
@@ -74,7 +74,7 @@ var com;
                             }
                             else {
                                 _self__.clearTimer(key);
-                                method.apply(method["owner"], args);
+                                method.apply(method["owner"], args); //请使用flash.bind()方法
                             }
                         }
                     }

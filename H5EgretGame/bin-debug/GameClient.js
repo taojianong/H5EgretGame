@@ -23,8 +23,13 @@ var GameClient = (function (_super) {
         _this.addChild(_this.gameLayer);
         _this.addChild(_this.uiLayer);
         fairui.FairyUIManager.init(_this.uiLayer);
+        fairui.LoaderManager.loadGroups("common", _this.loadCommonComplete, _this);
         return _this;
     }
+    GameClient.prototype.loadCommonComplete = function () {
+        fairui.FairyUIManager.initCommon();
+        UISystem.Inst.createWindowView(fairui.UIAdVideoView);
+    };
     return GameClient;
 }(egret.DisplayObjectContainer));
 __reflect(GameClient.prototype, "GameClient");

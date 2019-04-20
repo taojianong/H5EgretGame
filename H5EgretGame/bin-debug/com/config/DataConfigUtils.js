@@ -11,7 +11,7 @@ var com;
                 /**是否完成了策划配置文件解析*/
                 this.isComplete = false;
                 if (DataConfigUtils._instances) {
-                    Global.log.error("Error: DataConfigUtils an only use instances() to get an instance!");
+                    Global.log.error(this, "Error: DataConfigUtils an only use instances() to get an instance!");
                     return;
                 }
                 this._beanConfigPropertyErrorDict = new flash.Dictionary();

@@ -42,7 +42,7 @@ module fairui{
             // this.eloader_title.texture = fairui.FairyTextureUtils.getTextureBy( pkgName , resName );
 			let url:string  = fairui.FairyTextureUtils.getUrl( pkgName , resName );
 			if( url == null ){
-				Global.log.error("没有对应标题资源 " + pkgName + "_" + resName + "!");
+				Global.log.error( this , "没有对应标题资源 " + pkgName + "_" + resName + "!");
 			}else{
 				this.eloader_title.setFairySource( pkgName , resName );
 			}			

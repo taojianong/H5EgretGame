@@ -9,7 +9,7 @@
 		"memberNamePrefix":"m_",
 		"packageName":""
 	},
-	"compressDesc":true,
+	"compressDesc":false,
 	"fileExtension":"map",
 	"packageCount":2,
 	"path":"F:\\githbub\\H5EgretGame\\H5EgretGame\\resource\\assets\\fairui"

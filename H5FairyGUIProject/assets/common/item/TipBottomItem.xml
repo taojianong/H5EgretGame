@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,40" extention="Button">
+  <displayList>
+    <richtext id="n0_r7y0" name="title" xy="0,0" size="790,40" fontSize="20" color="#ffffff" align="center" vAlign="middle" autoSize="none" autoClearText="true" text="xcxcx"/>
+  </displayList>
+  <Button/>
+</component>

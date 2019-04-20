@@ -23,6 +23,8 @@ var GameEvent = (function (_super) {
     GameEvent.SELECT = "GameEvent.select";
     /**渲染事件 */
     GameEvent.RENDER = "GameEvent.render";
+    /**加载完成 */
+    GameEvent.LOAD_COMPLETE = "GameEvent.loadComplete";
     /**舞台自适应 */
     GameEvent.STGAE_RESIZE = "GameEvent.stageResize";
     /**加载进度 */
@@ -41,6 +43,10 @@ var GameEvent = (function (_super) {
     GameEvent.MAIN_LOAD_COMPLETE = "GameEvent.mainLoadComplete";
     /**开始游戏 */
     GameEvent.START_GAME = "GameEvent.stageGame";
+    /**添加消息 */
+    GameEvent.ADD_MESSAGE = "GameEvent.addMessage";
+    /**播放广告完成 */
+    GameEvent.END_PLAY_AD = "GameEvent.endPlayAd";
     return GameEvent;
 }(egret.Event));
 __reflect(GameEvent.prototype, "GameEvent");
