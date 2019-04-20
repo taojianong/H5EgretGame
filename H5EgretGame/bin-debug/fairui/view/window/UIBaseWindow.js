@@ -61,6 +61,7 @@ var fairui;
             }
         };
         UIBaseWindow.prototype.init = function (param, cfgParam) {
+            // super.init( param );
             if (cfgParam === void 0) { cfgParam = null; }
             this.maskClick = true;
             this.param = param;

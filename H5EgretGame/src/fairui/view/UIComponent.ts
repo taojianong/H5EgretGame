@@ -6,9 +6,9 @@ module fairui {
 	export class UIComponent extends BaseSprite {
 
 		/**是否打开过界面 */
-		protected isOpened: boolean;
+		protected isOpened: boolean = false;
 		/**是否初始化执行结束 */
-		protected isComplyed: boolean;
+		protected isComplyed: boolean = false;
 		/**参数 */
 		public param: any;		
 
@@ -21,7 +21,7 @@ module fairui {
 
 			super.constructFromXML(xml);
 			
-			this.initComplete();
+			this.init( null );
 		}
 
 		public isInited(): boolean {
@@ -37,8 +37,7 @@ module fairui {
 			
 			if (!this.isOpened) {
 				this.isOpened = true;
-				// this.initUI();
-				this.init(null);
+				this.initUI();
 			}
 
 			this.initData(this.param);
@@ -53,8 +52,7 @@ module fairui {
 		 */
 		public init(param: any): void {
 			this.param = param;
-			// this.initComplete();
-			this.initUI();
+			this.initComplete();
 		}
 
 		/**

@@ -25,11 +25,11 @@ var EventManager = (function () {
             if (length_1 > 0) {
                 for (var i = 0; i < length_1; i++) {
                     try {
-                        egret.log("EventManager 调度事件: " + type); //调度事件出错.
+                        egret.log("[log][EventManager] 调度事件: " + type); //调度事件出错.
                         list[i][0].apply(list[i][1], args);
                     }
                     catch (e) {
-                        egret.error("调度事件出错.", e); //调度事件出错.
+                        egret.error("[log][EventManager] 调度事件出错.", e); //调度事件出错.
                     }
                 }
             }

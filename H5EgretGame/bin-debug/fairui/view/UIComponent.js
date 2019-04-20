@@ -17,11 +17,16 @@ var fairui;
     var UIComponent = (function (_super) {
         __extends(UIComponent, _super);
         function UIComponent() {
-            return _super.call(this) || this;
+            var _this = _super.call(this) || this;
+            /**是否打开过界面 */
+            _this.isOpened = false;
+            /**是否初始化执行结束 */
+            _this.isComplyed = false;
+            return _this;
         }
         UIComponent.prototype.constructFromXML = function (xml) {
             _super.prototype.constructFromXML.call(this, xml);
-            this.initComplete();
+            this.init(null);
         };
         UIComponent.prototype.isInited = function () {
             return !this.isComplyed;
@@ -33,8 +38,7 @@ var fairui;
             }
             if (!this.isOpened) {
                 this.isOpened = true;
-                // this.initUI();
-                this.init(null);
+                this.initUI();
             }
             this.initData(this.param);
             this.addAllListener();
@@ -46,8 +50,7 @@ var fairui;
          */
         UIComponent.prototype.init = function (param) {
             this.param = param;
-            // this.initComplete();
-            this.initUI();
+            this.initComplete();
         };
         /**
          * 初始化UI界面

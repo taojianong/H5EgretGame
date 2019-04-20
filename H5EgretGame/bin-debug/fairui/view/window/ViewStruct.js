@@ -21,7 +21,7 @@ var ViewStruct = (function () {
          * 界面布局 九键盘布局 7为左上，8为上中，9为上右 4为左中 5中间 6为右中 1为左下 2为下中 3为右下
          */
         get: function () {
-            return 0;
+            return 5;
         },
         enumerable: true,
         configurable: true

@@ -10,18 +10,62 @@ var Global = (function () {
     }
     Global.initStage = function (stage) {
         this.stage = stage;
-        this.stage.addEventListener(egret.Event.RESIZE, this.resizeHandler, this);
+        if (this.stage.stageWidth < 1280 || this.stage.stageHeight < 720) {
+            this.stage.scaleMode = egret.StageScaleMode.FIXED_HEIGHT;
+        }
+        else {
+            this.stage.scaleMode = egret.StageScaleMode.NO_SCALE;
+        }
         Global.timer = new com.time.TimeManager();
         Global.lang = new LangManager();
         Global.log = new LogManager();
-        stage.addEventListener(egret.Event.ACTIVATE, this.onActive, this);
-        stage.addEventListener(egret.Event.DEACTIVATE, this.onDeActive, this);
+        this.stage.addEventListener(egret.Event.RESIZE, this.resizeHandler, this);
+        this.stage.addEventListener(egret.Event.ACTIVATE, this.onActive, this);
+        this.stage.addEventListener(egret.Event.DEACTIVATE, this.onDeActive, this);
     };
     /**
      * 自适应管理
      */
     Global.resizeHandler = function () {
+        UILayout.resizeDisplay();
+        this.changeXY(fairui.FairyUIManager.mainLayer);
+        this.changeXY(fairui.FairyUIManager.windowLayer);
+        this.changeXY(fairui.FairyUIManager.promptLayer);
+        this.changeXY(fairui.FairyUIManager.alertLayer);
+        this.changeXY(fairui.FairyUIManager.topLayer);
+        this.resetIframeSize();
         EventManager.dispatchEvent(GameEvent.STGAE_RESIZE);
+    };
+    /**iframe宽高resize */
+    Global.resetIframeSize = function () {
+        var frame = document.getElementById("igame");
+        if (!frame)
+            return;
+        var game_frame = document.getElementsByClassName("egret-player")[0];
+        var player = game_frame["egret-player"];
+        frame.style['width'] = player.container.clientWidth + "px";
+        frame.style['height'] = player.container.clientHeight + "px";
+        frame.style['position'] = 'absolute';
+        frame.style['cursor'] = 'inherit';
+        frame.style['left'] = '0px';
+        frame.style['top'] = '0px';
+        frame.style['border'] = '0';
+    };
+    /**
+     * 自适应改变窗口位置
+     */
+    Global.changeXY = function (sprite) {
+        var window;
+        var leng = sprite.numChildren;
+        for (var i = 0; i < leng; i++) {
+            window = sprite.getChildAt(i);
+            if (window instanceof fairui.UIBaseWindow) {
+                window.onResize();
+            }
+            else if (window instanceof fairui.UIBaseTip) {
+                window.onResize();
+            }
+        }
     };
     Global.onDeActive = function (event) {
         Global.isActive = false;

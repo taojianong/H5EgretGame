@@ -67,6 +67,8 @@ module fairui {
 
 		public init(param: any, cfgParam: any = null): void {
 
+			// super.init( param );
+
 			this.maskClick = true;
 
 			this.param = param;

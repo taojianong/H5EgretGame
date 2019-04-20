@@ -78,8 +78,12 @@ module fairui {
 			return showMask;
 		}
 
-		//ui9宫格布局 自适应
-		public OnResize(): void {
+		/**
+		 * UI 9宫格布局 自适应
+		 */
+		public onResize(): void {
+
+			super.onResize();
 
 			let showMask: boolean = this.param && this.param.hasOwnProperty("showMask") && this.param["showMask"];
 			if (showMask) {

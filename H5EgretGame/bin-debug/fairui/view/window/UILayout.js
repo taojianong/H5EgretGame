@@ -34,6 +34,7 @@ var UILayout = (function () {
                 view.x = 0;
                 view.y = (Global.stageHeight - view.height) * 0.5;
                 break;
+            case 0:
             //上下左右居中 5
             case UILayout.CENTER:
                 view.x = (Global.stageWidth - view.width) * 0.5;

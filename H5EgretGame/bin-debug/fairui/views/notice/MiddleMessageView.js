@@ -16,12 +16,11 @@ var fairui;
      **/
     var MiddleMessageView = (function (_super) {
         __extends(MiddleMessageView, _super);
-        // private _imagePool: Array<TipBottomItem> = new Array<TipBottomItem>();
         function MiddleMessageView() {
             var _this = _super.call(this) || this;
             _this.TOTALNUM = 4;
             _this.DELAYTIME = 300;
-            _this.H = 60;
+            _this.H = 40;
             _this._showIndex = 0;
             _this._count = 0; //计数
             _this._msgAry = [];
@@ -49,23 +48,46 @@ var fairui;
             if (thisObject._count < thisObject.TOTALNUM) {
                 var str = thisObject._msgAry[thisObject._showIndex];
                 if (str) {
-                    var item = fairui.TipBottomItem.create();
-                    item.show(str);
-                    thisObject.addChild(item);
+                    var item_1 = fairui.TipBottomItem.create();
+                    item_1.show(str);
+                    thisObject.addChild(item_1);
                     thisObject._showIndex++;
                     ++thisObject._count;
-                    thisObject._imageAry.push(item);
+                    thisObject._imageAry.push(item_1);
                     thisObject.refreshPos();
                     // TweenLite.to(item, 0.1, {
                     //     x: (thisObject.width - 1.5 * item.width) / 2,
                     //     scaleX: 1.5, scaleY: 1.5, onComplete: thisObject.scale2Time, onCompleteParams: [item, thisObject]
                     // });//增加字体放大特效
+                    var toX = (thisObject.width - 1.5 * item_1.width) / 2;
+                    fairygui.GTween.to3(item_1.x, item_1.scaleX, item_1.scaleY, toX, 1.5, 1.5, 0.1).setTarget(item_1)
+                        .onUpdate(function onUpdate(tw) {
+                        item_1.x = tw.value.x;
+                        item_1.scaleX = tw.value.y;
+                        item_1.scaleY = tw.value.z;
+                    }, this)
+                        .onComplete(function onComplete() {
+                        thisObject.scale2Time(item_1, thisObject);
+                    }, this);
                 }
             }
         };
         //0.5秒后恢复到正常字体
         MiddleMessageView.prototype.scale2Time = function (img, thisObject) {
             // TweenLite.to(img, 0.1, { x: (thisObject.width - img.width) / 2, y: thisObject._count * thisObject.H, scaleX: 1, scaleY: 1, onComplete: thisObject.showTime, onCompleteParams: [img, thisObject], delay: 0.5 });
+            var toX = (thisObject.width - img.width) / 2;
+            var toY = thisObject._count * thisObject.H;
+            fairygui.GTween.to4(img.x, img.y, img.scaleX, img.scaleY, toX, toY, 1, 1, 0.1).setTarget(img)
+                .setDelay(0.5)
+                .onUpdate(function onUpdate(tw) {
+                img.x = tw.value.x;
+                img.y = tw.value.y;
+                img.scaleX = tw.value.z;
+                img.scaleY = tw.value.w;
+            }, thisObject)
+                .onComplete(function onComplete() {
+                thisObject.showTime(img, thisObject);
+            }, thisObject);
         };
         //正常显示4秒后
         MiddleMessageView.prototype.showTime = function (img, thisObject) {
@@ -80,6 +102,13 @@ var fairui;
             thisObject = thisObject || this;
             Global.timer.clearTimer(thisObject._clearIdAry.shift());
             // TweenLite.to(img, 1, { alpha: 0.01, onComplete: thisObject.removeImage, onCompleteParams: [img, thisObject] });
+            fairygui.GTween.to(img.alpha, 0.01, 1).setTarget(img)
+                .onUpdate(function onUpdate(tw) {
+                img.alpha = tw.value.x;
+            }, thisObject)
+                .onComplete(function onComplete() {
+                thisObject.removeImage(img, thisObject);
+            }, thisObject);
         };
         MiddleMessageView.prototype.removeImage = function (img, thisObject) {
             if (thisObject === void 0) { thisObject = null; }
@@ -100,8 +129,6 @@ var fairui;
         };
         MiddleMessageView.prototype.removeLabelChild = function (image) {
             if (image && image.parent) {
-                // image.parent.removeChild(image);
-                // this._imagePool.push(image);
                 image.recover();
                 image = null;
                 this._imageAry.shift();
@@ -125,9 +152,17 @@ var fairui;
          * 来新的消息要重新刷新位置
          */
         MiddleMessageView.prototype.refreshPos = function () {
+            var _loop_1 = function (i) {
+                var item = this_1._imageAry[i];
+                // TweenLite.to(item, 0.3, { y: i * this.H });
+                fairygui.GTween.to(item.y, i * this_1.H, 0.3).setTarget(item)
+                    .onUpdate(function onUpdate(tw) {
+                    item.y = tw.value.x;
+                }, this_1);
+            };
+            var this_1 = this;
             for (var i = 0; i < this._imageAry.length; i++) {
-                // let label: BaseImage = this._imageAry[i] as BaseImage;
-                // TweenLite.to(label, 0.3, { y: i * this.H });
+                _loop_1(i);
             }
         };
         Object.defineProperty(MiddleMessageView.prototype, "width", {
@@ -139,7 +174,7 @@ var fairui;
         });
         Object.defineProperty(MiddleMessageView.prototype, "height", {
             get: function () {
-                return 60;
+                return 40;
             },
             enumerable: true,
             configurable: true

@@ -72,8 +72,11 @@ var fairui;
             enumerable: true,
             configurable: true
         });
-        //ui9宫格布局 自适应
-        UIBaseTip.prototype.OnResize = function () {
+        /**
+         * UI 9宫格布局 自适应
+         */
+        UIBaseTip.prototype.onResize = function () {
+            _super.prototype.onResize.call(this);
             var showMask = this.param && this.param.hasOwnProperty("showMask") && this.param["showMask"];
             if (showMask) {
                 this.x = (Global.stageWidth - this.width) * 0.5;

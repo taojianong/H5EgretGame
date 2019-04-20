@@ -316,7 +316,7 @@ class ADVideo extends egret.Video {
 
 		fairui.Notice.showMiddleMessage("----------------------------------------exitFullscreen---0");
 
-		var de = this["video"];this.exitFullscreen
+		var de = this["video"];
 		try{
 
 			// if (document['exitFullscreen'] != null ) {

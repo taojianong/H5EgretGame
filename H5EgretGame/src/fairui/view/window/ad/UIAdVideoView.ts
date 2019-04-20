@@ -55,8 +55,6 @@ module fairui {
 			this.img_icon.loadImage(this.fullscreenUrl);
 
 			let _self: UIAdVideoView = this;
-			// LoadQueue.Inst.loadVideo( this.url , this.onVideoComplete , this );
-
 			_self.loadVideo(_self.url, _self.fullscreenUrl, _self.inlineUrl);
 
 			this.onResize();
@@ -250,8 +248,8 @@ module fairui {
 
 				let w: number = this._videoWidth;
 				let h: number = this._videoHeight;
-				let x: number = (this.bg.width - w) * 0.5;
-				let y: number = (this.bg.height - h) * 0.5;
+				let x: number = (this.bg.width - w) * 0.25;
+				let y: number = (this.bg.height - h) * 0.25;
 				x = parseInt("" + x);
 				y = parseInt("" + y);
 				this._video.setWH(w, h, x, y);
@@ -293,6 +291,15 @@ module fairui {
 			Global.timer.clearTimer(flash.bind(this.updateProgress, this));
 
 			EventManager.dispatchEvent(GameEvent.END_PLAY_AD);
+		}
+
+		/**关闭事件 */
+		protected closeHandler(e: egret.TouchEvent): void {
+
+			// UISystem.Inst.removeWindowClass( this.getCls() );
+			this.clear();
+
+			this.initData( null );
 		}
 
 		public dispose(): void {

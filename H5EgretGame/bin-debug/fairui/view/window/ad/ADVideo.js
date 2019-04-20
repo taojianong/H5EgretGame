@@ -279,7 +279,6 @@ var ADVideo = (function (_super) {
     ADVideo.prototype.exitFullscreen = function () {
         fairui.Notice.showMiddleMessage("----------------------------------------exitFullscreen---0");
         var de = this["video"];
-        this.exitFullscreen;
         try {
             // if (document['exitFullscreen'] != null ) {
             // 	document['exitFullscreen']();

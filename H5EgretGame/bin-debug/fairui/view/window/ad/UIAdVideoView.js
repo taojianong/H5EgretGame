@@ -45,7 +45,6 @@ var fairui;
             this.inlineUrl = UrlUtil.getVideoAdImgUrl("posterinline");
             this.img_icon.loadImage(this.fullscreenUrl);
             var _self = this;
-            // LoadQueue.Inst.loadVideo( this.url , this.onVideoComplete , this );
             _self.loadVideo(_self.url, _self.fullscreenUrl, _self.inlineUrl);
             this.onResize();
         };
@@ -197,8 +196,8 @@ var fairui;
             if (this._video != null && this._isLoaded) {
                 var w = this._videoWidth;
                 var h = this._videoHeight;
-                var x = (this.bg.width - w) * 0.5;
-                var y = (this.bg.height - h) * 0.5;
+                var x = (this.bg.width - w) * 0.25;
+                var y = (this.bg.height - h) * 0.25;
                 x = parseInt("" + x);
                 y = parseInt("" + y);
                 this._video.setWH(w, h, x, y);
@@ -230,6 +229,12 @@ var fairui;
             Global.timer.clearTimer(flash.bind(this.updateTime, this));
             Global.timer.clearTimer(flash.bind(this.updateProgress, this));
             EventManager.dispatchEvent(GameEvent.END_PLAY_AD);
+        };
+        /**关闭事件 */
+        UIAdVideoView.prototype.closeHandler = function (e) {
+            // UISystem.Inst.removeWindowClass( this.getCls() );
+            this.clear();
+            this.initData(null);
         };
         UIAdVideoView.prototype.dispose = function () {
             _super.prototype.dispose.call(this);

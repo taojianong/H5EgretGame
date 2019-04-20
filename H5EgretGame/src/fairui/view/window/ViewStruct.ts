@@ -22,7 +22,7 @@ class ViewStruct {
 	 */
 	public get layout():number{
 
-		return 0;
+		return 5;
 	}
 
 	/**面板ID */

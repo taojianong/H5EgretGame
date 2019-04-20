@@ -11,7 +11,6 @@ var LogManager = (function () {
         this.isShowLogType = false;
     }
     LogManager.prototype.log = function (thisObj) {
-        // console.log(args);
         var args = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
@@ -28,9 +27,7 @@ var LogManager = (function () {
         }
         if (this.isShowLogType || Global.isDebug) {
             var clsName = this.getClassName(thisObj);
-            // egret.log("Debug Log：", args);
             args.unshift("[debug][" + clsName + "] ");
-            // args.unshift("Debug Log：");
             egret.log.apply(null, args);
         }
     };
@@ -41,9 +38,7 @@ var LogManager = (function () {
         }
         try {
             var clsName = this.getClassName(thisObj);
-            // egret.log("Debug Log：", args);
             args.unshift("[error][" + clsName + "] ");
-            // egret.error("Error Log：", args);
             egret.error.apply(null, args);
             var str = "Error Start.\n";
             if (args instanceof Array) {
@@ -81,7 +76,6 @@ var LogManager = (function () {
         if (Global.isDebug) {
             var clsName = this.getClassName(thisObj);
             args.unshift("[warn][" + clsName + "] ");
-            // egret.warn("Error Log：", args);
             egret.warn.apply(null, args);
         }
     };

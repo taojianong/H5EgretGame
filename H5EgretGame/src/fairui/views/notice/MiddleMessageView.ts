@@ -8,14 +8,13 @@ module fairui {
 
         private TOTALNUM: number = 4;
         private DELAYTIME: number = 300;
-        private H: number = 60;
+        private H: number = 40;
 
         private _showIndex: number = 0;
         private _count: number = 0; //计数
         private _msgAry: Array<any> = [];
-        private _imageAry: Array<any> = [];     
+        private _imageAry: Array<TipBottomItem> = [];     
         private _clearIdAry: Array<any> = [];
-        // private _imagePool: Array<TipBottomItem> = new Array<TipBottomItem>();
 
         public constructor() {
 
@@ -57,6 +56,18 @@ module fairui {
                     //     x: (thisObject.width - 1.5 * item.width) / 2,
                     //     scaleX: 1.5, scaleY: 1.5, onComplete: thisObject.scale2Time, onCompleteParams: [item, thisObject]
                     // });//增加字体放大特效
+
+                    let toX:number = (thisObject.width - 1.5 * item.width) / 2;
+                    fairygui.GTween.to3( item.x , item.scaleX ,item.scaleY , toX , 1.5 , 1.5 , 0.1 ).setTarget( item )
+                    .onUpdate( function onUpdate( tw:fairygui.GTweener ):void{
+                        item.x = tw.value.x;
+                        item.scaleX = tw.value.y;
+                        item.scaleY = tw.value.z;
+                    } , this  )
+                    .onComplete( function onComplete():void{
+                        thisObject.scale2Time( item , thisObject );
+                    } , this )
+                    ;
                 }
             }
         }
@@ -64,6 +75,20 @@ module fairui {
         //0.5秒后恢复到正常字体
         private scale2Time(img: TipBottomItem, thisObject: MiddleMessageView): void {
             // TweenLite.to(img, 0.1, { x: (thisObject.width - img.width) / 2, y: thisObject._count * thisObject.H, scaleX: 1, scaleY: 1, onComplete: thisObject.showTime, onCompleteParams: [img, thisObject], delay: 0.5 });
+
+            let toX:number = (thisObject.width - img.width) / 2;
+            let toY:number = thisObject._count * thisObject.H;
+            fairygui.GTween.to4( img.x , img.y , img.scaleX , img.scaleY , toX, toY , 1 , 1 , 0.1 ).setTarget( img )
+            .setDelay( 0.5 )
+            .onUpdate( function onUpdate(tw:fairygui.GTweener):void{
+                img.x = tw.value.x;
+                img.y = tw.value.y;
+                img.scaleX = tw.value.z;
+                img.scaleY = tw.value.w;
+            } , thisObject )
+            .onComplete( function onComplete():void{
+                thisObject.showTime( img, thisObject );
+            } , thisObject );
         }
 
         //正常显示4秒后
@@ -79,6 +104,14 @@ module fairui {
             thisObject = thisObject || this;
             Global.timer.clearTimer(thisObject._clearIdAry.shift() as Object);
             // TweenLite.to(img, 1, { alpha: 0.01, onComplete: thisObject.removeImage, onCompleteParams: [img, thisObject] });
+
+            fairygui.GTween.to( img.alpha , 0.01 , 1 ).setTarget( img )
+            .onUpdate( function onUpdate(tw:fairygui.GTweener):void{
+                img.alpha = tw.value.x;
+            } , thisObject )
+            .onComplete( function onComplete():void{
+                thisObject.removeImage( img , thisObject );
+            } , thisObject );
         }
 
         private removeImage(img: TipBottomItem, thisObject: MiddleMessageView = null): void {
@@ -101,8 +134,6 @@ module fairui {
 
         private removeLabelChild(image: TipBottomItem): void {            
             if (image && image.parent) {
-                // image.parent.removeChild(image);
-                // this._imagePool.push(image);
                 image.recover();
                 image = null;
                 this._imageAry.shift();
@@ -128,8 +159,12 @@ module fairui {
 		 */
         private refreshPos(): void {
             for (let i: number = 0; i < this._imageAry.length; i++) {
-                // let label: BaseImage = this._imageAry[i] as BaseImage;
-                // TweenLite.to(label, 0.3, { y: i * this.H });
+                let item: TipBottomItem = this._imageAry[i];
+                // TweenLite.to(item, 0.3, { y: i * this.H });
+                fairygui.GTween.to( item.y , i * this.H , 0.3 ).setTarget( item )
+                .onUpdate( function onUpdate(tw:fairygui.GTweener):void{
+                    item.y = tw.value.x;
+                } , this );
             }
         }
 
@@ -140,14 +175,7 @@ module fairui {
 
         public get height(): number {
 
-            return 60;
+            return 40;
         }
-
-        // private getImage(): TipBottomItem {
-        //     if (this._imagePool.length > 0) {
-        //         return this._imagePool.pop();
-        //     }
-        //     return PanelRegister.createGObject("common", "TipBottomItem");
-        // }
     }
 }
