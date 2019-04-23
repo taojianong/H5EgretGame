@@ -39,25 +39,25 @@
     <image id="my99z" name="commom_diban10.png" path="/images/"/>
     <image id="my9910" name="common_04.png" path="/images/"/>
     <image id="my9911" name="common_05.png" path="/images/"/>
-    <image id="my9912" name="common_anniu001.png" path="/images/" scale="9grid" scale9grid="36,30,12,6"/>
-    <image id="my9913" name="common_anniu002.png" path="/images/"/>
-    <image id="my9914" name="common_anniu003.png" path="/images/"/>
-    <image id="my9915" name="common_anniu005.png" path="/images/"/>
-    <image id="my9916" name="common_anniu006.png" path="/images/"/>
-    <image id="my9917" name="common_anniu01.png" path="/images/"/>
-    <image id="my9918" name="common_anniu02.png" path="/images/"/>
-    <image id="my9919" name="common_anniu03.png" path="/images/"/>
-    <image id="my991a" name="common_anniu04.png" path="/images/"/>
-    <image id="my991b" name="common_anniu05.png" path="/images/"/>
-    <image id="my991c" name="common_anniu06.png" path="/images/"/>
-    <image id="my991d" name="common_anniu07.png" path="/images/"/>
-    <image id="my991e" name="common_BG.png" path="/images/"/>
+    <image id="my9912" name="common_anniu001.png" path="/images/" exported="true" scale="9grid" scale9grid="36,30,12,6"/>
+    <image id="my9913" name="common_anniu002.png" path="/images/" exported="true"/>
+    <image id="my9914" name="common_anniu003.png" path="/images/" exported="true"/>
+    <image id="my9915" name="common_anniu005.png" path="/images/" exported="true"/>
+    <image id="my9916" name="common_anniu006.png" path="/images/" exported="true"/>
+    <image id="my9917" name="common_anniu01.png" path="/images/" exported="true"/>
+    <image id="my9918" name="common_anniu02.png" path="/images/" exported="true"/>
+    <image id="my9919" name="common_anniu03.png" path="/images/" exported="true"/>
+    <image id="my991a" name="common_anniu04.png" path="/images/" exported="true"/>
+    <image id="my991b" name="common_anniu05.png" path="/images/" exported="true"/>
+    <image id="my991c" name="common_anniu06.png" path="/images/" exported="true"/>
+    <image id="my991d" name="common_anniu07.png" path="/images/" exported="true"/>
+    <image id="my991e" name="common_BG.png" path="/images/" exported="true"/>
     <image id="my991f" name="common_bg_1.png" path="/images/"/>
     <image id="my991g" name="common_btn_add_1.png" path="/images/"/>
     <image id="my991h" name="common_btn_red_1.png" path="/images/"/>
     <image id="my991i" name="common_diban01.png" path="/images/"/>
     <image id="my991j" name="common_diban02.png" path="/images/"/>
-    <image id="my991k" name="common_diban03.png" path="/images/"/>
+    <image id="my991k" name="common_diban03.png" path="/images/" scale="9grid" scale9grid="49,159,15,320"/>
     <image id="my991l" name="common_diban04.png" path="/images/"/>
     <image id="my991m" name="common_diban05.png" path="/images/"/>
     <image id="my991n" name="common_diban06.png" path="/images/"/>
@@ -178,6 +178,9 @@
     <component id="my994y" name="UITextInput.xml" path="/component/" exported="true"/>
     <component id="r7y04z" name="TipBottomItem.xml" path="/item/" exported="true"/>
     <component id="r7y050" name="UIAdVideoView.xml" path="/views/" exported="true"/>
+    <component id="ff9l51" name="UIGMView.xml" path="/views/" exported="true"/>
+    <component id="ff9l52" name="ETextArena.xml" path="/component/" exported="true"/>
+    <component id="joyj53" name="UIAdVideoView2.xml" path="/views/" exported="true"/>
   </resources>
   <publish name="common"/>
 </packageDescription>

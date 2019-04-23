@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="n1stdhju" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="ff9l0" name="UIMainView.xml" path="/" exported="true"/>
+    <image id="ff9l1" name="common_anniu001.png" path="/images/" scale="9grid" scale9grid="36,30,12,6"/>
+  </resources>
+  <publish name="main"/>
+</packageDescription>

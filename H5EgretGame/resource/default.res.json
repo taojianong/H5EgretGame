@@ -7,6 +7,10 @@
 		{
 			"keys": "common,common_atlas0",
 			"name": "common"
+		},
+		{
+			"keys": "main_atlas0,main",
+			"name": "main"
 		}
 	],
 	"resources": [
@@ -34,6 +38,16 @@
 			"url": "assets/fairui/common_atlas0.png",
 			"type": "image",
 			"name": "common_atlas0"
+		},
+		{
+			"url": "assets/fairui/main_atlas0.png",
+			"type": "image",
+			"name": "main_atlas0"
+		},
+		{
+			"url": "assets/fairui/main.map",
+			"type": "bin",
+			"name": "main"
 		}
 	]
 }

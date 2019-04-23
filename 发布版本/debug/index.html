@@ -10,6 +10,7 @@
     <meta name="screen-orientation" content="portrait" />
     <meta name="x5-fullscreen" content="true" />
     <meta name="360-fullscreen" content="true" />
+    <link rel="stylesheet" href="resource/js/zy.media.css">
     <style>
         html, body {
             -ms-touch-action: none;
@@ -35,6 +36,14 @@
          data-show-fps="false" data-show-log="false"
          data-show-fps-style="x:0,y:0,size:12,textColor:0xffffff,bgAlpha:0.9">
     </div>
+<div class="zy_media" style="display: none;" >
+    <video data-config='{"mediaTitle": "ttt"}'>
+        <source type="video/mp4">
+        您的浏览器不支持HTML5视频
+    </video>
+</div>
+
+<script src="resource/js/zy.media.js"></script>
 <script>
     var loadScript = function (list, callback) {
         var loaded = 0;
@@ -90,6 +99,8 @@
         });
     });
     xhr.send(null);
+
+    zymedia('video');
 </script>
 </body>
 

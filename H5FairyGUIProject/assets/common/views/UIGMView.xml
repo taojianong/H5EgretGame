@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720">
+  <controller name="button" pages="0,normal,1,log" selected="0"/>
+  <displayList>
+    <image id="n0_ff9l" name="n0" src="my991k" fileName="images/common_diban03.png" xy="0,0" size="1280,720"/>
+    <component id="n1_ff9l" name="btn_play" src="my994b" fileName="component/EButton.xml" xy="1063,197" size="170,70">
+      <Button title="播放" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+    <component id="n2_ff9l" name="btn_close" src="my994b" fileName="component/EButton.xml" xy="1174,0" pivot="0.5,0.5" size="106,107">
+      <Button icon="ui://x0a8c270my991a" selectedIcon="ui://x0a8c270my991a"/>
+    </component>
+    <component id="n4_ff9l" name="n4" src="ff9l52" fileName="component/ETextArena.xml" xy="43,30" size="934,641">
+      <gearDisplay controller="button" pages="1"/>
+    </component>
+    <component id="n5_ff9l" name="btn_log" src="my994b" fileName="component/EButton.xml" xy="1061,284" size="170,70">
+      <gearText controller="button" pages="0,1" values="打开日志|关闭日志"/>
+      <Button title="打开日志" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+    <component id="n6_joyj" name="btn_play2" src="my994b" fileName="component/EButton.xml" xy="1059,391" size="170,70">
+      <Button title="播放2" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+  </displayList>
+</component>

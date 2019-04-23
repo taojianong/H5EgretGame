@@ -54,6 +54,9 @@ var fairui;
             this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchPlayHandler, this, this.btn_play);
             this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.closeHandler, this, this.btn_exit);
         };
+        UIAdVideoView.prototype.removeAllListener = function () {
+            _super.prototype.removeAllListener.call(this);
+        };
         /**
          * 加载错误
          */
@@ -233,8 +236,10 @@ var fairui;
         /**关闭事件 */
         UIAdVideoView.prototype.closeHandler = function (e) {
             // UISystem.Inst.removeWindowClass( this.getCls() );
-            this.clear();
-            this.initData(null);
+            _super.prototype.closeHandler.call(this, e);
+            // this.clear();
+            // this.initData( null );
+            // this.addAllListener();
         };
         UIAdVideoView.prototype.dispose = function () {
             _super.prototype.dispose.call(this);

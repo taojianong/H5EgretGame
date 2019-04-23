@@ -26,6 +26,6 @@ class GameClient extends egret.DisplayObjectContainer {
 
 		fairui.FairyUIManager.initCommon();
 
-		UISystem.Inst.createWindowView( fairui.UIAdVideoView );
+		UISystem.Inst.createWindowView( fairui.UIMainView );
 	}
 }

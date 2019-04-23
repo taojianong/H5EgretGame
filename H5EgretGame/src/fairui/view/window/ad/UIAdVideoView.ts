@@ -69,6 +69,11 @@ module fairui {
 			this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.closeHandler, this, this.btn_exit);
 		}
 
+		public removeAllListener():void{
+
+			super.removeAllListener();
+		}
+
 		/**
 		 * 加载错误
 		 */
@@ -297,9 +302,10 @@ module fairui {
 		protected closeHandler(e: egret.TouchEvent): void {
 
 			// UISystem.Inst.removeWindowClass( this.getCls() );
-			this.clear();
-
-			this.initData( null );
+			super.closeHandler(e);
+			// this.clear();
+			// this.initData( null );
+			// this.addAllListener();
 		}
 
 		public dispose(): void {

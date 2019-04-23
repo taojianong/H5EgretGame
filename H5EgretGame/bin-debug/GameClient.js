@@ -28,7 +28,7 @@ var GameClient = (function (_super) {
     }
     GameClient.prototype.loadCommonComplete = function () {
         fairui.FairyUIManager.initCommon();
-        UISystem.Inst.createWindowView(fairui.UIAdVideoView);
+        UISystem.Inst.createWindowView(fairui.UIMainView);
     };
     return GameClient;
 }(egret.DisplayObjectContainer));

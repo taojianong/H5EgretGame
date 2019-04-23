@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720">
+  <displayList>
+    <component id="n0_ff9l" name="btn_gm" src="my994b" fileName="component/EButton.xml" pkg="x0a8c270" xy="640,360" size="170,70">
+      <Button title="GM" icon="ui://n1stdhjuff9l1" selectedIcon="ui://n1stdhjuff9l1"/>
+    </component>
+  </displayList>
+</component>

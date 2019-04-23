@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,200" overflow="scroll" extention="Button">
+  <displayList>
+    <graph id="n1_ff9l" name="bg" xy="0,0" size="800,49" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="n0_ff9l" sidePair="height-height"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <richtext id="n0_ff9l" name="title" xy="0,0" size="800,39" fontSize="30" color="#ffffff" autoSize="height" text="佛挡杀佛">
+      <relation target="" sidePair="width-width"/>
+    </richtext>
+  </displayList>
+  <Button/>
+</component>
