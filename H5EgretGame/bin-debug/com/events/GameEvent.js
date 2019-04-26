@@ -45,6 +45,8 @@ var GameEvent = (function (_super) {
     GameEvent.START_GAME = "GameEvent.stageGame";
     /**添加消息 */
     GameEvent.ADD_MESSAGE = "GameEvent.addMessage";
+    /**播放广告 */
+    GameEvent.PLAY_AD = "GameEvent.playAd";
     /**播放广告完成 */
     GameEvent.END_PLAY_AD = "GameEvent.endPlayAd";
     return GameEvent;

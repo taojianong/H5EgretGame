@@ -42,6 +42,9 @@ class GameEvent extends egret.Event{
 	/**添加消息 */
 	public static ADD_MESSAGE:string = "GameEvent.addMessage";
 
+	/**播放广告 */
+	public static PLAY_AD:string = "GameEvent.playAd";
+
 	/**播放广告完成 */
 	public static END_PLAY_AD:string = "GameEvent.endPlayAd";
 

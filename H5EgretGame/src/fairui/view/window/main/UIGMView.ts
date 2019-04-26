@@ -48,7 +48,7 @@ module fairui {
 
 		private touchPlay2Handler( e:egret.TouchEvent ):void{
 
-			UISystem.Inst.createWindowView( UIAdVideoView2 );
+			UISystem.Inst.createWindowView( UIZYPlayerView );
 		}
 
 		private touchLogHandler( e:egret.TouchEvent ):void{

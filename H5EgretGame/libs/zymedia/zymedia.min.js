@@ -7,10 +7,10 @@
  * License: MIT
  * 
  */
-;
-(function() {
+var zyMedia;
+(function(zyMedia) {
 
-	var zyMedia = {};
+	// var zyMedia = {};
 
 
 	// Default config
@@ -21,8 +21,6 @@
 		mediaTitle: '',
 		// Force native controls
 		nativeControls: false,
-		// Use canvas draw video
-		canvas: true,
 		// Autoplay
 		autoplay: false,
 		// Preload, not 'auto', in native app of xiaomi HM 1SW,
@@ -46,7 +44,7 @@
 		alwaysShowHours: false,
 		// Hide controls when playing and mouse is not over the video
 		alwaysShowControls: false,
-		// Display the video control
+		// Hide the video control when loading
 		hideVideoControlsOnLoad: false,
 		// Show fullscreen button
 		enableFullscreen: true,
@@ -59,7 +57,9 @@
 		// Sucess callback
 		success: null,
 		// Error callback
-		error: null
+		error: null,
+		// ux before play，media will can't play if return true
+		beforePlay: null
 	};
 
 
@@ -74,14 +74,22 @@
 		t.hasTouch = 'ontouchstart' in window;
 		t.supportsCanPlayType = typeof v.canPlayType !== 'undefined';
 
-		// Detect playsinline
+		// Detect playsinline. False in iOS 11 UIWebView
 		t.isPlaysInline = matchMedia('(-webkit-video-playable-inline)').matches;
-		// Vendor for no big Play button
-		t.isVendorBigPlay = /iphone/i.test(ua) && !window.MSStream;
-		// Vendor for no controls bar
-		t.isVendorControls = /baidu/i.test(ua);
-		// Prefix of current working browser
+		t.iPhoneVersion = ua.match(/iPhone OS (\d+)_?/i);
+		// Vendor for no big play button
+		t.isVendorBigPlay = (function() {
+			if (window.MSStream) {
+				return false
+			}
 
+			return false
+		})();
+
+		// Vendor for no controls bar
+		t.isVendorControls = /baidu/i.test(ua) && !/baiduboxapp/i.test(ua);
+
+		// Prefix of current working browser
 		t.nativeFullscreenPrefix = (function() {
 			if (v.requestFullScreen) {
 				return '';
@@ -114,23 +122,15 @@
 			t.nativeFullscreenPrefix = '-';
 			t.hasOldNativeFullScreen = false
 		}
-
-		window.raf = (function() {
-			return window.requestAnimationFrame ||
-				window.webkitRequestAnimationFrame ||
-				function(callback) {
-					window.setTimeout(function() {
-						callback();
-					}, 17);
-				};
-		})()
-
 	})(zyMedia.features = {});
 
 
 	// Get style
 	function _css(el, property) {
-		return parseInt(el.style[property] || getComputedStyle(el, null).getPropertyValue(property))
+		if( !el ){
+			return null;
+		}
+		return parseInt(getComputedStyle(el, null).getPropertyValue(property))
 	}
 
 	// Has Class
@@ -347,9 +347,9 @@
 			}
 		} catch (exp) {}
 
-		// Autoplay be disabled
-		if (t.options.autoplay) {
-			t.options.autoplay = !zyMedia.features.isVendorAutoplay
+		// Set preload is auto for media can't play in iOS 11+ UIWebView
+		if (t.options.preload == 'none' && zyMedia.features.iPhoneVersion && (zyMedia.features.iPhoneVersion[1] >= 11)) {
+			t.options.preload = 'auto'
 		}
 
 		if (!t.isVideo) {
@@ -358,7 +358,12 @@
 
 		if (t.options.nativeControls || zyMedia.features.isVendorControls) {
 			// Use native controls
-			t.media.setAttribute('controls', 'controls')
+			t.media.setAttribute('controls', 'controls');
+			if (zyMedia.features.isPlaysInline) {
+				t.media.setAttribute('playsinline', '')
+			}
+			// reset position: absolute -> relative
+			t.media.style.position = 'relative'
 		} else {
 			var src = t.media.getAttribute('src');
 			src = src === '' ? null : src;
@@ -367,7 +372,7 @@
 				// Unique ID
 				t.id = 'zym_' + zymIndex++;
 				zyMedia.players[t.id] = t;
-				t.init()
+				t.init();
 			} else {
 				alert('不支持此' + (t.isVideo ? '视' : '音') + '频')
 			}
@@ -382,6 +387,11 @@
 
 		setPlayerSize: function(width, height) {
 			var t = this;
+
+			// Ignore in fullscreen status
+			if(isInFullScreenMode() || t.isFullScreen) {
+				return
+			}
 
 			// Set t.width
 			if (width == undefined || width == '100%') {
@@ -398,23 +408,11 @@
 						t.options.aspectRation = nativeWidth / nativeHeight
 					}
 				}
-
 				t.height = parseInt(t.width / t.options.aspectRation)
 			}
 
-			t.container.style.width = t.width + 'px';
-			t.container.style.height = t.height + 'px';
-
-			if (t.options.canvas) {
-				t.media.style.width = t.media.videoWidth + 'px';
-				t.media.style.height = t.media.videoHeight + 'px';
-				t.canvas.setAttribute('width', t.width);
-				t.canvas.setAttribute('height', t.height);
-				t.scaleFactor = t.width / t.media.videoWidth
-			} else {
-				t.media.style.width = t.width + 'px';
-				t.media.style.height = t.container.style.height = t.height + 'px'
-			}
+			t.media.style.width = t.width + 'px';
+			t.media.style.height = t.container.style.height = t.height + 'px'
 		},
 
 		showControls: function() {
@@ -449,6 +447,11 @@
 
 		setControlsTimer: function(timeout) {
 			var t = this;
+
+			if (t.options.alwaysShowControls) {
+				return
+			}
+
 			clearTimeout(t.controlsTimer);
 
 			t.controlsTimer = setTimeout(function() {
@@ -478,12 +481,16 @@
 			// Update the timeline
 			if (percent !== null) {
 				percent = Math.min(1, Math.max(0, percent));
-				t.loaded.style.width = _W * percent + 'px';
+				if( t.loaded ){
+					t.loaded.style.width = _W * percent + 'px';
+				}
 				// Adjust when pause change from playing (魅族)
 				if (t.media.paused) {
 					setTimeout(function() {
-						t.loaded.style.width = _W * percent + 'px';
-						t.updateTimeline()
+						if( t.loaded ){
+							t.loaded.style.width = _W * percent + 'px';
+						}
+						t.updateTimeline();
 					}, 300)
 				};
 			}
@@ -491,8 +498,12 @@
 			if (t.media.currentTime !== undefined && t.media.duration) {
 				// Update bar and handle
 				var _w = Math.round(_W * t.media.currentTime / t.media.duration);
-				t.current.style.width = _w + 'px';
-				t.handle.style.left = _w - Math.round(_css(t.handle, 'width') / 2) + 'px'
+				if(t.current){
+					t.current.style.width = _w + 'px';
+				}
+				if(t.handle){
+					t.handle.style.left = _w - Math.round(_css(t.handle, 'width') / 2) + 'px'
+				}
 			}
 		},
 
@@ -508,10 +519,6 @@
 
 		enterFullScreen: function() {
 			var t = this;
-			// Store size
-			t.normalHeight = _css(t.container, 'height');
-			t.normalWidth = _css(t.container, 'width');
-
 			// Attempt to do true fullscreen
 			if (zyMedia.features.nativeFullscreenPrefix != '-') {
 				t.container[zyMedia.features.nativeFullscreenPrefix + 'RequestFullScreen']()
@@ -526,6 +533,8 @@
 			// Make full size
 			t.media.style.width = t.container.style.width = '100%';
 			t.media.style.height = t.container.style.height = '100%';
+			// :-webkit-full-screen style not work in app webview, 乐pro3 Android 6.0.1
+			t.container.style.zIndex = '1001';
 			_addClass(t.fullscreenBtn, 'zy_unfullscreen');
 			t.isFullScreen = true
 		},
@@ -541,8 +550,10 @@
 				}
 			}
 			_removeClass(document.documentElement, 'zy_fullscreen');
-			t.media.style.width = t.container.style.width = t.normalWidth + 'px';
-			t.media.style.height = t.container.style.height = t.normalHeight + 'px';
+			t.media.style.width = t.width + 'px';
+			t.container.style.width = '';
+			t.media.style.height = t.container.style.height = t.height + 'px';
+			t.container.style.zIndex = '';
 			_removeClass(t.fullscreenBtn, 'zy_unfullscreen');
 			t.isFullScreen = false
 		},
@@ -561,21 +572,12 @@
 			t.title = t.container.querySelector('.zy_title');
 
 			t.media.setAttribute('preload', t.options.preload);
+			// iOS's playsinline, https://webkit.org/blog/6784/new-video-policies-for-ios/
+			if (zyMedia.features.isPlaysInline) {
+				t.media.setAttribute('playsinline', '')
+			}
 			t.container.querySelector('.zy_wrap').appendChild(t.media);
-			if (t.options.canvas) {
-				t.media.style.opacity = '.5';
-				t.canvas = document.createElement('canvas');
-				t.canvas.style.pointerEvents = 'none';
-				t.ctx = t.canvas.getContext('2d');
-				t.container.querySelector('.zy_wrap').appendChild(t.canvas)
-			}
 			t.controls = t.container.querySelector('.zy_controls');
-
-			function drawVideo() {
-				//t.ctx.clearRect(0, 0, t.width + 1, t.height + 1);
-				t.ctx.drawImage(t.media, 0, 0, t.width, t.height);
-				window.raf(drawVideo)
-			}
 
 			if (t.isVideo) {
 				t.width = t.options.videoWidth;
@@ -584,11 +586,7 @@
 				if (t.width == '100%' && t.height == 'auto') {
 					t.enableAutoSize = true
 				}
-				t.setPlayerSize(t.width, t.height);
-
-				if (t.options.canvas) {
-					drawVideo()
-				}
+				t.setPlayerSize(t.width, t.height)
 			}
 		},
 
@@ -602,9 +600,25 @@
 				t.media.isUserClick = true;
 
 				if (t.media.paused) {
+
+					if (typeof t.options.beforePlay === 'function') {
+						if (t.options.beforePlay(t.media)) {
+							return
+						}
+					}
+
+					if (t.media.isError) {
+						var _currentTime = t.media.currentTime;
+						// Allow this to play video later
+						t.media.load();
+						t.media.isError = false;
+						t.media.currentTime = _currentTime
+					}
+
 					t.media.play();
+
 					// Controls bar auto hide after 3s
-					if (!t.media.paused && !t.options.alwaysShowControls) {
+					if (!t.media.paused) {
 						t.setControlsTimer(3000)
 					}
 				} else {
@@ -659,11 +673,14 @@
 			t.handle = t.slider.children[3];
 
 			var isPointerDown = false;
-			var _X = t.slider.offsetLeft;
+			var _X = t.slider.getBoundingClientRect().left;
 			var _W = _css(t.slider, 'width');
 			var _W_HANDLE_HALF = _css(t.handle, 'width') / 2;
 
 			var pointerMove = function(e) {
+				e.preventDefault();
+				e.stopPropagation();
+
 				var _time = 0;
 				var x;
 
@@ -691,43 +708,46 @@
 						t.media.currentTime = _time
 					}
 				}
+
+				// Do not hide controls when drag timeline
+				clearTimeout(t.controlsTimer)
 			};
 			// Handle clicks
 			if (zyMedia.features.hasTouch) {
-				t.slider.addEventListener('touchstart', function(e) {
+				timeline.addEventListener('touchstart', function(e) {
 					isPointerDown = true;
+					t.media.pause();
 					pointerMove(e);
-					_X = t.slider.offsetLeft;
+					_X = t.slider.getBoundingClientRect().left;
 					_W = _css(t.slider, 'width');
-					t.slider.addEventListener('touchmove', pointerMove);
-					t.slider.addEventListener('touchend', function(e) {
+					timeline.addEventListener('touchmove', pointerMove);
+					timeline.addEventListener('touchend', function(e) {
+						pointerMove(e);
 						isPointerDown = false;
-						t.slider.removeEventListener('touchmove', pointerMove)
+						t.media.play();
+						t.media.isUserClick = true;
+						t.setControlsTimer(3000);
+						timeline.removeEventListener('touchmove', pointerMove)
 					});
 				});
 			} else {
-				t.slider.addEventListener('mousedown', function(e) {
+				timeline.addEventListener('mousedown', function(e) {
 					isPointerDown = true;
+					t.media.pause();
 					pointerMove(e);
-					_X = t.slider.offsetLeft;
+					_X = t.slider.getBoundingClientRect().left;
 					_W = _css(t.slider, 'width');
-					t.slider.addEventListener('mousemove', pointerMove);
-					t.slider.addEventListener('mouseup', function(e) {
+					timeline.addEventListener('mousemove', pointerMove);
+					timeline.addEventListener('mouseup', function(e) {
+						pointerMove(e);
 						isPointerDown = false;
+						t.media.play();
+						t.media.isUserClick = true;
 						t.slider.addEventListener('mousemove', pointerMove)
 					});
 				});
 			}
 
-			t.slider.addEventListener('mouseenter', function(e) {
-				t.slider.addEventListener('mousemove', pointerMove);
-			});
-
-			t.slider.addEventListener('mouseleave', function(e) {
-				if (!isPointerDown) {
-					t.slider.removeEventListener('mousemove', pointerMove)
-				}
-			});
 
 			//4Hz ~ 66Hz, no longer than 250ms
 			t.media.addEventListener('timeupdate', function(e) {
@@ -735,27 +755,33 @@
 			});
 		},
 
-		// Current and duration time 00:00/00:00
-		buildTime: function() {
+		// Current time 00:00/00:00
+		buildCurrentTime: function() {
 			var t = this;
 
 			var time = document.createElement('div');
-			time.className = 'zy_time';
-			time.innerHTML = '<span class="zy_currenttime">' +
-				timeFormat(0, t.options) +
-				'</span>/' +
-				'<span class="zy_duration">' +
-				timeFormat(t.options.duration, t.options) +
-				'</span>';
+			time.className = 'zy_currenttime';
+			time.innerHTML = timeFormat(0, t.options);
 			t.controls.appendChild(time);
 
-			t.currentTime = time.children[0];
-			t.durationDuration = time.children[1];
+			t.currentTime = time;
 
 			//4Hz ~ 66Hz, no longer than 250ms
 			t.media.addEventListener('timeupdate', function() {
 				t.updateTime()
 			});
+		},
+
+		// Duration time 00:00/00:00
+		buildTotalTime: function() {
+			var t = this;
+
+			var time = document.createElement('div');
+			time.className = 'zy_time';
+			time.innerHTML = timeFormat(t.options.duration, t.options);
+			t.controls.appendChild(time);
+
+			t.durationDuration = time;
 		},
 
 		// Fullscreen button
@@ -800,8 +826,11 @@
 			var error = document.createElement('div');
 			error.className = 'dec_error';
 			error.style.display = 'none';
-			error.innerHTML = '播放异常';
+			error.innerHTML = '播放失败，请重试';
 			t.container.appendChild(error);
+
+			//播放错误
+			t.playError();
 
 			var bigPlay = document.createElement('div');
 
@@ -812,9 +841,23 @@
 					// For some device trigger 'play' event 
 					t.media.isUserClick = true;
 
+					if (typeof t.options.beforePlay === 'function') {
+						if (t.options.beforePlay(t.media)) {
+							return
+						}
+					}
+
+					if (t.media.isError) {
+						var _currentTime = t.media.currentTime;
+						// Allow this to play video later
+						t.media.load();
+						t.media.isError = false;
+						t.media.currentTime = _currentTime
+					}
+
 					t.media.play();
 					// Controls bar auto hide after 3s
-					if (!t.media.paused && !t.options.alwaysShowControls) {
+					if (!t.media.paused) {
 						t.setControlsTimer(3000)
 					}
 				});
@@ -834,12 +877,16 @@
 				loading.style.display = 'none';
 				t.buffering.style.display = 'none';
 				error.style.display = 'none';
+
+				clearTimeout(t.media._st)
 			});
 
 			t.media.addEventListener('seeking', function() {
 				loading.style.display = '';
 				bigPlay.style.display = 'none';
 				t.buffering.style.display = '';
+
+				clearTimeout(t.media._st)
 			});
 
 			t.media.addEventListener('seeked', function() {
@@ -849,12 +896,26 @@
 
 			t.media.addEventListener('pause', function() {
 				bigPlay.style.display = ''
+				// Hide loading and buffering when paused
+				loading.style.display = 'none';
+				t.buffering.style.display = 'none';
+
+
+				clearTimeout(t.media._st)
 			});
 
 			t.media.addEventListener('waiting', function() {
 				loading.style.display = '';
 				bigPlay.style.display = 'none';
+				error.style.display = 'none';
 				t.buffering.style.display = '';
+
+				// Trigger error if waiting time longer than 30s
+				t.media._st = setTimeout(function() {
+					var _event = document.createEvent('Event');
+					_event.initEvent('error', true, true);
+					t.media.dispatchEvent(_event)
+				}, 30000)
 			});
 
 			// Don't listen to 'loadeddata' and 'canplay', 
@@ -868,6 +929,9 @@
 				t.media.pause();
 				error.style.display = '';
 
+				// For load method when replay
+				t.media.isError = true;
+
 				if (typeof t.options.error == 'function') {
 					t.options.error(e);
 				}
@@ -878,8 +942,8 @@
 			var t = this;
 
 			// Build
-			var batch = ['Container', 'Playpause', 'Timeline', 'Time'];
-			if (t.options.enableFullscreen && !zyMedia.features.isVendorFullscreen && t.isVideo) {
+			var batch = ['Container', 'Playpause', 'CurrentTime', 'Timeline', 'TotalTime'];
+			if (t.options.enableFullscreen && t.isVideo) {
 				batch.push('Fullscreen')
 			}
 
@@ -896,44 +960,40 @@
 			// Controls fade
 			if (t.isVideo) {
 				if (zyMedia.features.hasTouch) {
-					t.media.parentNode.addEventListener('click', function() {
+					t.media.addEventListener('touchend', function() {
 						// Toggle controls
 						if (t.isControlsVisible) {
 							t.hideControls()
 						} else {
 							t.showControls();
 							// Controls bar auto hide after 3s
-							if (!t.media.paused && !t.options.alwaysShowControls) {
+							if (!t.media.paused) {
 								t.setControlsTimer(3000)
 							}
 						}
 					});
 				} else {
 					// Click to play/pause
-					t.media.addEventListener('click', function() {
-						if (t.media.paused) {
-							t.media.play()
-						} else {
-							t.media.pause()
-						}
-					});
+					// t.media.addEventListener('click', function() {
+					// 	if (t.media.paused) {
+					// 		t.media.play()
+					// 	} else {
+					// 		t.media.pause()
+					// 	}
+					// });
 
 					// Show/hide controls
-					t.container.addEventListener('mouseenter', function() {
-						t.showControls();
-
-						if (!t.options.alwaysShowControls) {
+					if( t.container ){
+							t.container.addEventListener('mouseenter', function() {
+							t.showControls();
 							t.setControlsTimer(3000)
-						}
-					});
+						});
 
-					t.container.addEventListener('mousemove', function() {
-						t.showControls();
-
-						if (!t.options.alwaysShowControls) {
+						t.container.addEventListener('mousemove', function() {
+							t.showControls();
 							t.setControlsTimer(3000)
-						}
-					});
+						});
+					}					
 				}
 
 				if (t.options.hideVideoControlsOnLoad) {
@@ -945,7 +1005,9 @@
 						// For more properly videoWidth or videoHeight of HM 1SW(小米), QQ browser is 0
 						setTimeout(function() {
 							if (!isNaN(t.media.videoHeight)) {
-								t.setPlayerSize()
+								t.setPlayerSize();
+								//加载完成
+								t.loadComplete();
 							}
 						}, 50)
 					}
@@ -986,9 +1048,11 @@
 
 			// Adjust controls when orientation change, 500ms for Sumsung tablet
 			window.addEventListener('orientationchange', function() {
-				setTimeout(function() {
-					t.setPlayerSize()
-				}, 500)
+				if (t.isVideo) {
+					setTimeout(function() {
+						t.setPlayerSize()
+					}, 500)
+				}
 			});
 
 			t.media.addEventListener('ended', function(e) {
@@ -997,21 +1061,31 @@
 				if (t.options.autoLoop) {
 					t.media.play()
 				} else {
-					// Fixing an Android stock browser bug, where "seeked" isn't fired correctly after ending the video and jumping to the beginning
 					if (t.isVideo) {
 						setTimeout(function() {
-							t.container.querySelector('.dec_loading').style.display = 'none'
-						}, 20)
+							if( t.container ){
+								// Fixing an Android stock browser bug, where "seeked" isn't fired correctly after ending the video and jumping to the beginning
+								if( t.container.querySelector('.dec_loading') ){
+									t.container.querySelector('.dec_loading').style.display = 'none';
+								}								
+								// Show big play button after "ended" -> "paused" -> "seeking" -> "seeked"
+								if( t.container.querySelector('.dec_play') ){
+									t.container.querySelector('.dec_play').style.display = '';
+								}
+							}
+							t.playEnd();
+						}, 20);
 					}
 
-					t.media.pause()
+					t.media.pause();
 				}
 
-				t.updateTimeline(e)
+				t.updateTimeline(e);
 			});
 
 			t.media.addEventListener('loadedmetadata', function(e) {
-				t.updateTime()
+				t.updateTime();
+				t.loadComplete();
 			});
 
 			if (t.options.autoplay) {
@@ -1022,8 +1096,19 @@
 			if (typeof t.options.success == 'function') {
 				t.options.success(t.media)
 			}
-		}
+		},
 
+		loadComplete:function() {
+		
+		},
+
+		playEnd: function() {
+			
+		} ,
+
+		playError:function () {
+			
+		}
 	};
 
 
@@ -1038,7 +1123,5 @@
 		}
 	}
 
-	window.zyMedia = zyMedia
 
-
-})()
+})(zyMedia || (zyMedia = {}))

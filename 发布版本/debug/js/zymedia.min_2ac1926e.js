@@ -7,10 +7,10 @@
  * License: MIT
  * 
  */
-;
-(function() {
+var zyMedia;
+(function(zyMedia) {
 
-	var zyMedia = {};
+	// var zyMedia = {};
 
 
 	// Default config
@@ -127,6 +127,9 @@
 
 	// Get style
 	function _css(el, property) {
+		if( !el ){
+			return null;
+		}
 		return parseInt(getComputedStyle(el, null).getPropertyValue(property))
 	}
 
@@ -369,7 +372,7 @@
 				// Unique ID
 				t.id = 'zym_' + zymIndex++;
 				zyMedia.players[t.id] = t;
-				t.init()
+				t.init();
 			} else {
 				alert('不支持此' + (t.isVideo ? '视' : '音') + '频')
 			}
@@ -478,12 +481,16 @@
 			// Update the timeline
 			if (percent !== null) {
 				percent = Math.min(1, Math.max(0, percent));
-				t.loaded.style.width = _W * percent + 'px';
+				if( t.loaded ){
+					t.loaded.style.width = _W * percent + 'px';
+				}
 				// Adjust when pause change from playing (魅族)
 				if (t.media.paused) {
 					setTimeout(function() {
-						t.loaded.style.width = _W * percent + 'px';
-						t.updateTimeline()
+						if( t.loaded ){
+							t.loaded.style.width = _W * percent + 'px';
+						}
+						t.updateTimeline();
 					}, 300)
 				};
 			}
@@ -491,8 +498,12 @@
 			if (t.media.currentTime !== undefined && t.media.duration) {
 				// Update bar and handle
 				var _w = Math.round(_W * t.media.currentTime / t.media.duration);
-				t.current.style.width = _w + 'px';
-				t.handle.style.left = _w - Math.round(_css(t.handle, 'width') / 2) + 'px'
+				if(t.current){
+					t.current.style.width = _w + 'px';
+				}
+				if(t.handle){
+					t.handle.style.left = _w - Math.round(_css(t.handle, 'width') / 2) + 'px'
+				}
 			}
 		},
 
@@ -818,6 +829,9 @@
 			error.innerHTML = '播放失败，请重试';
 			t.container.appendChild(error);
 
+			//播放错误
+			t.playError();
+
 			var bigPlay = document.createElement('div');
 
 			if (!zyMedia.features.isVendorBigPlay) {
@@ -960,24 +974,26 @@
 					});
 				} else {
 					// Click to play/pause
-					t.media.addEventListener('click', function() {
-						if (t.media.paused) {
-							t.media.play()
-						} else {
-							t.media.pause()
-						}
-					});
+					// t.media.addEventListener('click', function() {
+					// 	if (t.media.paused) {
+					// 		t.media.play()
+					// 	} else {
+					// 		t.media.pause()
+					// 	}
+					// });
 
 					// Show/hide controls
-					t.container.addEventListener('mouseenter', function() {
-						t.showControls();
-						t.setControlsTimer(3000)
-					});
+					if( t.container ){
+							t.container.addEventListener('mouseenter', function() {
+							t.showControls();
+							t.setControlsTimer(3000)
+						});
 
-					t.container.addEventListener('mousemove', function() {
-						t.showControls();
-						t.setControlsTimer(3000)
-					});
+						t.container.addEventListener('mousemove', function() {
+							t.showControls();
+							t.setControlsTimer(3000)
+						});
+					}					
 				}
 
 				if (t.options.hideVideoControlsOnLoad) {
@@ -989,7 +1005,9 @@
 						// For more properly videoWidth or videoHeight of HM 1SW(小米), QQ browser is 0
 						setTimeout(function() {
 							if (!isNaN(t.media.videoHeight)) {
-								t.setPlayerSize()
+								t.setPlayerSize();
+								//加载完成
+								t.loadComplete();
 							}
 						}, 50)
 					}
@@ -1045,21 +1063,29 @@
 				} else {
 					if (t.isVideo) {
 						setTimeout(function() {
-							// Fixing an Android stock browser bug, where "seeked" isn't fired correctly after ending the video and jumping to the beginning
-							t.container.querySelector('.dec_loading').style.display = 'none';
-							// Show big play button after "ended" -> "paused" -> "seeking" -> "seeked"
-							t.container.querySelector('.dec_play').style.display = ''
-						}, 20)
+							if( t.container ){
+								// Fixing an Android stock browser bug, where "seeked" isn't fired correctly after ending the video and jumping to the beginning
+								if( t.container.querySelector('.dec_loading') ){
+									t.container.querySelector('.dec_loading').style.display = 'none';
+								}								
+								// Show big play button after "ended" -> "paused" -> "seeking" -> "seeked"
+								if( t.container.querySelector('.dec_play') ){
+									t.container.querySelector('.dec_play').style.display = '';
+								}
+							}
+							t.playEnd();
+						}, 20);
 					}
 
-					t.media.pause()
+					t.media.pause();
 				}
 
-				t.updateTimeline(e)
+				t.updateTimeline(e);
 			});
 
 			t.media.addEventListener('loadedmetadata', function(e) {
-				t.updateTime()
+				t.updateTime();
+				t.loadComplete();
 			});
 
 			if (t.options.autoplay) {
@@ -1070,8 +1096,19 @@
 			if (typeof t.options.success == 'function') {
 				t.options.success(t.media)
 			}
-		}
+		},
 
+		loadComplete:function() {
+		
+		},
+
+		playEnd: function() {
+			
+		} ,
+
+		playError:function () {
+			
+		}
 	};
 
 
@@ -1087,4 +1124,4 @@
 	}
 
 
-})()
+})(zyMedia || (zyMedia = {}))

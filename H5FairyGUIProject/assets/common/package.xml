@@ -181,6 +181,7 @@
     <component id="ff9l51" name="UIGMView.xml" path="/views/" exported="true"/>
     <component id="ff9l52" name="ETextArena.xml" path="/component/" exported="true"/>
     <component id="joyj53" name="UIAdVideoView2.xml" path="/views/" exported="true"/>
+    <component id="dkje54" name="UIZYPlayerView.xml" path="/views/" exported="true"/>
   </resources>
   <publish name="common"/>
 </packageDescription>

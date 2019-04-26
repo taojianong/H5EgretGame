@@ -39,7 +39,7 @@ var fairui;
             UISystem.Inst.createWindowView(fairui.UIAdVideoView);
         };
         UIGMView.prototype.touchPlay2Handler = function (e) {
-            UISystem.Inst.createWindowView(fairui.UIAdVideoView2);
+            UISystem.Inst.createWindowView(fairui.UIZYPlayerView);
         };
         UIGMView.prototype.touchLogHandler = function (e) {
             if (this.currentState == "normal") {

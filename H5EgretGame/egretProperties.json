@@ -47,6 +47,10 @@
 		{
 			"name": "protobuf-bundles",
 			"path": "./libs/protobuf/bundles"
+		},
+		{
+			"name": "zymedia",
+			"path": "./libs/zymedia"
 		}
   ]
 }

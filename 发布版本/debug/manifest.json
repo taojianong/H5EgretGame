@@ -12,11 +12,10 @@
 		"js/fairygui.min_f81efe86.js",
 		"js/glong.min_82ba9e84.js",
 		"js/protobuf-library.min_feef9bb2.js",
-		"js/protobuf-bundles.min_dd1a6954.js"
+		"js/protobuf-bundles.min_dd1a6954.js",
+		"js/zymedia.min_2ac1926e.js"
 	],
 	"game": [
-		"js/zy.media.canvas_da058058.js",
-		"js/zy.media_dc36522d.js",
-		"js/main.min_4bbc9c0a.js"
+		"js/main.min_177d3b97.js"
 	]
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1280,720">
+  <displayList>
+    <graph id="n0_dkje" name="bg" xy="640,360" pivot="0.5,0.5" anchor="true" size="1280,720" type="rect" lineSize="0" fillColor="#ff000000">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </graph>
+    <component id="n1_dkje" name="btn_close" src="my994b" fileName="component/EButton.xml" xy="1174,0" pivot="0.5,0.5" size="106,107">
+      <Button icon="ui://x0a8c270my991a" selectedIcon="ui://x0a8c270my991a"/>
+    </component>
+    <component id="n2_dkje" name="btn_play" src="my994b" fileName="component/EButton.xml" xy="640,360" size="170,70" scale="0.8,0.8">
+      <Button title="播放" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+    <text id="n3_dkje" name="txt_name" xy="412,0" size="454,88" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="none" autoClearText="true" text="名字"/>
+    <text id="n4_dkje" name="txt_time" xy="413,681" size="454,39" fontSize="30" color="#ffffff" align="center" vAlign="middle" autoSize="height" autoClearText="true" text="0"/>
+  </displayList>
+</component>
