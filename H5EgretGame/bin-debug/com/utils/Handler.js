@@ -23,7 +23,7 @@ var utils;
          * @param thisObj
          * @param args 方法执行参数
          */
-        Handler.Create = function (method, thisObj, args, isImmediatelyGc) {
+        Handler.create = function (method, thisObj, args, isImmediatelyGc) {
             if (method === void 0) { method = null; }
             if (args === void 0) { args = null; }
             if (isImmediatelyGc === void 0) { isImmediatelyGc = true; }

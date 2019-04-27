@@ -19,6 +19,7 @@ var fairui;
         function UIBitmapIcon() {
             var _this = _super.call(this) || this;
             _this.touchable = false;
+            EventManager.addEventListener(load.LoaderEvent.DISPOSE_RESOURCE, _this.disposeRes, _this);
             return _this;
         }
         UIBitmapIcon.prototype.constructExtension = function (buffer) {
@@ -48,14 +49,14 @@ var fairui;
                 return this._iconUrl;
             },
             set: function (value) {
+                var _self = this;
                 if (value && value.indexOf("ui://") == 0) {
                     this.icon = value;
                     return;
                 }
                 if (this._iconUrl != value && value) {
-                    fairui.LoaderManager.loadImageRes(this._iconUrl, this, function loadComplete(texture) {
-                        this.texture = texture;
-                        this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
+                    this.loadImage(this._iconUrl, function loadComplete() {
+                        _self.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
                     });
                 }
                 else if (!value) {
@@ -76,8 +77,6 @@ var fairui;
             set: function (value) {
                 if (this._iconObject) {
                     this._iconObject.texture = value;
-                    this.width = value ? value.textureWidth : 1;
-                    this.height = value ? value.textureHeight : 1;
                 }
             },
             enumerable: true,
@@ -107,7 +106,7 @@ var fairui;
             this._iconUrl = url;
         };
         /**
-         * 加载图片
+         * 加载外部图片
          * @param url 			图片地址
          * @param callback 		加载完成调用方法
          * @param thisObject
@@ -115,41 +114,35 @@ var fairui;
         UIBitmapIcon.prototype.loadImage = function (url, callback, thisObject) {
             if (callback === void 0) { callback = null; }
             if (thisObject === void 0) { thisObject = null; }
-            var sel = this;
-            if (sel._iconUrl == url)
+            var _self = this;
+            if (_self._iconUrl == url)
                 return;
-            sel.clear();
-            sel._iconUrl = url;
-            if (url != null) {
-                fairui.LoaderManager.loadImageRes(this._iconUrl, this, onComplete);
-            }
-            function onComplete(value, param) {
-                if (value && url == param) {
-                    sel.texture = value;
-                    if (callback != null && thisObject != null) {
-                        callback.call(thisObject);
+            _self.clear();
+            _self._iconUrl = url;
+            if (url) {
+                load.LoaderMax.getInst().load(url, utils.Handler.create(function () {
+                    _self.texture = load.LoaderCache.getData(url);
+                    if (callback != null) {
+                        callback.apply(thisObject);
                     }
-                }
+                }, this));
             }
         };
-        UIBitmapIcon.prototype.LoadRes = function (resName, atlas, callback, thisObject) {
-            if (callback === void 0) { callback = null; }
-            if (thisObject === void 0) { thisObject = null; }
-            var sel = this;
-            if (sel._iconUrl == resName)
-                return;
-            sel.dispose();
-            sel._iconUrl = resName;
-            if (atlas != null) {
-                fairui.LoaderManager.loadGroups(atlas, onComplete);
-            }
-            function onComplete() {
-                sel.texture = RES.getRes(resName);
-                if (callback != null && thisObject != null) {
-                    callback.call(thisObject);
-                }
-            }
-        };
+        // public LoadRes(resName: string, atlas: string, callback: Function = null, thisObject: any = null ): void {
+        // 	var sel: UIBitmapIcon = this;
+        // 	if (sel._iconUrl == resName) return;
+        // 	sel.dispose();
+        // 	sel._iconUrl = resName;
+        // 	if (atlas != null){
+        // 		LoaderManager.loadGroups( atlas , onComplete );
+        // 	}
+        // 	function onComplete(): void {
+        // 		sel.texture = RES.getRes(resName);
+        // 		if (callback != null && thisObject != null) {
+        // 			callback.call(thisObject);
+        // 		}
+        // 	}
+        // }
         UIBitmapIcon.prototype.hasUrl = function (url) {
             return this._iconUrl == url;
         };
@@ -161,6 +154,14 @@ var fairui;
             _super.prototype.hide.call(this);
             this.clear();
         };
+        /**
+         * 资源管理器释放资源
+         */
+        UIBitmapIcon.prototype.disposeRes = function (url) {
+            if (this._iconUrl == url) {
+                this.clear();
+            }
+        };
         UIBitmapIcon.prototype.clear = function () {
             this.texture = null;
             this._iconUrl = null;
@@ -168,7 +169,7 @@ var fairui;
         };
         UIBitmapIcon.prototype.dispose = function () {
             _super.prototype.dispose.call(this);
-            this._iconUrl = null;
+            this.clear();
         };
         return UIBitmapIcon;
     }(fairui.BaseButton));

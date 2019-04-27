@@ -12,6 +12,8 @@ module fairui {
 
 			super();
 			this.touchable = false;
+
+			EventManager.addEventListener( load.LoaderEvent.DISPOSE_RESOURCE , this.disposeRes , this );
 		}
 		
 		protected constructExtension(buffer: fairygui.ByteBuffer): void {
@@ -41,17 +43,16 @@ module fairui {
 
 		public set url(value: string) {
 
+			let _self:UIBitmapIcon = this;
 			if( value && value.indexOf("ui://") == 0 ){
 				this.icon = value;
 				return;
 			}
 			
 			if (this._iconUrl != value && value) {
-				LoaderManager.loadImageRes( this._iconUrl , this , function loadComplete(texture:egret.Texture):void{
-					this.texture = texture;
-					this.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
+				this.loadImage( this._iconUrl , function loadComplete():void{
+					_self.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
 				} );
-
 			} else if (!value) {
 				(<fairygui.GLoader>this._iconObject).texture = null;
 			}
@@ -63,8 +64,6 @@ module fairui {
 
 			if (this._iconObject) {
 				(<fairygui.GLoader>this._iconObject).texture = value;
-				this.width = value ? value.textureWidth : 1;
-				this.height = value ? value.textureHeight : 1;
 			}
 		}
 		/**
@@ -101,45 +100,42 @@ module fairui {
 		}
 
 		/**
-		 * 加载图片
+		 * 加载外部图片
 		 * @param url 			图片地址
 		 * @param callback 		加载完成调用方法
 		 * @param thisObject
 		 */
 		public loadImage(url: string, callback: Function = null, thisObject: any = null ): void {
 
-			var sel: UIBitmapIcon = this;
-			if (sel._iconUrl == url) return;
-			sel.clear();
-			sel._iconUrl = url;
-			if (url != null) {
-				LoaderManager.loadImageRes( this._iconUrl , this , onComplete );
-			}			
-			function onComplete(value: egret.Texture, param: string): void {
-				if (value && url == param) {
-					sel.texture = value;
-					if (callback != null && thisObject != null) {
-						callback.call(thisObject);
+			var _self: UIBitmapIcon = this;
+			if (_self._iconUrl == url) return;
+			_self.clear();
+			_self._iconUrl = url;
+			if( url ){
+				load.LoaderMax.getInst().load( url , utils.Handler.create( function():void{
+					_self.texture = load.LoaderCache.getData( url );
+					if( callback != null ){
+						callback.apply( thisObject );
 					}
-				}
-			}
+				} , this ) );
+			}			
 		}
 
-		public LoadRes(resName: string, atlas: string, callback: Function = null, thisObject: any = null ): void {
-			var sel: UIBitmapIcon = this;
-			if (sel._iconUrl == resName) return;
-			sel.dispose();
-			sel._iconUrl = resName;
-			if (atlas != null){
-				LoaderManager.loadGroups( atlas , onComplete );
-			}
-			function onComplete(): void {
-				sel.texture = RES.getRes(resName);
-				if (callback != null && thisObject != null) {
-					callback.call(thisObject);
-				}
-			}
-		}
+		// public LoadRes(resName: string, atlas: string, callback: Function = null, thisObject: any = null ): void {
+		// 	var sel: UIBitmapIcon = this;
+		// 	if (sel._iconUrl == resName) return;
+		// 	sel.dispose();
+		// 	sel._iconUrl = resName;
+		// 	if (atlas != null){
+		// 		LoaderManager.loadGroups( atlas , onComplete );
+		// 	}
+		// 	function onComplete(): void {
+		// 		sel.texture = RES.getRes(resName);
+		// 		if (callback != null && thisObject != null) {
+		// 			callback.call(thisObject);
+		// 		}
+		// 	}
+		// }
 
 		public hasUrl(url: string): boolean {
 
@@ -160,6 +156,16 @@ module fairui {
 			this.clear();
 		}
 
+		/**
+		 * 资源管理器释放资源
+		 */
+		private disposeRes( url:string ):void{
+
+			if( this._iconUrl == url ){
+				this.clear();
+			}
+		}
+
 		public clear(): void {
 
 			this.texture = null;
@@ -171,7 +177,7 @@ module fairui {
 
 			super.dispose();
 
-			this._iconUrl = null;
+			this.clear();
 		}
 	}
 

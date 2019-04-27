@@ -19,5 +19,24 @@
     <component id="n6_joyj" name="btn_play2" src="my994b" fileName="component/EButton.xml" xy="1059,391" size="170,70">
       <Button title="播放2" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
     </component>
+    <component id="n7_tke2" name="img_icon" src="my994p" fileName="component/UIBitmapIcon.xml" xy="340,196" size="176,176">
+      <Button icon="ui://x0a8c270my99o"/>
+    </component>
+    <component id="n8_tke2" name="btn_load" src="my994b" fileName="component/EButton.xml" xy="1053,482" size="170,70">
+      <gearText controller="button" pages="0,1" values="加载资源|关闭日志"/>
+      <Button title="加载资源" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+    <text id="n9_tke2" name="input_url" xy="279,57" size="698,82" fontSize="30" color="#cccccc" vAlign="middle" autoSize="none" text="resource\assets\res\icon\goods\60.png"/>
+    <component id="n10_tke2" name="btn_unload" src="my994b" fileName="component/EButton.xml" xy="746,627" size="170,70">
+      <gearText controller="button" pages="0,1" values="销毁资源|关闭日志"/>
+      <Button title="销毁资源" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
+    <component id="n11_tke2" name="img_icon2" src="my994p" fileName="component/UIBitmapIcon.xml" xy="662,190" size="176,176">
+      <Button icon="ui://x0a8c270my99o"/>
+    </component>
+    <component id="n12_tke2" name="btn_load2" src="my994b" fileName="component/EButton.xml" xy="1056,566" size="170,70">
+      <gearText controller="button" pages="0,1" values="加载资源|关闭日志"/>
+      <Button title="加载资源" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
+    </component>
   </displayList>
 </component>

@@ -9,6 +9,13 @@ module fairui {
 		private btn_play:EButton;
 		private btn_play2:EButton;
 		private btn_log:EButton;
+		private btn_load:EButton;
+		private btn_unload:EButton;
+		private img_icon:UIBitmapIcon;
+		private input_url:fairygui.GTextField;
+
+		private img_icon2:UIBitmapIcon;
+		private btn_load2:EButton;
 
 		public constructor() {
 
@@ -34,6 +41,9 @@ module fairui {
 			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchPlayHandler , this , this.btn_play );
 			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchPlay2Handler , this , this.btn_play2 );
 			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLogHandler , this , this.btn_log );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLoadHandler , this , this.btn_load );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchLoadHandler2 , this , this.btn_load2 );
+			this.addGameListener( egret.TouchEvent.TOUCH_TAP , this.touchUnLoadHandler , this , this.btn_unload );
 		}
 
 		public removeAllListener():void{
@@ -58,6 +68,30 @@ module fairui {
 			}else{
 				this.currentState = "normal";
 			}
+		}
+
+		/**
+		 * 加载资源
+		 */
+		private touchLoadHandler( e:egret.TouchEvent ):void{
+
+			this.img_icon.loadImage( this.input_url.text );
+		}
+
+		/**
+		 * 加载资源
+		 */
+		private touchLoadHandler2( e:egret.TouchEvent ):void{
+
+			this.img_icon2.loadImage( this.input_url.text );
+		}
+
+		/**
+		 * 销毁资源
+		 */
+		private touchUnLoadHandler( e:egret.TouchEvent ):void{
+
+			load.LoaderCache.destroyRes( this.input_url.text , true );
 		}
 	}
 }

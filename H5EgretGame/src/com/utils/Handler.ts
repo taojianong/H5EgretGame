@@ -14,7 +14,7 @@ module utils {
 		 * @param thisObj 
 		 * @param args 方法执行参数 
 		 */
-		public static Create(method: Function = null, thisObj: any, args: Array<any> = null, isImmediatelyGc: boolean = true): Handler {
+		public static create(method: Function = null, thisObj: any, args: Array<any> = null, isImmediatelyGc: boolean = true): Handler {
 			if (method == null) {
 				egret.error(this, "参数method为null");
 				return null;

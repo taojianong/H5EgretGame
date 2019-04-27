@@ -31,6 +31,9 @@ var fairui;
             this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchPlayHandler, this, this.btn_play);
             this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchPlay2Handler, this, this.btn_play2);
             this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchLogHandler, this, this.btn_log);
+            this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchLoadHandler, this, this.btn_load);
+            this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchLoadHandler2, this, this.btn_load2);
+            this.addGameListener(egret.TouchEvent.TOUCH_TAP, this.touchUnLoadHandler, this, this.btn_unload);
         };
         UIGMView.prototype.removeAllListener = function () {
             _super.prototype.removeAllListener.call(this);
@@ -48,6 +51,24 @@ var fairui;
             else {
                 this.currentState = "normal";
             }
+        };
+        /**
+         * 加载资源
+         */
+        UIGMView.prototype.touchLoadHandler = function (e) {
+            this.img_icon.loadImage(this.input_url.text);
+        };
+        /**
+         * 加载资源
+         */
+        UIGMView.prototype.touchLoadHandler2 = function (e) {
+            this.img_icon2.loadImage(this.input_url.text);
+        };
+        /**
+         * 销毁资源
+         */
+        UIGMView.prototype.touchUnLoadHandler = function (e) {
+            load.LoaderCache.destroyRes(this.input_url.text, true);
         };
         return UIGMView;
     }(fairui.UIBaseWindow));

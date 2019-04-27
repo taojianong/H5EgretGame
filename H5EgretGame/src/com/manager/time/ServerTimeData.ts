@@ -1,9 +1,18 @@
 module com.time {
+
+	/**
+	 * 服务器时间数据
+	 */
 	export class ServerTimeData {
-		public static pool: flash.ObjectPool;
+
+		// public static pool: flash.ObjectPool;
 		public static getData(): com.time.ServerTimeData {
-			return <com.time.ServerTimeData>com.time.ServerTimeData.pool.getObject();
+
+			// return <com.time.ServerTimeData>com.time.ServerTimeData.pool.getObject();
+			return ObjectPool.getObject( com.time.ServerTimeData );
 		}
+
+		//----------------------
 
 		public get args(): Array<any> {
 			return this._args;
@@ -55,7 +64,8 @@ module com.time {
 			this._method = null;
 			this._args = null;
 			this._callbackThisObj = null;
-			com.time.ServerTimeData.pool.push(this);
+			// com.time.ServerTimeData.pool.push(this);
+			ObjectPool.recoverObject( this );
 		}
 
 		private _startServerTime: number = 0;
@@ -66,4 +76,4 @@ module com.time {
 		private _callbackThisObj: any;
 	}
 }
-com.time.ServerTimeData.pool = new flash.ObjectPool(com.time.ServerTimeData);
+// com.time.ServerTimeData.pool = new flash.ObjectPool(com.time.ServerTimeData);

@@ -5,16 +5,22 @@ var com;
 (function (com) {
     var time;
     (function (time) {
+        /**
+         * 服务器时间数据
+         */
         var ServerTimeData = (function () {
             function ServerTimeData() {
                 this._startServerTime = 0;
                 this._endServerTime = 0;
                 this._spuleTime = 0;
             }
+            // public static pool: flash.ObjectPool;
             ServerTimeData.getData = function () {
-                return com.time.ServerTimeData.pool.getObject();
+                // return <com.time.ServerTimeData>com.time.ServerTimeData.pool.getObject();
+                return ObjectPool.getObject(com.time.ServerTimeData);
             };
             Object.defineProperty(ServerTimeData.prototype, "args", {
+                //----------------------
                 get: function () {
                     return this._args;
                 },
@@ -79,7 +85,8 @@ var com;
                 this._method = null;
                 this._args = null;
                 this._callbackThisObj = null;
-                com.time.ServerTimeData.pool.push(this);
+                // com.time.ServerTimeData.pool.push(this);
+                ObjectPool.recoverObject(this);
             };
             return ServerTimeData;
         }());
@@ -87,5 +94,5 @@ var com;
         __reflect(ServerTimeData.prototype, "com.time.ServerTimeData");
     })(time = com.time || (com.time = {}));
 })(com || (com = {}));
-com.time.ServerTimeData.pool = new flash.ObjectPool(com.time.ServerTimeData);
+// com.time.ServerTimeData.pool = new flash.ObjectPool(com.time.ServerTimeData);
 //# sourceMappingURL=ServerTimeData.js.map
