@@ -49,10 +49,8 @@ module fairui {
 				return;
 			}
 			
-			if (this._iconUrl != value && value) {
-				this.loadImage( this._iconUrl , function loadComplete():void{
-					_self.dispatchEvent(new egret.Event(egret.Event.COMPLETE));
-				} );
+			if (this._iconUrl != value && value) {			
+				this.loadImage( this._iconUrl );
 			} else if (!value) {
 				(<fairygui.GLoader>this._iconObject).texture = null;
 			}
@@ -110,14 +108,20 @@ module fairui {
 			var _self: UIBitmapIcon = this;
 			if (_self._iconUrl == url) return;
 			_self.clear();
+			if( this._iconUrl ){
+				load.LoaderCache.destroyRes( this._iconUrl , false , _self );
+			}
 			_self._iconUrl = url;
 			if( url ){
 				load.LoaderMax.getInst().load( url , utils.Handler.create( function():void{
-					_self.texture = load.LoaderCache.getData( url );
+					_self.texture = load.LoaderCache.getData( url , true , _self );
 					if( callback != null ){
 						callback.apply( thisObject );
-					}
+					}		
+					_self.dispatchEvent(new egret.Event(egret.Event.COMPLETE));			
 				} , this ) );
+			}else{
+				this.clear();
 			}			
 		}
 
@@ -168,6 +172,9 @@ module fairui {
 
 		public clear(): void {
 
+			if( this._iconUrl && this._iconUrl.indexOf("ui://") == -1 ){
+				load.LoaderCache.destroyRes( this._iconUrl , false , this );
+			}
 			this.texture = null;
 			this._iconUrl = null;
 			this._source = null;

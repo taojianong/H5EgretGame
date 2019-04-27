@@ -21,6 +21,9 @@ module load {
 		private useCount:number = 0;
 		/**最后销毁时间,毫秒数 */
 		public lastTime:number = 0;
+
+		/**添加引用对象列表 */
+		private targetList:Array<any> = [];
 		
 		public Resource( url:string= "" , level:number=0) {
 			
@@ -37,12 +40,17 @@ module load {
 			this.isDisposed = false;
 			this.lastTime = 0;
 			this.useCount = 0;
+			this.targetList = [];
 		}
 
 		/**回收资源 */
-		public recover():void{
+		public recover():boolean{
 
-			ObjectPool.recoverObject( this );
+			if( this.targetList.length <= 0 ){
+				ObjectPool.recoverObject( this );
+				return true;
+			}			
+			return false;
 		}
 
 		/**清理资源 */
@@ -67,9 +75,17 @@ module load {
 
 		/**
 		 * 通过此方法获取可计数
+		 * @param target 引用资源的对象
 		 */
-		public getRes():any{
+		public getRes( target:any = null ):any{
 
+			if( target ){
+				if( this.targetList.indexOf( target ) == -1  ){
+					this.targetList.push( target );
+				}else{
+					return;
+				}				
+			}
 			this.useCount++;
 			if( this.useCount > 0 && this.isDisposed ){
 				this.isDisposed = false;
@@ -156,11 +172,24 @@ module load {
 		}
 
 		/**
+		 * 移除引用对象
+		 * @param target 引用对象
+		 */
+		public removeTarget( target:any ):void{
+
+			let index:number = this.targetList.indexOf(target);
+			if( target && index != -1 ){
+				this.targetList.splice(  index , 1 );
+			}
+		}
+
+		/**
 		 * 强制销毁
 		 */
 		public forceDispose():void{
 
 			this.useCount = 0;
+			this.targetList.length = 0;
 			this.dispose();
 		}
 
@@ -173,6 +202,9 @@ module load {
 					this.lastTime = egret.getTimer() + LoaderCache.GC_TIME * 1000;
 				}
 			}else{
+				if( this.targetList.length > 0 ){//如果资源还有引用对象则不移除
+					return;
+				}
 				this.clear();
 				this.lastTime = 0;
 				this.useCount = 0;

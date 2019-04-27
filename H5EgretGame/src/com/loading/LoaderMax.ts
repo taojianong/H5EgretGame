@@ -164,7 +164,7 @@ module load {
 			if( this.urls ){
 				let url:string;
 				for( url of this.urls ){
-					if( !LoaderCache.getData( url ) ){
+					if( !LoaderCache.getData( url , false ) ){
 						return false;
 					}
 				}

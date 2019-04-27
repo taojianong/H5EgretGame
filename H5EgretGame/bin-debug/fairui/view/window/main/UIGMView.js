@@ -17,7 +17,9 @@ var fairui;
     var UIGMView = (function (_super) {
         __extends(UIGMView, _super);
         function UIGMView() {
-            return _super.call(this, "common", "UIGMView") || this;
+            var _this = _super.call(this, "common", "UIGMView") || this;
+            _this.time = 0;
+            return _this;
         }
         UIGMView.prototype.initUI = function () {
             _super.prototype.initUI.call(this);
@@ -68,7 +70,18 @@ var fairui;
          * 销毁资源
          */
         UIGMView.prototype.touchUnLoadHandler = function (e) {
+            var _self = this;
             load.LoaderCache.destroyRes(this.input_url.text, true);
+            this.time = load.LoaderCache.GC_TIME;
+            this.txt_time.text = this.time + "";
+            Global.timer.doTimeLoop(1000, flash.bind(this.timeHander, this));
+        };
+        UIGMView.prototype.timeHander = function () {
+            this.time--;
+            this.txt_time.text = this.time + "";
+            if (this.time <= 0) {
+                Global.timer.clearTimer(flash.bind(this.timeHander, this));
+            }
         };
         return UIGMView;
     }(fairui.UIBaseWindow));

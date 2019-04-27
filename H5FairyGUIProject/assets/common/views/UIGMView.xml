@@ -38,5 +38,6 @@
       <gearText controller="button" pages="0,1" values="加载资源|关闭日志"/>
       <Button title="加载资源" icon="ui://x0a8c270my9912" selectedIcon="ui://x0a8c270my9912"/>
     </component>
+    <text id="n13_tke2" name="txt_time" xy="424,575" size="152,74" fontSize="30" color="#cccccc" align="center" vAlign="middle" autoSize="none" autoClearText="true" text="000"/>
   </displayList>
 </component>

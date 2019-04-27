@@ -156,7 +156,7 @@ var load;
                     var url = void 0;
                     for (var _i = 0, _a = this.urls; _i < _a.length; _i++) {
                         url = _a[_i];
-                        if (!load.LoaderCache.getData(url)) {
+                        if (!load.LoaderCache.getData(url, false)) {
                             return false;
                         }
                     }

@@ -13,6 +13,7 @@ module fairui {
 		private btn_unload:EButton;
 		private img_icon:UIBitmapIcon;
 		private input_url:fairygui.GTextField;
+		private txt_time:fairygui.GTextField;
 
 		private img_icon2:UIBitmapIcon;
 		private btn_load2:EButton;
@@ -86,12 +87,28 @@ module fairui {
 			this.img_icon2.loadImage( this.input_url.text );
 		}
 
+		private time:number = 0;
 		/**
 		 * 销毁资源
 		 */
 		private touchUnLoadHandler( e:egret.TouchEvent ):void{
 
+			let _self:UIGMView = this;
+
 			load.LoaderCache.destroyRes( this.input_url.text , true );
+
+			this.time = load.LoaderCache.GC_TIME;
+			this.txt_time.text = this.time + "";			
+			Global.timer.doTimeLoop( 1000 , flash.bind( this.timeHander , this ) );
+		}
+
+		private timeHander():void{
+
+			this.time--;
+			this.txt_time.text = this.time + "";
+			if( this.time <= 0 ){
+				Global.timer.clearTimer( flash.bind( this.timeHander , this ) );
+			}
 		}
 	}
 }

@@ -20,6 +20,8 @@ var load;
             this.useCount = 0;
             /**最后销毁时间,毫秒数 */
             this.lastTime = 0;
+            /**添加引用对象列表 */
+            this.targetList = [];
         }
         Resource.prototype.Resource = function (url, level) {
             if (url === void 0) { url = ""; }
@@ -37,10 +39,15 @@ var load;
             this.isDisposed = false;
             this.lastTime = 0;
             this.useCount = 0;
+            this.targetList = [];
         };
         /**回收资源 */
         Resource.prototype.recover = function () {
-            ObjectPool.recoverObject(this);
+            if (this.targetList.length <= 0) {
+                ObjectPool.recoverObject(this);
+                return true;
+            }
+            return false;
         };
         /**清理资源 */
         Resource.prototype.clear = function () {
@@ -62,8 +69,18 @@ var load;
         });
         /**
          * 通过此方法获取可计数
+         * @param target 引用资源的对象
          */
-        Resource.prototype.getRes = function () {
+        Resource.prototype.getRes = function (target) {
+            if (target === void 0) { target = null; }
+            if (target) {
+                if (this.targetList.indexOf(target) == -1) {
+                    this.targetList.push(target);
+                }
+                else {
+                    return;
+                }
+            }
             this.useCount++;
             if (this.useCount > 0 && this.isDisposed) {
                 this.isDisposed = false;
@@ -171,10 +188,21 @@ var load;
             configurable: true
         });
         /**
+         * 移除引用对象
+         * @param target 引用对象
+         */
+        Resource.prototype.removeTarget = function (target) {
+            var index = this.targetList.indexOf(target);
+            if (target && index != -1) {
+                this.targetList.splice(index, 1);
+            }
+        };
+        /**
          * 强制销毁
          */
         Resource.prototype.forceDispose = function () {
             this.useCount = 0;
+            this.targetList.length = 0;
             this.dispose();
         };
         Resource.prototype.dispose = function () {
@@ -186,6 +214,9 @@ var load;
                 }
             }
             else {
+                if (this.targetList.length > 0) {
+                    return;
+                }
                 this.clear();
                 this.lastTime = 0;
                 this.useCount = 0;
